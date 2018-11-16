@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business2.BorrowAuthenticationMapper">
+	<select id="IsAuthentication" resultType="boolean">
+		SELECT bid FROM borrow WHERE bid=#{uid} LIMIT 0,1
+	</select>
+	<select id="findBankAuthentication" resultType="com.lanpangzi.pojo.Borrow">
+		SELECT bank_a bankA
+			  ,bank_b bankB 
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1		
+	</select>
+	<select id="findAliPayAuthentication" resultType="com.lanpangzi.pojo.Borrow">
+		SELECT pay_a payA
+			  ,pay_b payB 
+			  ,pay_c payC
+			  ,pay_d payD
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1		
+	</select>
+	<select id="findPersonalAuthentication" resultType="com.lanpangzi.pojo.Borrow">
+		SELECT operator_phone operatorPhone
+			  ,operator_idcard operatorIdcard
+			  ,operator_name operatorName
+			  ,is_agreement isAgreement
+		 FROM borrow WHERE bid=#{uid} LIMIT 0,1	
+	</select>
+	<select id="findBankActiveState" resultType="string">
+		SELECT bank_state bankState 
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1	
+	</select>
+	<select id="findAliPayActiveState" resultType="string">
+		SELECT alipay_state alipayState
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1	
+	</select>
+	<select id="findPersonalActiveState" resultType="string">
+		SELECT operator_state operatorState 
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1	 
+	</select>
+	<update id="updateBankAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
+		UPDATE borrow 
+			SET bank_a = #{bankA}
+			   ,bank_b = #{bankB}
+			WHERE bid=#{bid} 
+	</update>
+	<update id="updateAliPayAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
+		UPDATE borrow 
+			SET pay_a = #{payA}
+			   ,pay_b = #{payB}
+			   ,pay_c = #{payC}
+			   ,pay_d = #{payD}
+			WHERE bid=#{bid} 
+	</update>
+	<update id="updatePersonalAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
+		UPDATE borrow 
+			SET operator_phone = #{operatorPhone}   
+			   ,operator_idcard =#{operatorIdcard}
+			   ,operator_name = #{operatorName}
+			   ,is_agreement = #{isAgreement}
+			WHERE bid=#{bid} 
+	</update>
+	<insert id="insertBankAuthentication" parameterType="com.lanpangzi.pojo.Borrow"> 
+		INSERT INTO borrow (bid ,bank_a,bank_b) 
+				VALUES(#{bid},#{bankA},#{bankB})
+	</insert>
+	<insert id="insertAliPayAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
+		INSERT INTO borrow (bid ,pay_a,pay_b,pay_c,pay_d) 
+				VALUES(#{bid},#{payA},#{payB},#{payC},#{payD})
+	</insert>
+	<insert id="insertPersonalAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
+		INSERT INTO borrow (bid ,operator_phone,operator_idcard,operator_name,is_agreement) 
+				VALUES(#{bid},#{operatorPhone},#{operatorIdcard}
+					  				,#{operatorName},#{isAgreement})
+	</insert>
+	
+	
+	
+
+</mapper>

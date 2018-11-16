@@ -1,0 +1,110 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.CommodiryMapper;
+import com.lanpangzi.pojo.Commodiry;
+import com.lanpangzi.pojo.CommodiryExample;
+import com.lanpangzi.pojo.CommodiryExample.Criteria;
+import com.lanpangzi.service.CommodiryService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class CommodiryServiceImpl implements CommodiryService {
+
+	@Autowired
+	private CommodiryMapper commodiryMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Commodiry> findAll() {
+		return commodiryMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Commodiry> page=   (Page<Commodiry>) commodiryMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Commodiry commodiry) {
+		commodiryMapper.insert(commodiry);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Commodiry commodiry){
+		commodiryMapper.updateByPrimaryKey(commodiry);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Commodiry findOne(Integer id){
+		return commodiryMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			commodiryMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Commodiry commodiry, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		CommodiryExample example=new CommodiryExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(commodiry!=null){			
+						if(commodiry.getCname()!=null && commodiry.getCname().length()>0){
+				criteria.andCnameLike("%"+commodiry.getCname()+"%");
+			}
+			if(commodiry.getImage()!=null && commodiry.getImage().length()>0){
+				criteria.andImageLike("%"+commodiry.getImage()+"%");
+			}
+			if(commodiry.getColor()!=null && commodiry.getColor().length()>0){
+				criteria.andColorLike("%"+commodiry.getColor()+"%");
+			}
+			if(commodiry.getDescription()!=null && commodiry.getDescription().length()>0){
+				criteria.andDescriptionLike("%"+commodiry.getDescription()+"%");
+			}
+	
+		}
+		
+		Page<Commodiry> page= (Page<Commodiry>)commodiryMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

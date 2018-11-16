@@ -1,0 +1,34 @@
+package com.lanpangzi.utils;
+
+import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
+
+public class UploadUtils {
+	/**\
+	 * 取文件后缀
+	 * @param fileName
+	 * @return
+	 */
+	public static String suffixName(String fileName) {
+		int pointIndex =fileName.lastIndexOf('.');
+		return fileName.substring(pointIndex).toLowerCase();
+	}
+	/**
+	 * 生成UUID
+	 * @return
+	 */
+	public static String uuidFile() {
+		return UUID.randomUUID().toString().
+				replace("-", "").toUpperCase();
+	}
+	/**
+	 * hash打散目录
+	 * @param uuid
+	 * @return
+	 */
+	public static String SaveByPath(String uuid) {
+		return "/"+uuid.charAt(0)+"/"+uuid.charAt(1)+"/"+uuid;
+	}
+
+}

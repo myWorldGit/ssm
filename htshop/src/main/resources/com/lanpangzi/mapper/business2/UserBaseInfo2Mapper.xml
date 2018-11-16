@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business2.UserBaseInfo2Mapper" >
+	<select id="isFirstUserEx" resultType="boolean">
+		select eid from usersextend where eid=#{uid} limit 0,1
+	</select>
+	<insert id="insertBaseUserInfo">
+		insert into usersextend(eid,sex,idcard) 
+				values(#{uid},#{sex},#{idcard})
+	</insert>
+	<update id="updateBaseUserInfo">
+		UPDATE usersextend SET sex=#{sex}, idcard=#{idcard} 
+				WHERE eid=#{uid}
+	</update>
+	<update id="updateBaseUsername">
+		UPDATE users SET username=#{username} WHERE uid=#{uid}
+	</update>
+	<select id="findBaseUserInfo" resultType="com.lanpangzi.pojo.Usersextend">
+		select sex ,idcard from usersextend where eid=#{uid} limit 0,1
+	</select>
+	<select id="findBaseUsername" resultType="string">
+		select username from users where uid=#{uid} limit 0,1
+	</select>
+	
+	<!-- ###########################posonal########## -->
+	<select id="findPersonalInfo" resultType="com.lanpangzi.pojo.Usersextend">
+		select address,education,marriage from usersextend where eid=#{uid} limit 0,1
+	</select>
+	<insert id="insertPersonalInfo">
+		insert into usersextend(eid,address,education,marriage) 
+				values(#{uid},#{address},#{education},#{marriage})
+	</insert>
+	<update id="updatePersonalInfo">
+		UPDATE usersextend SET address=#{address}, 
+			education=#{education}, marriage=#{marriage} 
+				WHERE eid=#{uid}
+	</update>
+	
+	<!-- ###########################job########## -->
+	<select id="findJobInfo" resultType="com.lanpangzi.pojo.Usersextend">
+		select job,income,working from usersextend where eid=#{uid} limit 0,1
+	</select>
+	<insert id="insertJobInfo">
+		insert into usersextend (eid,job,income,working) 
+				values(#{uid},#{job},#{income},#{working})
+	</insert>
+	<update id="updateJobInfo">
+		UPDATE usersextend SET job=#{job}, 
+			income=#{income}, 
+			working=#{working} 
+				WHERE eid=#{uid}
+	</update>
+	<!-- ##############contact -->
+	<select id="findContactInfo" resultType="com.lanpangzi.pojo.Usersextend">
+		select contactname,contactphone,relation from usersextend where eid=#{uid} limit 0,1
+	</select>
+	<insert id="insertContactInfo">
+		insert into usersextend (eid,contactname,contactphone,relation) 
+				values(#{uid},#{contactname},#{contactphone},#{relation})
+	</insert>
+	<update id="updateContactInfo">
+		UPDATE usersextend SET contactname=#{contactname}, 
+			contactphone=#{contactphone}, 
+			relation=#{relation} 
+				WHERE eid=#{uid}
+	</update>
+	
+	<!-- idcard -->
+	<resultMap type="com.lanpangzi.pojo.Usersextend" id="idcard">
+		<result column="idcard_a" jdbcType="VARCHAR" property="idcardA" />
+   		<result column="idcard_b" jdbcType="VARCHAR" property="idcardB" />
+   		<result column="idcard_c" jdbcType="VARCHAR" property="idcardC" />
+	</resultMap>
+	<select id="findIdcardImg" resultMap="idcard">
+		SELECT idcard_a ,idcard_b ,idcard_c FROM usersextend 
+				WHERE eid =#{uid} limit 0,1
+	</select>
+	<update id="updateIdCardImg" parameterType="com.lanpangzi.pojo.Usersextend">
+		update usersextend SET
+			idcard_a=#{userex.idcardA}, 
+			idcard_b=#{userex.idcardB}, 
+			idcard_c=#{userex.idcardC} 
+				WHERE eid=#{userex.eid}
+	</update>
+	<insert id="insertIdcardImg" parameterType="com.lanpangzi.pojo.Usersextend">
+		insert into usersextend (eid,idcard_a,idcard_b,idcard_c)
+				 values(	#{userex.eid},
+						    #{userex.idcardA},
+							#{userex.idcardB},
+				 			#{userex.idcardC}	)
+	</insert>
+	
+	
+	
+	
+	
+</mapper>

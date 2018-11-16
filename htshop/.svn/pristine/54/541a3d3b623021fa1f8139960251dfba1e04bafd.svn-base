@@ -1,0 +1,9 @@
+package com.lanpangzi.service;
+
+import com.lanpangzi.utils.PageResult;
+
+public interface CouponService {
+
+	PageResult show(int userId, int page, int rows);
+
+}

@@ -1,0 +1,15 @@
+package htshop;
+
+import com.auth0.jwt.algorithms.Algorithm;
+import com.lanpangzi.utils.TokenUtil;
+
+public class tokenTest {
+	public static void main(String[] args) throws Exception {
+		String s = TokenUtil.createToken(1);
+		System.out.println(s);
+		System.out.println("-----------------");
+		int id = TokenUtil.getAppUID("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBUFAiLCJ1c2VyX2lkIjoiMSIsImlzcyI6IlNlcnZpY2UiLCJleHAiOjE1NDI0NDI3NjksImlhdCI6MTU0MTU3ODc2OX0.yK88oS1beaMfbNHUvK5Z_GAYIzUwMOeEvHYPO06mZjs");
+		System.out.println(id);
+	}
+
+}

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.BorrowMapper" >
+  <resultMap id="BaseResultMap" type="com.lanpangzi.pojo.Borrow" >
+    <id column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="discern" property="discern" jdbcType="VARCHAR" />
+    <result column="discern_state" property="discernState" jdbcType="VARCHAR" />
+    <result column="bank_a" property="bankA" jdbcType="VARCHAR" />
+    <result column="bank_b" property="bankB" jdbcType="VARCHAR" />
+    <result column="bank_state" property="bankState" jdbcType="VARCHAR" />
+    <result column="operator_phone" property="operatorPhone" jdbcType="VARCHAR" />
+    <result column="operator_idcard" property="operatorIdcard" jdbcType="VARCHAR" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="is_agreement" property="isAgreement" jdbcType="VARCHAR" />
+    <result column="operator_state" property="operatorState" jdbcType="VARCHAR" />
+    <result column="taobao_token" property="taobaoToken" jdbcType="VARCHAR" />
+    <result column="taobao_state" property="taobaoState" jdbcType="VARCHAR" />
+    <result column="alipay_token" property="alipayToken" jdbcType="VARCHAR" />
+    <result column="alipay_state" property="alipayState" jdbcType="VARCHAR" />
+    <result column="pay_a" property="payA" jdbcType="VARCHAR" />
+    <result column="pay_b" property="payB" jdbcType="VARCHAR" />
+    <result column="pay_c" property="payC" jdbcType="VARCHAR" />
+    <result column="pay_d" property="payD" jdbcType="VARCHAR" />
+    <result column="pay_e" property="payE" jdbcType="VARCHAR" />
+    <result column="pay_state" property="payState" jdbcType="VARCHAR" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="borrow_state" property="borrowState" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="borrow_time" property="borrowTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bid, uid, discern, discern_state, bank_a, bank_b, bank_state, operator_phone, operator_idcard, 
+    operator_name, is_agreement, operator_state, taobao_token, taobao_state, alipay_token, 
+    alipay_state, pay_a, pay_b, pay_c, pay_d, pay_e, pay_state, auditor, borrow_state, 
+    audit_time, borrow_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lanpangzi.pojo.BorrowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lanpangzi.pojo.BorrowExample" >
+    delete from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lanpangzi.pojo.Borrow" >
+    insert into borrow (bid, uid, discern, 
+      discern_state, bank_a, bank_b, 
+      bank_state, operator_phone, operator_idcard, 
+      operator_name, is_agreement, operator_state, 
+      taobao_token, taobao_state, alipay_token, 
+      alipay_state, pay_a, pay_b, 
+      pay_c, pay_d, pay_e, pay_state, 
+      auditor, borrow_state, audit_time, 
+      borrow_time)
+    values (#{bid,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{discern,jdbcType=VARCHAR}, 
+      #{discernState,jdbcType=VARCHAR}, #{bankA,jdbcType=VARCHAR}, #{bankB,jdbcType=VARCHAR}, 
+      #{bankState,jdbcType=VARCHAR}, #{operatorPhone,jdbcType=VARCHAR}, #{operatorIdcard,jdbcType=VARCHAR}, 
+      #{operatorName,jdbcType=VARCHAR}, #{isAgreement,jdbcType=VARCHAR}, #{operatorState,jdbcType=VARCHAR}, 
+      #{taobaoToken,jdbcType=VARCHAR}, #{taobaoState,jdbcType=VARCHAR}, #{alipayToken,jdbcType=VARCHAR}, 
+      #{alipayState,jdbcType=VARCHAR}, #{payA,jdbcType=VARCHAR}, #{payB,jdbcType=VARCHAR}, 
+      #{payC,jdbcType=VARCHAR}, #{payD,jdbcType=VARCHAR}, #{payE,jdbcType=VARCHAR}, #{payState,jdbcType=VARCHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{borrowState,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{borrowTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lanpangzi.pojo.Borrow" >
+    insert into borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="discern != null" >
+        discern,
+      </if>
+      <if test="discernState != null" >
+        discern_state,
+      </if>
+      <if test="bankA != null" >
+        bank_a,
+      </if>
+      <if test="bankB != null" >
+        bank_b,
+      </if>
+      <if test="bankState != null" >
+        bank_state,
+      </if>
+      <if test="operatorPhone != null" >
+        operator_phone,
+      </if>
+      <if test="operatorIdcard != null" >
+        operator_idcard,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="isAgreement != null" >
+        is_agreement,
+      </if>
+      <if test="operatorState != null" >
+        operator_state,
+      </if>
+      <if test="taobaoToken != null" >
+        taobao_token,
+      </if>
+      <if test="taobaoState != null" >
+        taobao_state,
+      </if>
+      <if test="alipayToken != null" >
+        alipay_token,
+      </if>
+      <if test="alipayState != null" >
+        alipay_state,
+      </if>
+      <if test="payA != null" >
+        pay_a,
+      </if>
+      <if test="payB != null" >
+        pay_b,
+      </if>
+      <if test="payC != null" >
+        pay_c,
+      </if>
+      <if test="payD != null" >
+        pay_d,
+      </if>
+      <if test="payE != null" >
+        pay_e,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="borrowState != null" >
+        borrow_state,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="borrowTime != null" >
+        borrow_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="discern != null" >
+        #{discern,jdbcType=VARCHAR},
+      </if>
+      <if test="discernState != null" >
+        #{discernState,jdbcType=VARCHAR},
+      </if>
+      <if test="bankA != null" >
+        #{bankA,jdbcType=VARCHAR},
+      </if>
+      <if test="bankB != null" >
+        #{bankB,jdbcType=VARCHAR},
+      </if>
+      <if test="bankState != null" >
+        #{bankState,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorPhone != null" >
+        #{operatorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorIdcard != null" >
+        #{operatorIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgreement != null" >
+        #{isAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorState != null" >
+        #{operatorState,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoToken != null" >
+        #{taobaoToken,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoState != null" >
+        #{taobaoState,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayToken != null" >
+        #{alipayToken,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayState != null" >
+        #{alipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="payA != null" >
+        #{payA,jdbcType=VARCHAR},
+      </if>
+      <if test="payB != null" >
+        #{payB,jdbcType=VARCHAR},
+      </if>
+      <if test="payC != null" >
+        #{payC,jdbcType=VARCHAR},
+      </if>
+      <if test="payD != null" >
+        #{payD,jdbcType=VARCHAR},
+      </if>
+      <if test="payE != null" >
+        #{payE,jdbcType=VARCHAR},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowState != null" >
+        #{borrowState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowTime != null" >
+        #{borrowTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lanpangzi.pojo.BorrowExample" resultType="java.lang.Integer" >
+    select count(*) from borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow
+    <set >
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discern != null" >
+        discern = #{record.discern,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discernState != null" >
+        discern_state = #{record.discernState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankA != null" >
+        bank_a = #{record.bankA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankB != null" >
+        bank_b = #{record.bankB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankState != null" >
+        bank_state = #{record.bankState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorPhone != null" >
+        operator_phone = #{record.operatorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorIdcard != null" >
+        operator_idcard = #{record.operatorIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorName != null" >
+        operator_name = #{record.operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAgreement != null" >
+        is_agreement = #{record.isAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorState != null" >
+        operator_state = #{record.operatorState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taobaoToken != null" >
+        taobao_token = #{record.taobaoToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taobaoState != null" >
+        taobao_state = #{record.taobaoState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipayToken != null" >
+        alipay_token = #{record.alipayToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipayState != null" >
+        alipay_state = #{record.alipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payA != null" >
+        pay_a = #{record.payA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payB != null" >
+        pay_b = #{record.payB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payC != null" >
+        pay_c = #{record.payC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payD != null" >
+        pay_d = #{record.payD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payE != null" >
+        pay_e = #{record.payE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payState != null" >
+        pay_state = #{record.payState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditor != null" >
+        auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowState != null" >
+        borrow_state = #{record.borrowState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowTime != null" >
+        borrow_time = #{record.borrowTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow
+    set bid = #{record.bid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      discern = #{record.discern,jdbcType=VARCHAR},
+      discern_state = #{record.discernState,jdbcType=VARCHAR},
+      bank_a = #{record.bankA,jdbcType=VARCHAR},
+      bank_b = #{record.bankB,jdbcType=VARCHAR},
+      bank_state = #{record.bankState,jdbcType=VARCHAR},
+      operator_phone = #{record.operatorPhone,jdbcType=VARCHAR},
+      operator_idcard = #{record.operatorIdcard,jdbcType=VARCHAR},
+      operator_name = #{record.operatorName,jdbcType=VARCHAR},
+      is_agreement = #{record.isAgreement,jdbcType=VARCHAR},
+      operator_state = #{record.operatorState,jdbcType=VARCHAR},
+      taobao_token = #{record.taobaoToken,jdbcType=VARCHAR},
+      taobao_state = #{record.taobaoState,jdbcType=VARCHAR},
+      alipay_token = #{record.alipayToken,jdbcType=VARCHAR},
+      alipay_state = #{record.alipayState,jdbcType=VARCHAR},
+      pay_a = #{record.payA,jdbcType=VARCHAR},
+      pay_b = #{record.payB,jdbcType=VARCHAR},
+      pay_c = #{record.payC,jdbcType=VARCHAR},
+      pay_d = #{record.payD,jdbcType=VARCHAR},
+      pay_e = #{record.payE,jdbcType=VARCHAR},
+      pay_state = #{record.payState,jdbcType=VARCHAR},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      borrow_state = #{record.borrowState,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      borrow_time = #{record.borrowTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanpangzi.pojo.Borrow" >
+    update borrow
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="discern != null" >
+        discern = #{discern,jdbcType=VARCHAR},
+      </if>
+      <if test="discernState != null" >
+        discern_state = #{discernState,jdbcType=VARCHAR},
+      </if>
+      <if test="bankA != null" >
+        bank_a = #{bankA,jdbcType=VARCHAR},
+      </if>
+      <if test="bankB != null" >
+        bank_b = #{bankB,jdbcType=VARCHAR},
+      </if>
+      <if test="bankState != null" >
+        bank_state = #{bankState,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorPhone != null" >
+        operator_phone = #{operatorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorIdcard != null" >
+        operator_idcard = #{operatorIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgreement != null" >
+        is_agreement = #{isAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorState != null" >
+        operator_state = #{operatorState,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoToken != null" >
+        taobao_token = #{taobaoToken,jdbcType=VARCHAR},
+      </if>
+      <if test="taobaoState != null" >
+        taobao_state = #{taobaoState,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayToken != null" >
+        alipay_token = #{alipayToken,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayState != null" >
+        alipay_state = #{alipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="payA != null" >
+        pay_a = #{payA,jdbcType=VARCHAR},
+      </if>
+      <if test="payB != null" >
+        pay_b = #{payB,jdbcType=VARCHAR},
+      </if>
+      <if test="payC != null" >
+        pay_c = #{payC,jdbcType=VARCHAR},
+      </if>
+      <if test="payD != null" >
+        pay_d = #{payD,jdbcType=VARCHAR},
+      </if>
+      <if test="payE != null" >
+        pay_e = #{payE,jdbcType=VARCHAR},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowState != null" >
+        borrow_state = #{borrowState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowTime != null" >
+        borrow_time = #{borrowTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanpangzi.pojo.Borrow" >
+    update borrow
+    set uid = #{uid,jdbcType=VARCHAR},
+      discern = #{discern,jdbcType=VARCHAR},
+      discern_state = #{discernState,jdbcType=VARCHAR},
+      bank_a = #{bankA,jdbcType=VARCHAR},
+      bank_b = #{bankB,jdbcType=VARCHAR},
+      bank_state = #{bankState,jdbcType=VARCHAR},
+      operator_phone = #{operatorPhone,jdbcType=VARCHAR},
+      operator_idcard = #{operatorIdcard,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      is_agreement = #{isAgreement,jdbcType=VARCHAR},
+      operator_state = #{operatorState,jdbcType=VARCHAR},
+      taobao_token = #{taobaoToken,jdbcType=VARCHAR},
+      taobao_state = #{taobaoState,jdbcType=VARCHAR},
+      alipay_token = #{alipayToken,jdbcType=VARCHAR},
+      alipay_state = #{alipayState,jdbcType=VARCHAR},
+      pay_a = #{payA,jdbcType=VARCHAR},
+      pay_b = #{payB,jdbcType=VARCHAR},
+      pay_c = #{payC,jdbcType=VARCHAR},
+      pay_d = #{payD,jdbcType=VARCHAR},
+      pay_e = #{payE,jdbcType=VARCHAR},
+      pay_state = #{payState,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      borrow_state = #{borrowState,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      borrow_time = #{borrowTime,jdbcType=TIMESTAMP}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+</mapper>

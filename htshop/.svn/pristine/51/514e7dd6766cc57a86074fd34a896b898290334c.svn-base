@@ -1,0 +1,57 @@
+package com.lanpangzi.utils;
+
+import java.util.Map;
+
+public class MyResponse {
+	
+	private int code;
+	private String msg;
+	private Map<String, ?> data;
+	
+	public static final int code_success=1;
+	public static final int code_fail=0;
+	
+	public static final String msg_success="成功";
+	public static final String msg_fail="失败";
+	
+	public MyResponse() {
+        super();
+    }
+
+    public MyResponse(int code, String msg) {//讲道理应该调用此构造方法
+        super();
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public MyResponse(int code, String msg, Map<String, ?>  data) {
+        super();
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public Map<String, ?> getData() {
+		return data;
+	}
+
+	public void setData(Map<String, ?> data) {
+		this.data = data;
+	} 
+}

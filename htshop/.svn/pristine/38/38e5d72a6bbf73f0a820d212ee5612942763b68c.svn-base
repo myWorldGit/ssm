@@ -1,0 +1,30 @@
+package com.lanpangzi.mapper.business;
+
+import com.lanpangzi.pojo.Commodiry;
+import com.lanpangzi.pojo.CommodiryExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface CommodiryMapper {
+    int countByExample(CommodiryExample example);
+
+    int deleteByExample(CommodiryExample example);
+
+    int deleteByPrimaryKey(Integer cid);
+
+    int insert(Commodiry record);
+
+    int insertSelective(Commodiry record);
+
+    List<Commodiry> selectByExample(CommodiryExample example);
+
+    Commodiry selectByPrimaryKey(Integer cid);
+
+    int updateByExampleSelective(@Param("record") Commodiry record, @Param("example") CommodiryExample example);
+
+    int updateByExample(@Param("record") Commodiry record, @Param("example") CommodiryExample example);
+
+    int updateByPrimaryKeySelective(Commodiry record);
+
+    int updateByPrimaryKey(Commodiry record);
+}

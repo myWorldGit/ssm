@@ -1,0 +1,8 @@
+package com.lanpanzi.service2;
+
+
+import com.lanpangzi.pojo.Users;
+public interface UserAuthenticationService {
+	
+	public Users findLoginAuthentication(String username,String password) ;
+}

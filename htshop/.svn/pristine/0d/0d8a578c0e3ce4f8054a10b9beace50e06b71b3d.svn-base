@@ -1,0 +1,19 @@
+package com.lanpangzi.service.impl.bussiness2;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lanpangzi.mapper.business2.UserAuthenticationMapper;
+import com.lanpangzi.pojo.Users;
+import com.lanpanzi.service2.UserAuthenticationService;
+@Service
+public class UserAuthenticationServiceImpl implements UserAuthenticationService {
+	
+	@Autowired
+	private UserAuthenticationMapper userAuthenticationDao;
+	@Override
+	public Users findLoginAuthentication(String username, String password) {
+		return userAuthenticationDao.findLogin(username, password);
+	}
+
+}

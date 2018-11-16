@@ -1,0 +1,119 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.InformationMapper;
+import com.lanpangzi.pojo.Information;
+import com.lanpangzi.pojo.InformationExample;
+import com.lanpangzi.pojo.InformationExample.Criteria;
+import com.lanpangzi.service.InformationService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class InformationServiceImpl implements InformationService {
+
+	@Autowired
+	private InformationMapper informationMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Information> findAll() {
+		return informationMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Information> page=   (Page<Information>) informationMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Information information) {
+		informationMapper.insert(information);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Information information){
+		informationMapper.updateByPrimaryKey(information);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Information findOne(Integer id){
+		return informationMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			informationMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Information information, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		InformationExample example=new InformationExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(information!=null){			
+						if(information.getHeader()!=null && information.getHeader().length()>0){
+				criteria.andHeaderLike("%"+information.getHeader()+"%");
+			}
+			if(information.getBriefly()!=null && information.getBriefly().length()>0){
+				criteria.andBrieflyLike("%"+information.getBriefly()+"%");
+			}
+			if(information.getContent()!=null && information.getContent().length()>0){
+				criteria.andContentLike("%"+information.getContent()+"%");
+			}
+			if(information.getAddress()!=null && information.getAddress().length()>0){
+				criteria.andAddressLike("%"+information.getAddress()+"%");
+			}
+			if(information.getCategory()!=null && information.getCategory().length()>0){
+				criteria.andCategoryLike("%"+information.getCategory()+"%");
+			}
+			if(information.getWay()!=null && information.getWay().length()>0){
+				criteria.andWayLike("%"+information.getWay()+"%");
+			}
+			if(information.getState()!=null && information.getState().length()>0){
+				criteria.andStateLike("%"+information.getState()+"%");
+			}
+	
+		}
+		
+		Page<Information> page= (Page<Information>)informationMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

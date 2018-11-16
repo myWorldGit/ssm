@@ -1,0 +1,45 @@
+package com.lanpangzi.pojo;
+
+import java.util.Date;
+
+public class Other {
+    private Integer otherid;
+
+    private String vaule;
+
+    private Integer types;
+
+    private Date lasttime;
+
+    public Integer getOtherid() {
+        return otherid;
+    }
+
+    public void setOtherid(Integer otherid) {
+        this.otherid = otherid;
+    }
+
+    public String getVaule() {
+        return vaule;
+    }
+
+    public void setVaule(String vaule) {
+        this.vaule = vaule == null ? null : vaule.trim();
+    }
+
+    public Integer getTypes() {
+        return types;
+    }
+
+    public void setTypes(Integer types) {
+        this.types = types;
+    }
+
+    public Date getLasttime() {
+        return lasttime;
+    }
+
+    public void setLasttime(Date lasttime) {
+        this.lasttime = lasttime;
+    }
+}

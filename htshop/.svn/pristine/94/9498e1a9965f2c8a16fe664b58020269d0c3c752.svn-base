@@ -1,0 +1,10 @@
+package com.lanpangzi.mapper.business2;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lanpangzi.pojo.Users;
+
+public interface UserAuthenticationMapper {
+	public Users findLogin(@Param("username")String username
+							,@Param("password")String password);
+}

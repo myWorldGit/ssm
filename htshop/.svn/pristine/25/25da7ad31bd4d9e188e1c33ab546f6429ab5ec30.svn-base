@@ -1,0 +1,30 @@
+package com.lanpangzi.service.impl.business;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.DiscountMapper;
+import com.lanpangzi.pojo.Discount;
+import com.lanpangzi.pojo.DiscountExample;
+import com.lanpangzi.pojo.DiscountExample.Criteria;
+import com.lanpangzi.service.CouponService;
+import com.lanpangzi.utils.PageResult;
+@Service
+public class CouponServiceImpl implements CouponService{
+
+	@Autowired
+	private DiscountMapper discountMapper;
+	
+	@Override
+	public PageResult show(int userId, int page, int rows) {
+		PageHelper.startPage(page, rows);
+		DiscountExample discountExample=new DiscountExample();
+		Criteria criteria = discountExample.createCriteria();
+		criteria.andUidEqualTo(userId);
+		Page<Discount> pages= (Page<Discount>)discountMapper.selectByExample(discountExample);		
+		return new PageResult(pages.getTotal(), pages.getResult());
+	}
+
+}

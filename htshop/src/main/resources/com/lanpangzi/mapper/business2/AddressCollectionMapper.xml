@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business2.AddressCollectionMapper">
+	<select id="findAllById" resultType="com.lanpangzi.pojo.Address">
+		SELECT *FROM address WHERE uid=#{uid} ORDER BY aid DESC
+	</select>
+	<select id="findDefaultAddress" resultType="int">
+		SELECT aid FROM address WHERE isDefault=1 and uid =#{uid} LIMIT 0,1
+	</select>
+	<select id="findAddressById" resultType="com.lanpangzi.pojo.Address">
+		SELECT *FROM address WHERE aid=#{aid} LIMIT 0,1	
+	</select>
+	<insert id="addAddress" parameterType="com.lanpangzi.pojo.Address">
+		INSERT INTO address (receName,phone,detailAddr,isDefault,uid)
+			VALUES(
+				#{addr.receName}
+				,#{addr.phone}
+				,#{addr.detailAddr}
+				,#{addr.isDefault}
+				,#{addr.uid})
+	</insert>
+	<update id="updateUndoDefaultAddress">
+		UPDATE address SET isDefault=#{flag} WHERE aid=#{aid}
+	</update>
+	<update id="updateGeneralAddress" >
+		UPDATE address SET 
+				receName=#{addr.receName}
+				,phone=#{addr.phone}
+				,detailAddr=#{addr.detailAddr}
+				,isDefault=#{addr.isDefault}
+			WHERE aid=#{addr.aid}
+	</update>
+	<delete id="deleteAddressById">
+		DELETE FROM address WHERE aid =#{aid}
+	</delete>
+</mapper>

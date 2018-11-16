@@ -1,0 +1,30 @@
+package com.lanpangzi.mapper.business;
+
+import com.lanpangzi.pojo.Other;
+import com.lanpangzi.pojo.OtherExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface OtherMapper {
+    int countByExample(OtherExample example);
+
+    int deleteByExample(OtherExample example);
+
+    int deleteByPrimaryKey(Integer otherid);
+
+    int insert(Other record);
+
+    int insertSelective(Other record);
+
+    List<Other> selectByExample(OtherExample example);
+
+    Other selectByPrimaryKey(Integer otherid);
+
+    int updateByExampleSelective(@Param("record") Other record, @Param("example") OtherExample example);
+
+    int updateByExample(@Param("record") Other record, @Param("example") OtherExample example);
+
+    int updateByPrimaryKeySelective(Other record);
+
+    int updateByPrimaryKey(Other record);
+}

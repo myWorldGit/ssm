@@ -1,0 +1,30 @@
+package com.lanpangzi.mapper.business;
+
+import com.lanpangzi.pojo.Information;
+import com.lanpangzi.pojo.InformationExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface InformationMapper {
+    int countByExample(InformationExample example);
+
+    int deleteByExample(InformationExample example);
+
+    int deleteByPrimaryKey(Integer iid);
+
+    int insert(Information record);
+
+    int insertSelective(Information record);
+
+    List<Information> selectByExample(InformationExample example);
+
+    Information selectByPrimaryKey(Integer iid);
+
+    int updateByExampleSelective(@Param("record") Information record, @Param("example") InformationExample example);
+
+    int updateByExample(@Param("record") Information record, @Param("example") InformationExample example);
+
+    int updateByPrimaryKeySelective(Information record);
+
+    int updateByPrimaryKey(Information record);
+}

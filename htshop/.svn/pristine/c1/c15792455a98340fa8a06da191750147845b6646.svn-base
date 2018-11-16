@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.lanpangzi.pojo.Orders" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="ordernumber" property="ordernumber" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="did" property="did" jdbcType="INTEGER" />
+    <result column="ordername" property="ordername" jdbcType="INTEGER" />
+    <result column="ordertype" property="ordertype" jdbcType="INTEGER" />
+    <result column="ordercolor" property="ordercolor" jdbcType="INTEGER" />
+    <result column="Price" property="price" jdbcType="INTEGER" />
+    <result column="express" property="express" jdbcType="VARCHAR" />
+    <result column="payway" property="payway" jdbcType="INTEGER" />
+    <result column="pay_a" property="payA" jdbcType="VARCHAR" />
+    <result column="pay_b" property="payB" jdbcType="VARCHAR" />
+    <result column="refund" property="refund" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="vid" property="vid" jdbcType="INTEGER" />
+    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oid, ordernumber, status, name, phone, address, did, ordername, ordertype, ordercolor, 
+    Price, express, payway, pay_a, pay_b, refund, uid, vid, ordertime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lanpangzi.pojo.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lanpangzi.pojo.OrdersExample" >
+    delete from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lanpangzi.pojo.Orders" >
+    insert into orders (oid, ordernumber, status, 
+      name, phone, address, 
+      did, ordername, ordertype, 
+      ordercolor, Price, express, 
+      payway, pay_a, pay_b, 
+      refund, uid, vid, ordertime
+      )
+    values (#{oid,jdbcType=INTEGER}, #{ordernumber,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{did,jdbcType=INTEGER}, #{ordername,jdbcType=INTEGER}, #{ordertype,jdbcType=INTEGER}, 
+      #{ordercolor,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{express,jdbcType=VARCHAR}, 
+      #{payway,jdbcType=INTEGER}, #{payA,jdbcType=VARCHAR}, #{payB,jdbcType=VARCHAR}, 
+      #{refund,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{vid,jdbcType=INTEGER}, #{ordertime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lanpangzi.pojo.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="ordername != null" >
+        ordername,
+      </if>
+      <if test="ordertype != null" >
+        ordertype,
+      </if>
+      <if test="ordercolor != null" >
+        ordercolor,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="express != null" >
+        express,
+      </if>
+      <if test="payway != null" >
+        payway,
+      </if>
+      <if test="payA != null" >
+        pay_a,
+      </if>
+      <if test="payB != null" >
+        pay_b,
+      </if>
+      <if test="refund != null" >
+        refund,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="vid != null" >
+        vid,
+      </if>
+      <if test="ordertime != null" >
+        ordertime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="ordername != null" >
+        #{ordername,jdbcType=INTEGER},
+      </if>
+      <if test="ordertype != null" >
+        #{ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="ordercolor != null" >
+        #{ordercolor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="express != null" >
+        #{express,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        #{payway,jdbcType=INTEGER},
+      </if>
+      <if test="payA != null" >
+        #{payA,jdbcType=VARCHAR},
+      </if>
+      <if test="payB != null" >
+        #{payB,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="vid != null" >
+        #{vid,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lanpangzi.pojo.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders
+    <set >
+      <if test="record.oid != null" >
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernumber != null" >
+        ordernumber = #{record.ordernumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.did != null" >
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordername != null" >
+        ordername = #{record.ordername,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertype != null" >
+        ordertype = #{record.ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordercolor != null" >
+        ordercolor = #{record.ordercolor,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        Price = #{record.price,jdbcType=INTEGER},
+      </if>
+      <if test="record.express != null" >
+        express = #{record.express,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payway != null" >
+        payway = #{record.payway,jdbcType=INTEGER},
+      </if>
+      <if test="record.payA != null" >
+        pay_a = #{record.payA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payB != null" >
+        pay_b = #{record.payB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refund != null" >
+        refund = #{record.refund,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.vid != null" >
+        vid = #{record.vid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertime != null" >
+        ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders
+    set oid = #{record.oid,jdbcType=INTEGER},
+      ordernumber = #{record.ordernumber,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      did = #{record.did,jdbcType=INTEGER},
+      ordername = #{record.ordername,jdbcType=INTEGER},
+      ordertype = #{record.ordertype,jdbcType=INTEGER},
+      ordercolor = #{record.ordercolor,jdbcType=INTEGER},
+      Price = #{record.price,jdbcType=INTEGER},
+      express = #{record.express,jdbcType=VARCHAR},
+      payway = #{record.payway,jdbcType=INTEGER},
+      pay_a = #{record.payA,jdbcType=VARCHAR},
+      pay_b = #{record.payB,jdbcType=VARCHAR},
+      refund = #{record.refund,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER},
+      vid = #{record.vid,jdbcType=INTEGER},
+      ordertime = #{record.ordertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanpangzi.pojo.Orders" >
+    update orders
+    <set >
+      <if test="ordernumber != null" >
+        ordernumber = #{ordernumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null" >
+        did = #{did,jdbcType=INTEGER},
+      </if>
+      <if test="ordername != null" >
+        ordername = #{ordername,jdbcType=INTEGER},
+      </if>
+      <if test="ordertype != null" >
+        ordertype = #{ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="ordercolor != null" >
+        ordercolor = #{ordercolor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="express != null" >
+        express = #{express,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        payway = #{payway,jdbcType=INTEGER},
+      </if>
+      <if test="payA != null" >
+        pay_a = #{payA,jdbcType=VARCHAR},
+      </if>
+      <if test="payB != null" >
+        pay_b = #{payB,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null" >
+        refund = #{refund,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="vid != null" >
+        vid = #{vid,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanpangzi.pojo.Orders" >
+    update orders
+    set ordernumber = #{ordernumber,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      did = #{did,jdbcType=INTEGER},
+      ordername = #{ordername,jdbcType=INTEGER},
+      ordertype = #{ordertype,jdbcType=INTEGER},
+      ordercolor = #{ordercolor,jdbcType=INTEGER},
+      Price = #{price,jdbcType=INTEGER},
+      express = #{express,jdbcType=VARCHAR},
+      payway = #{payway,jdbcType=INTEGER},
+      pay_a = #{payA,jdbcType=VARCHAR},
+      pay_b = #{payB,jdbcType=VARCHAR},
+      refund = #{refund,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      vid = #{vid,jdbcType=INTEGER},
+      ordertime = #{ordertime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

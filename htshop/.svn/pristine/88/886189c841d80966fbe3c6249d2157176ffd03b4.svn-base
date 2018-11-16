@@ -1,0 +1,140 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.UsersextendMapper;
+import com.lanpangzi.pojo.Usersextend;
+import com.lanpangzi.pojo.UsersextendExample;
+import com.lanpangzi.pojo.UsersextendExample.Criteria;
+import com.lanpangzi.service.UsersextendService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class UsersextendServiceImpl implements UsersextendService {
+
+	@Autowired
+	private UsersextendMapper usersextendMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Usersextend> findAll() {
+		return usersextendMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Usersextend> page=   (Page<Usersextend>) usersextendMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Usersextend usersextend) {
+		usersextendMapper.insert(usersextend);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Usersextend usersextend){
+		usersextendMapper.updateByPrimaryKey(usersextend);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Usersextend findOne(Integer id){
+		return usersextendMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			usersextendMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Usersextend usersextend, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		UsersextendExample example=new UsersextendExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(usersextend!=null){			
+						if(usersextend.getSex()!=null && usersextend.getSex().length()>0){
+				criteria.andSexLike("%"+usersextend.getSex()+"%");
+			}
+			if(usersextend.getIdcard()!=null && usersextend.getIdcard().length()>0){
+				criteria.andIdcardLike("%"+usersextend.getIdcard()+"%");
+			}
+			if(usersextend.getIdcardA()!=null && usersextend.getIdcardA().length()>0){
+				criteria.andIdcardALike("%"+usersextend.getIdcardA()+"%");
+			}
+			if(usersextend.getIdcardB()!=null && usersextend.getIdcardB().length()>0){
+				criteria.andIdcardBLike("%"+usersextend.getIdcardB()+"%");
+			}
+			if(usersextend.getIdcardC()!=null && usersextend.getIdcardC().length()>0){
+				criteria.andIdcardCLike("%"+usersextend.getIdcardC()+"%");
+			}
+			if(usersextend.getAddress()!=null && usersextend.getAddress().length()>0){
+				criteria.andAddressLike("%"+usersextend.getAddress()+"%");
+			}
+			if(usersextend.getEducation()!=null && usersextend.getEducation().length()>0){
+				criteria.andEducationLike("%"+usersextend.getEducation()+"%");
+			}
+			if(usersextend.getMarriage()!=null && usersextend.getMarriage().length()>0){
+				criteria.andMarriageLike("%"+usersextend.getMarriage()+"%");
+			}
+			if(usersextend.getJob()!=null && usersextend.getJob().length()>0){
+				criteria.andJobLike("%"+usersextend.getJob()+"%");
+			}
+			if(usersextend.getIncome()!=null && usersextend.getIncome().length()>0){
+				criteria.andIncomeLike("%"+usersextend.getIncome()+"%");
+			}
+			if(usersextend.getWorking()!=null && usersextend.getWorking().length()>0){
+				criteria.andWorkingLike("%"+usersextend.getWorking()+"%");
+			}
+			if(usersextend.getContactname()!=null && usersextend.getContactname().length()>0){
+				criteria.andContactnameLike("%"+usersextend.getContactname()+"%");
+			}
+			if(usersextend.getContactphone()!=null && usersextend.getContactphone().length()>0){
+				criteria.andContactphoneLike("%"+usersextend.getContactphone()+"%");
+			}
+			if(usersextend.getRelation()!=null && usersextend.getRelation().length()>0){
+				criteria.andRelationLike("%"+usersextend.getRelation()+"%");
+			}
+	
+		}
+		
+		Page<Usersextend> page= (Page<Usersextend>)usersextendMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

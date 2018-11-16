@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business2.UserAuthenticationMapper" >
+	<select id="findLogin" resultType="com.lanpangzi.pojo.Users">
+		select *from users where phone=#{phone}
+			 and loginpassword= #{password} limit 0,1 
+	</select>
+	
+	<select id="findIsRegister" resultType="string"> 
+		select phone from users where phone=#{phone} limit 0,1
+	</select>
+	
+	<insert id="addRegister" >
+		insert into users (phone,loginpassword,createTime) 
+			values(#{phone},#{password},#{createTime})
+	</insert>
+	
+</mapper>

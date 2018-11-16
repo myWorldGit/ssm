@@ -1,0 +1,45 @@
+package htshop;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+
+import com.lanpangzi.mapper.business2.UserAuthenticationMapper;
+import com.lanpangzi.pojo.Users;
+import com.lanpangzi.utils.UploadUtils;
+
+public class Test01 {
+	@Test
+	public void testSQL() {
+		
+		InputStream in = null;
+		try {
+			in = Resources.getResourceAsStream("mybatis-test.xml");
+			//根据相关的mybatis配置文件， 创建连接SQLSessionFactory连接对象
+			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+			//创建出SQLSession对象
+			SqlSession sqlSeesion = factory.openSession();
+			//通过sqlSession取到映射接口
+			UserAuthenticationMapper userMapper = 
+						sqlSeesion.getMapper(UserAuthenticationMapper.class);
+			Users user = userMapper.findLogin("张三","88888888");
+			System.out.println(user.toString());
+			
+		} catch (IOException e) {
+			e.printStackTrace(); 
+		}
+
+	     
+	}
+	@Test
+	public void generalTest() {
+		System.out.println(UploadUtils.SaveByPath(UploadUtils.uuidFile())+UploadUtils.suffixName("UploadUtils.jsp"));
+	}
+ 
+	
+}

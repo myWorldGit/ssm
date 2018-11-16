@@ -1,0 +1,101 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.OtherMapper;
+import com.lanpangzi.pojo.Other;
+import com.lanpangzi.pojo.OtherExample;
+import com.lanpangzi.pojo.OtherExample.Criteria;
+import com.lanpangzi.service.OtherService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class OtherServiceImpl implements OtherService {
+
+	@Autowired
+	private OtherMapper otherMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Other> findAll() {
+		return otherMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Other> page=   (Page<Other>) otherMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Other other) {
+		otherMapper.insert(other);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Other other){
+		otherMapper.updateByPrimaryKey(other);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Other findOne(Integer id){
+		return otherMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			otherMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Other other, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		OtherExample example=new OtherExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(other!=null){			
+						if(other.getVaule()!=null && other.getVaule().length()>0){
+				criteria.andVauleLike("%"+other.getVaule()+"%");
+			}
+	
+		}
+		
+		Page<Other> page= (Page<Other>)otherMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

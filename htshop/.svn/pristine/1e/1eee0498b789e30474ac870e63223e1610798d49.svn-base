@@ -1,0 +1,167 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.BorrowMapper;
+import com.lanpangzi.pojo.Borrow;
+import com.lanpangzi.pojo.BorrowExample;
+import com.lanpangzi.pojo.BorrowExample.Criteria;
+import com.lanpangzi.service.BorrowService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class BorrowServiceImpl implements BorrowService {
+
+	@Autowired
+	private BorrowMapper borrowMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Borrow> findAll() {
+		return borrowMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Borrow> page=   (Page<Borrow>) borrowMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Borrow borrow) {
+		borrowMapper.insert(borrow);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Borrow borrow){
+		borrowMapper.updateByPrimaryKey(borrow);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Borrow findOne(Integer id){
+		return borrowMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			borrowMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Borrow borrow, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		BorrowExample example=new BorrowExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(borrow!=null){			
+						if(borrow.getUid()!=null && borrow.getUid().length()>0){
+				criteria.andUidLike("%"+borrow.getUid()+"%");
+			}
+			if(borrow.getDiscern()!=null && borrow.getDiscern().length()>0){
+				criteria.andDiscernLike("%"+borrow.getDiscern()+"%");
+			}
+			if(borrow.getDiscernState()!=null && borrow.getDiscernState().length()>0){
+				criteria.andDiscernStateLike("%"+borrow.getDiscernState()+"%");
+			}
+			if(borrow.getBankA()!=null && borrow.getBankA().length()>0){
+				criteria.andBankALike("%"+borrow.getBankA()+"%");
+			}
+			if(borrow.getBankB()!=null && borrow.getBankB().length()>0){
+				criteria.andBankBLike("%"+borrow.getBankB()+"%");
+			}
+			if(borrow.getBankState()!=null && borrow.getBankState().length()>0){
+				criteria.andBankStateLike("%"+borrow.getBankState()+"%");
+			}
+			if(borrow.getOperatorPhone()!=null && borrow.getOperatorPhone().length()>0){
+				criteria.andOperatorPhoneLike("%"+borrow.getOperatorPhone()+"%");
+			}
+			if(borrow.getOperatorIdcard()!=null && borrow.getOperatorIdcard().length()>0){
+				criteria.andOperatorIdcardLike("%"+borrow.getOperatorIdcard()+"%");
+			}
+			if(borrow.getOperatorName()!=null && borrow.getOperatorName().length()>0){
+				criteria.andOperatorNameLike("%"+borrow.getOperatorName()+"%");
+			}
+			if(borrow.getIsAgreement()!=null && borrow.getIsAgreement().length()>0){
+				criteria.andIsAgreementLike("%"+borrow.getIsAgreement()+"%");
+			}
+			if(borrow.getOperatorState()!=null && borrow.getOperatorState().length()>0){
+				criteria.andOperatorStateLike("%"+borrow.getOperatorState()+"%");
+			}
+			if(borrow.getTaobaoToken()!=null && borrow.getTaobaoToken().length()>0){
+				criteria.andTaobaoTokenLike("%"+borrow.getTaobaoToken()+"%");
+			}
+			if(borrow.getTaobaoState()!=null && borrow.getTaobaoState().length()>0){
+				criteria.andTaobaoStateLike("%"+borrow.getTaobaoState()+"%");
+			}
+			if(borrow.getAlipayToken()!=null && borrow.getAlipayToken().length()>0){
+				criteria.andAlipayTokenLike("%"+borrow.getAlipayToken()+"%");
+			}
+			if(borrow.getAlipayState()!=null && borrow.getAlipayState().length()>0){
+				criteria.andAlipayStateLike("%"+borrow.getAlipayState()+"%");
+			}
+			if(borrow.getPayA()!=null && borrow.getPayA().length()>0){
+				criteria.andPayALike("%"+borrow.getPayA()+"%");
+			}
+			if(borrow.getPayB()!=null && borrow.getPayB().length()>0){
+				criteria.andPayBLike("%"+borrow.getPayB()+"%");
+			}
+			if(borrow.getPayC()!=null && borrow.getPayC().length()>0){
+				criteria.andPayCLike("%"+borrow.getPayC()+"%");
+			}
+			if(borrow.getPayD()!=null && borrow.getPayD().length()>0){
+				criteria.andPayDLike("%"+borrow.getPayD()+"%");
+			}
+			if(borrow.getPayE()!=null && borrow.getPayE().length()>0){
+				criteria.andPayELike("%"+borrow.getPayE()+"%");
+			}
+			if(borrow.getPayState()!=null && borrow.getPayState().length()>0){
+				criteria.andPayStateLike("%"+borrow.getPayState()+"%");
+			}
+			if(borrow.getAuditor()!=null && borrow.getAuditor().length()>0){
+				criteria.andAuditorLike("%"+borrow.getAuditor()+"%");
+			}
+			if(borrow.getBorrowState()!=null && borrow.getBorrowState().length()>0){
+				criteria.andBorrowStateLike("%"+borrow.getBorrowState()+"%");
+			}
+	
+		}
+		
+		Page<Borrow> page= (Page<Borrow>)borrowMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

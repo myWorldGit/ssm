@@ -1,0 +1,104 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.PayMapper;
+import com.lanpangzi.pojo.Pay;
+import com.lanpangzi.pojo.PayExample;
+import com.lanpangzi.pojo.PayExample.Criteria;
+import com.lanpangzi.service.PayService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class PayServiceImpl implements PayService {
+
+	@Autowired
+	private PayMapper payMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Pay> findAll() {
+		return payMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Pay> page=   (Page<Pay>) payMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Pay pay) {
+		payMapper.insert(pay);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Pay pay){
+		payMapper.updateByPrimaryKey(pay);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Pay findOne(Integer id){
+		return payMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			payMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Pay pay, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		PayExample example=new PayExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(pay!=null){			
+						if(pay.getPayway()!=null && pay.getPayway().length()>0){
+				criteria.andPaywayLike("%"+pay.getPayway()+"%");
+			}
+			if(pay.getPayorder()!=null && pay.getPayorder().length()>0){
+				criteria.andPayorderLike("%"+pay.getPayorder()+"%");
+			}
+	
+		}
+		
+		Page<Pay> page= (Page<Pay>)payMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

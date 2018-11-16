@@ -1,0 +1,101 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.ClassifyMapper;
+import com.lanpangzi.pojo.Classify;
+import com.lanpangzi.pojo.ClassifyExample;
+import com.lanpangzi.pojo.ClassifyExample.Criteria;
+import com.lanpangzi.service.ClassifyService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class ClassifyServiceImpl implements ClassifyService {
+
+	@Autowired
+	private ClassifyMapper classifyMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Classify> findAll() {
+		return classifyMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Classify> page= (Page<Classify>) classifyMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Classify classify) {
+		classifyMapper.insert(classify);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Classify classify){
+		classifyMapper.updateByPrimaryKey(classify);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Classify findOne(Integer id){
+		return classifyMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			classifyMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Classify classify, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		ClassifyExample example=new ClassifyExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(classify!=null){			
+						if(classify.getTname()!=null && classify.getTname().length()>0){
+				criteria.andTnameLike("%"+classify.getTname()+"%");
+			}
+	
+		}
+		
+		Page<Classify> page= (Page<Classify>)classifyMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}

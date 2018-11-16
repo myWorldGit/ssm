@@ -1,0 +1,131 @@
+.aside-active>a{
+	color:skyblue !important;
+	background-color: #222;
+}
+.show {
+	display: block;
+}
+.hidden {
+	display: none;
+}
+* {
+	text-decoration: none;
+	font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York';
+     list-style: none;
+     padding: 0;
+     margin: 0;
+}
+body,html {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(229,230,237);
+}
+.container-wrap {
+	height:  900px;
+}
+.container-wrap:after {
+	clear: both;
+	display: block;
+	content: '.';
+	height: 0;
+	visibility: hidden;
+	overflow: hidden;	
+}
+
+.index-page-left {
+	height: 100%;
+	float: left;
+	width: 14%;
+	background-color: #333;
+	overflow: auto;
+
+}
+.index-page-right {
+	float: right;
+	width: 86%;
+	height: 100%;
+
+}
+.admin-logo {
+	margin: 0 auto;
+	margin-top: 15px;
+	width: 170px;
+	height: 180px;
+	background-color: #fff;
+	border-radius: 50%;
+	margin-bottom: 25px;
+	background-image: url(../imgs/logo.jpg);
+	background-size: 140px 150px; ;
+	background-repeat: no-repeat;
+	background-position: 15px 12px;
+}
+.aside-li >a{
+	text-indent: 46px;
+	padding: 10px 0;
+	display: block;
+	color: #eee;
+	font-size: 15px;
+	font-family: TimesNR;
+	position: relative;
+}
+.aside-li>a:hover {
+	background-color: #222;
+	color: skyblue;
+
+}
+.container {
+	width: 96%;
+	margin: 15px auto 0 auto ;
+	background-color: #fff;
+	height: 100%;
+}
+.topbar-wrap {
+	height: 40px;
+	line-height: 40px;
+	color: #666;
+	font-size: 14px;
+}
+.topbar-wrap >.container > a { 
+	display: inline-block;
+	margin-left: 40px;
+	color: skyblue;
+}
+.topbar-wrap >.container > span {
+	color: #666;
+	font-weight: normal;
+}
+
+span.icon-zuo  {
+	font-size: 12px;
+	position: absolute;
+	top: 16px;
+	right: 13px;
+}
+span.icon-xiala2 {
+	font-size: 12px;
+	position: absolute;
+	top: 17px;
+	right: 10px;
+}
+.group-downpull {
+	display: none;
+}
+.group-downpull >li >a {
+	color: #eee;
+	padding: 5px 0;
+	display: block;
+	text-indent: 60px;
+	font-size: 13px;
+}
+.group-downpull >li >a:hover {
+	background-color: #222;
+	color: skyblue;
+}
+.clearfix:after {
+	display: block;
+	visibility: hidden;
+	height: 0;
+	content: '.';
+	clear: both;
+}

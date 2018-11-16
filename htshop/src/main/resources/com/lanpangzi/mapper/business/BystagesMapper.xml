@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.BystagesMapper">
+	<select id="findAllBystages" resultType="com.lanpangzi.pojo.Bystages">
+		SELECT	* FROM bystages 
+	</select>
+	<select id="findBystagesById">
+		SELECT	* FROM bystages WHERE sid=#{sid}
+	</select>
+	<insert id="addBystages" parameterType="com.lanpangzi.pojo.Bystages">
+		INSERT INTO bystages (countmonth,rate) VALUES(#{countmonth},#{rate});
+	</insert>
+	<delete id="clearBystages">
+		DELETE FROM bystages
+	</delete>
+	<delete id="deleteBystages">
+		DELETE FROM bystages WHERE sid =#{sid}
+	</delete>
+	<update id="updateBystages" parameterType="com.lanpangzi.pojo.Bystages">
+		UPDATE bystages SET countmonth=#{countmonth},rate=#{rate} WHERE sid =#{sid}
+	</update>
+</mapper>

@@ -1,0 +1,30 @@
+package com.lanpangzi.mapper.business;
+
+import com.lanpangzi.pojo.Usersextend;
+import com.lanpangzi.pojo.UsersextendExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface UsersextendMapper {
+    int countByExample(UsersextendExample example);
+
+    int deleteByExample(UsersextendExample example);
+
+    int deleteByPrimaryKey(Integer eid);
+
+    int insert(Usersextend record);
+
+    int insertSelective(Usersextend record);
+
+    List<Usersextend> selectByExample(UsersextendExample example);
+
+    Usersextend selectByPrimaryKey(Integer eid);
+
+    int updateByExampleSelective(@Param("record") Usersextend record, @Param("example") UsersextendExample example);
+
+    int updateByExample(@Param("record") Usersextend record, @Param("example") UsersextendExample example);
+
+    int updateByPrimaryKeySelective(Usersextend record);
+
+    int updateByPrimaryKey(Usersextend record);
+}

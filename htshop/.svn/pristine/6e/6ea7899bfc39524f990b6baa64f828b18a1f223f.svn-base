@@ -1,0 +1,119 @@
+package com.lanpangzi.service.impl.business;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lanpangzi.mapper.business.UsersMapper;
+import com.lanpangzi.pojo.Users;
+import com.lanpangzi.pojo.UsersExample;
+import com.lanpangzi.pojo.UsersExample.Criteria;
+import com.lanpangzi.service.UsersService;
+import com.lanpangzi.utils.PageResult;
+
+/**
+ * 服务实现层
+ * @author Administrator
+ *
+ */
+@Service
+public class UsersServiceImpl implements UsersService {
+
+	@Autowired
+	private UsersMapper usersMapper;
+	
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<Users> findAll() {
+		return usersMapper.selectByExample(null);
+	}
+
+	/**
+	 * 按分页查询
+	 */
+	@Override
+	public PageResult findPage(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);		
+		Page<Users> page=   (Page<Users>) usersMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	/**
+	 * 增加
+	 */
+	@Override
+	public void add(Users users) {
+		usersMapper.insertSelective(users);		
+	}
+
+	
+	/**
+	 * 修改
+	 */
+	@Override
+	public void update(Users users){
+		usersMapper.updateByPrimaryKey(users);
+	}	
+	
+	/**
+	 * 根据ID获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Users findOne(Integer id){
+		return usersMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public void delete(Integer[] ids) {
+		for(Integer id:ids){
+			usersMapper.deleteByPrimaryKey(id);
+		}		
+	}
+	
+	
+		@Override
+	public PageResult findPage(Users users, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		
+		UsersExample example=new UsersExample();
+		Criteria criteria = example.createCriteria();
+		
+		if(users!=null){			
+						if(users.getUsername()!=null && users.getUsername().length()>0){
+				criteria.andUsernameLike("%"+users.getUsername()+"%");
+			}
+			if(users.getPhone()!=null && users.getPhone().length()>0){
+				criteria.andPhoneLike("%"+users.getPhone()+"%");
+			}
+			if(users.getLoginpassword()!=null && users.getLoginpassword().length()>0){
+				criteria.andLoginpasswordLike("%"+users.getLoginpassword()+"%");
+			}
+			if(users.getPalypassword()!=null && users.getPalypassword().length()>0){
+				criteria.andPalypasswordLike("%"+users.getPalypassword()+"%");
+			}
+			if(users.getPhoto()!=null && users.getPhoto().length()>0){
+				criteria.andPhotoLike("%"+users.getPhoto()+"%");
+			}
+			if(users.getInviter()!=null && users.getInviter().length()>0){
+				criteria.andInviterLike("%"+users.getInviter()+"%");
+			}
+			if(users.getState()!=null && users.getState().length()>0){
+				criteria.andStateLike("%"+users.getState()+"%");
+			}
+	
+		}
+		
+		Page<Users> page= (Page<Users>)usersMapper.selectByExample(example);		
+		return new PageResult(page.getTotal(), page.getResult());
+	}
+	
+}
