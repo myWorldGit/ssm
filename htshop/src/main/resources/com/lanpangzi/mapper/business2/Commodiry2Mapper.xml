@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanpangzi.mapper.business2.Commodiry2Mapper">
-	<!-- 查询商品详情   分布查询出各种颜色和图片 -->
+ 	<!--  查询分类的4个商品 用做分步 -->
+	<select id="findAllCommodiry" resultType="com.lanpangzi.pojo.Commodiry">
+		SELECT cid, cname,ctype,price,photo  
+			FROM commodiry WHERE tid=#{tid}
+			 ORDER BY counts DESC LIMIT 0,4
+	</select>
+	<!-- 查询所有的detail 图片 -->
+	<select id="getAllDetails" resultType="com.lanpangzi.pojo.Destail">
+		SELECT * FROM details WHERE cid =#{cid}
+	</select>
+	<!-- delete  by id -->
+	<delete id="deleteDetailsById">
+		DELETE FROM details WHERE did = #{did}
+	</delete>
+	<!-- 分页查询  8条商品    -->
+	<select id="findPageCommodiry" resultType="com.lanpangzi.pojo.Commodiry">
+		SELECT cid, cname,ctype,price,photo,counts  
+			FROM commodiry WHERE tid=#{tid}
+			 ORDER BY counts DESC LIMIT #{page},8
+	</select>
+	<!-- 商品详情 -->
 	<resultMap type="com.lanpangzi.pojo.Commodiry" id="commodiryDetails">
 		<id column="cid" property="cid"/>
 		<result column="cname" property="cname"/>
 		<result column="description" property="description"/>
 		<result column="ctype" property="ctype"/>
 		<result column="counts" property="counts"/>
+		<result column="ishot" property="ishot"/>
+		<result column="isrecommand" property="isrecommand"/>
 		<result column="price" property="price"/>
-	
-		<association property="colors" 
-			select="com.lanpangzi.mapper.business2.ColorMapper2.findAllColors" 
-				column="cid" >
-		</association>
-	</resultMap>
-
-	<!--   待改*****************88s -->
-	<select id="findAllCommodiry" resultType="java.util.Map">
-		SELECT cid,cname,ctype,price  FROM 
-			commodiry WHERE tid =#{tid} ORDER BY counts DESC LIMIT 0,4 
-	</select>
-	<!-- 分页的十条 -->
-	<select id="findCommodiryByPage" resultType="java.util.Map">
-		SELECT cid,cname,ctype,price  FROM 
-			commodiry WHERE tid =#{tid} ORDER BY counts DESC LIMIT #{page},10
-	</select>
-	
-	
+		<result column="photo" property="photo"/>
+		<result column="color" property="color"/>
+		
+		<!-- 指定联合的bean对象 -->
+		<collection  property="details"  ofType="com.lanpangzi.pojo.Destail">
+			<result column="image" property="image"/>
+			<result column="width" property="width"/>
+			<result column="height" property="height"/>
+		</collection >
+	</resultMap> 
 	<select id="findCommodiryDetails" resultMap="commodiryDetails">
-		SELECT *  FROM commodiry WHERE cid=#{cid} LIMIT 0,1
+		SELECT c.*,d.image,d.width,d.height FROM 
+			commodiry c LEFT JOIN details d
+			ON c.cid= d.cid 
+			WHERE c.cid=#{cid}
+
 	</select>
 </mapper>

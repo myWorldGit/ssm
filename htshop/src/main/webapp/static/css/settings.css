@@ -1,7 +1,6 @@
 #application {
 	padding-top: 20px;
 	display: flex;
-	border: 1px solid red;
 }
 .aap-model {
 	border: 1px solid #666;
@@ -9,7 +8,7 @@
 	margin-left: 40px;
 }
 .sowing-map >img{
-
+	
 	height: 150px;
 	width: 100%;
 }
@@ -29,6 +28,35 @@
 	border-radius: 50%;
 	cursor: pointer;
 }
+.sowing-map:hover .sowing-map-delbtn, 
+.sowing-map:hover .sowing-map-addbtn {
+	visibility: visible;
+}
+.sowing-map-delbtn {
+	font-size:12px;
+	border-radius: 8px;
+	color: #fff;
+	visibility: hidden;
+	position: absolute;
+	top: 10px;
+	right: 100px;
+	padding: 3px;
+	display: block;
+	background-color: skyblue;
+}
+.sowing-map-addbtn {
+	visibility: hidden;
+	font-size:12px;
+	border-radius: 8px;
+	color: #fff;
+	background-color: skyblue;
+	position: absolute;
+	top: 10px;
+	padding: 3px;
+	display: block;
+	left: 100px;
+}
+
 .sowing-map-leftbtn ,
 .sowing-map-rightbtn {
 	position: absolute;
@@ -94,6 +122,8 @@ hr.special-line{
 	font-weight: normal;
 }
 .img-recommend >img  {
+	box-sizing: border-box;
+	border: 1px solid #aaa;
 	cursor: pointer;
 	vertical-align: middle;
 	height: 60px;
@@ -109,16 +139,20 @@ hr.special-line{
 	float: left;
 }
 .phone-hot>.hot-left >img {
+	border: 1px solid #aaa;
+	height: 140px;
 	cursor: pointer;
 	display: block;
 	width: 160px;
 }
 .phone-hot>.hot-right>img {
+	border: 1px solid #aaa;
 	cursor: pointer;
-	margin: 10px;
+	margin: 15px 0 35px 0;
 	display: block;
 	width: 150px;
 	height: 40px;
+	
 }
 .commodiry-recommend {
 	position: relative;
@@ -164,7 +198,7 @@ hr.special-line{
 	background-repeat: no-repeat;
 }
 .system-message-box >ul {
-	height: 500px;
+	height: 555px;
 }
 .box-title {
 	font-size:27px;
@@ -257,4 +291,13 @@ hr.special-line{
 }
 .system-other-btn>.clearContent:hover {
 	background-color: rgba(11,11,11,.3);
+}
+.footer-descritption {
+	color:#999;
+	overflow:hidden;
+	height:72px;
+	line-height:90px;
+	font-size: 13px;
+	text-align: right;	
+	padding-right: 170px;
 }

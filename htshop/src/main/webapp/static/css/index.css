@@ -20,9 +20,11 @@ body,html {
 	width: 100%;
 	height: 100%;
 	background-color: rgb(229,230,237);
+	
 }
 .container-wrap {
-	height:  900px;
+	overflow: hidden;
+	height:  800px;
 }
 .container-wrap:after {
 	clear: both;
@@ -108,7 +110,7 @@ span.icon-xiala2 {
 	top: 17px;
 	right: 10px;
 }
-.group-downpull {
+/* .group-downpull {
 	display: none;
 }
 .group-downpull >li >a {
@@ -121,7 +123,7 @@ span.icon-xiala2 {
 .group-downpull >li >a:hover {
 	background-color: #222;
 	color: skyblue;
-}
+} */
 .clearfix:after {
 	display: block;
 	visibility: hidden;

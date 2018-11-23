@@ -16,51 +16,57 @@ import com.lanpanzi.service2.CommodiryService2;
 public class CommodiryController2 {
 	@Autowired
 	private CommodiryService2 commodiryDao;
-
-	@RequestMapping(value="showAll",method=RequestMethod.POST)
+	
+	@RequestMapping(value="/getdetail" ,method=RequestMethod.POST)
 	@ResponseBody
-	public MobileJsonForm showAllCommodiry(@RequestParam("token")String token) {
+	public MobileJsonForm getSingleCommodiryDetails(String token,Integer cid) {
+		Integer uid = TokenUtil.getAppUID(token);		
 		MobileJsonForm form = new MobileJsonForm();
-		Integer uid =  TokenUtil.getAppUID(token);
-		if(uid!= null && uid!=-1) {
-			form.addData("commodirys", commodiryDao.findAllCommodiry());
-			form.setCodeAndMessage("1", "查询成功");
+		if(uid != null && uid != -1) {
+			form.addData("commodiry", commodiryDao.getCommodiryDetailsById(cid)); 
+			form.setCodeAndMessage("1", "success");
 			return form;
 		}
 		form.setCodeAndMessage("0", "token异常");
 		return form;
-		
 	}
-	@RequestMapping(value="detailbyid",method=RequestMethod.POST)
+	/**
+	 * 	分类商品请求的数据
+	 * @param token
+	 * @param cid
+	 * @return
+	 */
+	@RequestMapping(value="/getclassify" ,method=RequestMethod.POST)
 	@ResponseBody
-	public MobileJsonForm detailCommodiry(@RequestParam("token")String token,
-			@RequestParam("cid")Integer cid) {
+	public MobileJsonForm getAllClassify(String token) {
+		Integer uid = TokenUtil.getAppUID(token);		
 		MobileJsonForm form = new MobileJsonForm();
-		Integer uid =  TokenUtil.getAppUID(token);
-		if(uid!= null && uid!=-1) {
-			form.addData("commodiry", commodiryDao.findSingleCommodiry(cid));
-			form.setCodeAndMessage("1", "查询成功");
+		if(uid != null && uid != -1) {
+			form.addData("classifys", commodiryDao.getShowAllCommodiry()); 
+			form.setCodeAndMessage("1", "success");
 			return form;
 		}
 		form.setCodeAndMessage("0", "token异常");
 		return form;
-		
-	}
-	@RequestMapping(value="bypage",method=RequestMethod.POST)
-	@ResponseBody
-	public MobileJsonForm findCommodiryByPages(@RequestParam("token")String token,
-			@RequestParam("tid")Integer tid,
-			@RequestParam("page")Integer page) {
-		MobileJsonForm form = new MobileJsonForm();
-		Integer uid =  TokenUtil.getAppUID(token);
-		if(uid!= null && uid!=-1) {
-			form.addData("commodirys", commodiryDao.findCommodiryByPages(tid, page));
-			form.setCodeAndMessage("1", "查询成功");
-			return form;
-		}
-		form.setCodeAndMessage("0", "token异常");
-		return form;
-		
 	}
 	
+	/**
+	 * 	分类商品请求的数据
+	 * @param token  认证码
+	 * @param tid  商品类 id
+ 	 * @return
+	 */
+	@RequestMapping(value="/byPages" ,method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm getCommodiryByPages(String token,Integer tid,Integer page) {
+		Integer uid = TokenUtil.getAppUID(token);		
+		MobileJsonForm form = new MobileJsonForm();
+		if(uid != null && uid != -1) {
+			form.addData("commodirys", commodiryDao.getCommodiryByPage(tid, page)); 
+			form.setCodeAndMessage("1", "success");
+			return form;													
+		}
+		form.setCodeAndMessage("0", "token异常");
+		return form;
+	}
 }

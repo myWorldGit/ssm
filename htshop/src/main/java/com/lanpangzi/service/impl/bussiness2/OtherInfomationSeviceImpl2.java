@@ -33,15 +33,28 @@ public class OtherInfomationSeviceImpl2 implements OtherInfomationService2 {
 	}
 
 	@Override
-	public Boolean insertOtherInfo(Other other) {
+	public Integer insertOtherInfo(Other other) {
 		// TODO Auto-generated method stub
-		return otherInfomationDao.insertOtherInfoById(other);
+		//插入成功  返回他的id   否则null
+		return otherInfomationDao.insertOtherInfoById(other)==true?
+				otherInfomationDao.getprevInsertID():null;
 	}
 
 	@Override
 	public Boolean deleteValueById(Integer oid) {
 		// TODO Auto-generated method stub
 		return otherInfomationDao.deleteOtherInfoById(oid);
+	}
+
+	@Override
+	public String findSingleInfo(String key) {
+		return otherInfomationDao.findSingleInfo(key);
+	}
+
+	@Override
+	public String findOtherById(Integer oid) {
+		// TODO Auto-generated method stub
+		return otherInfomationDao.findvalueById(oid);
 	}
 
 

@@ -28,6 +28,13 @@ public class UploadUtils {
 		String uuid =UUID.randomUUID().toString().replace("-", "").toUpperCase();
 		return "/"+uuid.charAt(0)+"/"+uuid.charAt(1)+"/"+uuid;
 	}
+	/**
+	 * 不打散  针对小量
+	 * @return
+	 */
+	public static String generalPath() {
+		return "/"+UUID.randomUUID().toString().replace("-", "").toUpperCase();
+	}
 	public static String uploadToServer(String realPath,MultipartFile multifile) {
 		
 			String suffix =UploadUtils.suffixName(multifile.getOriginalFilename());
@@ -48,5 +55,19 @@ public class UploadUtils {
 			if(file!=null || file!= ""  )
 				new File(realPath+file).delete();
 		}
+	}
+	public static String smallUpload(String realPath, MultipartFile multifile) {
+		String suffix =UploadUtils.suffixName(multifile.getOriginalFilename());
+		String fileName =generalPath()+suffix;
+		File target = new File(realPath+fileName);
+		if(!target.exists()) {
+			target.mkdirs();
+		}
+		try {
+			multifile.transferTo(target);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		return fileName;
 	}
 }

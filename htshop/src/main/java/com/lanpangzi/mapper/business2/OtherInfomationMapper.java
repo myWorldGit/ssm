@@ -11,6 +11,7 @@ import com.lanpangzi.pojo.Other;
  *
  */
 public interface OtherInfomationMapper {
+	public Integer getprevInsertID();
 	/**
 	 * 根据类型查询其他信息
 	 * @param types  类型名
@@ -34,6 +35,10 @@ public interface OtherInfomationMapper {
 	 * 插入表属性
 	 */
 	public Boolean insertOtherInfoById(@Param("other")Other other);
-	
+	/**
+	 * 查询单个  逆序
+	 */
+	public String findSingleInfo(@Param("types")String types);
+	public String findvalueById(Integer oid);
 	
 }

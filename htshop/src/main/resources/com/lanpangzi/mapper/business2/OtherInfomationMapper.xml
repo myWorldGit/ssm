@@ -2,8 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanpangzi.mapper.business2.OtherInfomationMapper">   
 	<!-- 上限十条   因改动不大  不错详细清理   有需要则扩展-->
+	<select id="findvalueById" resultType="string">
+		SELECT value from other WHERE otherid =#{oid} LIMIT 0,1
+	</select>
 	<select id="findOtherInfoByType" resultType="com.lanpangzi.pojo.Other" >
 		SELECT *FROM other WHERE types =#{types} LIMIT 0,10  
+	</select>
+	<select id="getprevInsertID" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	<select id="findSingleInfo" resultType="string">
+		SELECT value FROM other WHERE types=#{types} ORDER BY otherid DESC LIMIT 0,1
 	</select>
 	<insert id="insertOtherInfoById" parameterType="com.lanpangzi.pojo.Other">
 		INSERT INTO other (value,types,lasttime) VALUES(#{other.value},#{other.types},#{other.lasttime})

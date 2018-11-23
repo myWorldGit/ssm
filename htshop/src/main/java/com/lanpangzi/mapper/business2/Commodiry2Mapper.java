@@ -6,21 +6,32 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.lanpangzi.pojo.Commodiry;
+import com.lanpangzi.pojo.Destail;
 
 
 public interface Commodiry2Mapper {
 	/**
-	 * 通过种类id筛选  销量排序逆序
+	 * 查询某类商品的4条信息  销量逆序   用做分步
+	 * @param tid  商品类id
+	 * @return
 	 */
-	public List<Map<String,String>> findAllCommodiry(Integer tid);
+	public List<Commodiry> findAllCommodiry(Integer tid);
 	/**
-	 * 根据商品id查询单个 详情    分步对应多个颜色
+	 *   按照商品id查询一个商品对应的详细信息
+	 * @param cid  商品id
+	 * @return
 	 */
 	public Commodiry findCommodiryDetails(Integer cid);
 	/**
-	 * 分页一次十条条  
+	 * 分页查询一个商品列表
+	 * @param tid  商品类型id
+	 * @param page   按照销量逆序 获取8个商品
+	 * @return
 	 */
-	public List<Map<String,String>> findCommodiryByPage(@Param("tid") Integer tid,
-			@Param("page")Integer begin);
-
+	public List<Commodiry> findPageCommodiry(@Param("tid")Integer tid ,
+				@Param("page") Integer page);
+	public List<Destail> getAllDetails(Integer cid);
+	//根据did删除详情图片
+	public Boolean deleteDetailsById(Integer did);
+	
 }

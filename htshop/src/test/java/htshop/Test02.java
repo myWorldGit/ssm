@@ -12,14 +12,21 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.lanpangzi.mapper.business.BystagesMapper;
-import com.lanpangzi.mapper.business2.ColorMapper2;
+import com.lanpangzi.mapper.business2.ClassifyMapper2;
+import com.lanpangzi.mapper.business2.Commodiry2Mapper;
+import com.lanpangzi.mapper.business2.OtherInfomationMapper;
 import com.lanpangzi.pojo.Bystages;
-import com.lanpangzi.pojo.Color;
+import com.lanpangzi.pojo.Classify;
+import com.lanpangzi.pojo.Commodiry;
+import com.lanpangzi.pojo.Destail;
 import com.lanpangzi.pojo.Other;
 import com.lanpangzi.utils.TokenUtil;
 
 public class Test02 {
 	@Test 
+/*	public void getToken() {
+		System.out.println(TokenUtil.createToken(3));
+	}*/
 	public void testSQL() {
 		
 		InputStream in = null;
@@ -29,10 +36,10 @@ public class Test02 {
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
 			//创建出SQLSession对象
 			SqlSession sqlSeesion = factory.openSession();
-			ColorMapper2 mapper = 
-						sqlSeesion.getMapper(ColorMapper2.class);
+			Commodiry2Mapper mapper = 
+						sqlSeesion.getMapper(Commodiry2Mapper.class);
 			
-			Color flag =mapper.findColorById(1);
+			Boolean flag =mapper.deleteDetailsById(1);
 			System.out.println(flag);
 			sqlSeesion.commit();
 		} catch (IOException e) {

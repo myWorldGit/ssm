@@ -14,13 +14,14 @@
      <!-- 配置日期转换器 -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
-            <set>
+            <set> 
                 <bean class="com.lanpangzi.utils.DateConverter"></bean>
             </set>
         </property>
     </bean>
 	<!-- 视图  处 -->
 	<mvc:view-controller path="admin/settings" view-name="settings"/>
+	<mvc:view-controller path="admin/commodiry" view-name="commodiry"/>
 	
 	<!-- 处理请求返回json字符串的中文乱码问题 -->
     <mvc:annotation-driven>

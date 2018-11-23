@@ -18,15 +18,36 @@ public class Commodiry {
     private Integer isrecommand;
 
     private Double price;
-    //tid 对应一个类别的类  一对多
-    //对应一个颜色的表List
-    private List<Color> colors;
+    
+    private String photo;
+    
+    private String color;
+    
+    private List<Destail> details;
+   
 
-    public List<Color> getColors() {
-		return colors;
+	public String getPhoto() {
+		return photo;
 	}
-	public void setColors(List<Color> colors) {
-		this.colors = colors;
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public List<Destail> getDestails() {
+		return details;
+	}
+
+	public void setDestails(List<Destail> destails) {
+		this.details = destails;
 	}
 
 	public Integer getCid() {
@@ -41,7 +62,7 @@ public class Commodiry {
 	public String toString() {
 		return "Commodiry [cid=" + cid + ", cname=" + cname + ", description=" + description + ", ctype=" + ctype
 				+ ", counts=" + counts + ", ishot=" + ishot + ", isrecommand=" + isrecommand + ", price=" + price
-				+ ", colors=" + colors + "]";
+				+ ", photo=" + photo + ", color=" + color + ", details=" + details + "]";
 	}
 	public String getCname() {
         return cname;

@@ -10,8 +10,19 @@ public class Other {
     private String types;
 
     private Date lasttime;
+    
+    public Other() {
+		super();
+	}
 
-    public Integer getOtherid() {
+	public Other(String value, String types, Date lasttime) {
+		super();
+		this.value = value;
+		this.types = types;
+		this.lasttime = lasttime;
+	}
+
+	public Integer getOtherid() {
         return otherid;
     }
 
