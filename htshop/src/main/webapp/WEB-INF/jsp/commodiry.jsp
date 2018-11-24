@@ -48,7 +48,7 @@
 				<li class="aside-li"><a href="#"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
 				</span>未开发的</a></li>
 				<li class="aside-li">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/settings">
 						<span class="iconfont icon-shezhi">&nbsp;&nbsp;</span>
 						界面设置
 
@@ -68,9 +68,8 @@
 						<form>
 								<label><a href="#" @click.prevent='addCommodriy'><i class="iconfont icon-webicon308"  ></i>添加商品</a></label>
 								<select class="form-select-optional" >
-									<option>机车</option>
-									<option>配件</option>
-									<option>手机</option>
+									<option v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
+									
 								</select>
 								<input type="text" name="search-text" 
 									placeholder="请输入查询关键字"><a href="script:void(0)" >
@@ -90,7 +89,7 @@
 										<li>机型：&nbsp;{{item.ctype}}</li>
 										<li>￥: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.price}}</li>
 										<li>销量：&nbsp;{{item.counts}}</li>
-										<li><a href="#" @click.prevent='modCommodiry(item.cid)' class="commodiry-modify-btn">修改商品</a></li>
+										<li><a href="#" @click.prevent='modCommodiry(item.cid,index)' class="commodiry-modify-btn">修改商品</a></li>
 										<li><a href="#" @click.prevent='detCommodiry(item.cid)' class="commodiry-detail-btn">详情图片</a></li>
 										<li><a href="#" @click.prevent='delCommodiry(item.cid,index)' class="commodiry-delete-btn">删除商品</a></li>
 									</ul>
@@ -110,9 +109,15 @@
 								<li><a href="#" @click.prevent='next'>下一页</a></li>
 							</ul>
 						</div>
-						<v-dialog-modify   :flag="modal.showDialogmod" :temp="temp" @close-dialogmod="closeDialogmod"> </v-dialog-modify>
-						<v-dialog-add   :flag="modal.showDialogadd" @close-dialogadd="closeDialogadd"> </v-dialog-add>
-						<v-dialog-detail :http="http" :flag="modal.showDialogdetail" :temp="temp" @close-dialogdetail="closeDialogdetail"> </v-dialog-detail>
+						<v-dialog-modify   :flag="modal.showDialogmod" :temp="temp.mod"
+						:classifys="classifys"  @close-dialogmod="closeDialogmod"
+												 @modify-dialogmod="modifyDig"
+						> </v-dialog-modify>
+						<v-dialog-add   :flag="modal.showDialogadd" :classifys="classifys"
+						@close-dialogadd="closeDialogadd" @insert-dialogadd="addDialogadd"> 
+						</v-dialog-add>
+						<v-dialog-detail :http="http" :flag="modal.showDialogdetail"
+						 :temp="temp.det" @close-dialogdetail="closeDialogdetail"> </v-dialog-detail>
 
 					</div>
 				
@@ -146,9 +151,9 @@
 		                	<ul class="sowingimg-list">
 		                		<li style="font-size: 30px; text-align: center;" v-if='temp==""'>赞无图片</li>
 		                		<li v-for='(t,index) in temp'>
-		                		<img :src="t.image">
-		                		<a href="#" class="replace" @click.prevent='replace(t.did,index)'>替换</a>
-		                		<a href="#" class="delete" @click.prevent='deletes(t.did,index)'>删除</a>
+	                		<img :src="t.image">
+	                		<a href="#" class="replace" @click.prevent='replace(t.image,t.did,index)'>替换</a>
+	                		<a href="#" class="delete" @click.prevent='deletes(t.image,t.did,index)'>删除</a>
 		                		</li>		            
 		                	</ul>
 		                
@@ -173,40 +178,39 @@
 		            	<h3>修改商品<a href="javascript:;" @click='close'>×</a></h3>
 		                <div class="dialog_content">
 		                	<div class="form-wrap">
-		                		<img :src="temp.photo" >
-		                		<form class="form-style">
+		                		<img :src="temp.photo"  >
+		                		<form class="form-style" id="form-modify">
+		                		
+		                			<input type="hidden" :value="temp.cid" name="cid">
 		                			<div class="form-gorup">
 		                				<label>商品名字</label>
-		                				<input type="text" :value="temp.cname" placeholder="请输入商品名">
+		                				<input type="text" name="cname" :value="temp.cname" placeholder="请输入商品名">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品价格</label>
-		                				<input type="text" :value="temp.price" placeholder="请输入商品价格">
+		                				<input type="text" name="price" :value="temp.price" placeholder="请输入商品价格">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品型号</label>
-		                				<input type="text" :value="temp.ctype" placeholder="请输入商品型号">
+		                				<input type="text" name="ctype" :value="temp.ctype" placeholder="请输入商品型号">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品类别</label>
-		                				<select>
-		                					<option>机车</option>
-		                					<option>机车</option>
-		                					<option>机车</option>
-		                					<option>机车</option>
+		                				<select name="classify.tid" >
+		                					<option  v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
 		                				</select>
 		                			</div>
-		                			<div class="form-gorup">
+		                			<div class="form-gorup" >
 		                				<label>商品销量</label>
-		                				<input type="number" :value="temp.counts" placeholder="请输入销量">
+		                				<input type="number" name="counts" :value="temp.counts" placeholder="请输入销量">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品图片</label>
-		                				<input  style="font-size: 10px;" type="file"  >
+		                				<input  name="file" style="font-size: 10px;" @change='filechangemod' type="file"  >
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品描述</label>
-		                				<textarea :value="temp.description" style="vertical-align: middle;" type="text" name="name" rows="6" placeholder="请输入商品名"></textarea>
+		                				<textarea name="description" :value="temp.description" style="vertical-align: middle;" type="text" name="name" rows="6" placeholder="请输入描述信息"></textarea>
 		                			</div>
 		                			
 
@@ -231,40 +235,40 @@
 		            	<h3>添加商品<a href="javascript:;" @click='close'>×</a></h3>
 		                <div class="dialog_content">
 		                	<div class="form-wrap">
-		                		<img src="dasds" >
-		                		<form class="form-style">
+		                		<img :src="urlPath" >
+		                		<form class="form-style" id="add-form" >
 		                			<div class="form-gorup">
 		                				<label>商品名字</label>
-		                				<input type="text" name="name" placeholder="请输入商品名">
+		                				<input type="text" name="cname" value="" placeholder="请输入商品名">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品价格</label>
-		                				<input type="number" name="name" placeholder="请输入商品价格">
+		                				<input type="text" name="price" value="0.00" placeholder="请输入商品价格">
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品型号</label>
-		                				<input type="text" name="name"placeholder="请输入商品型号">
+		                				<input type="text" name="ctype" value="" placeholder="请输入商品型号">
 		                			</div>
+		                			
 		                			<div class="form-gorup">
 		                				<label>商品类别</label>
-		                				<select>
-		                					<option>机车</option>
-		                					<option>机车</option>
-		                					<option>机车</option>
-		                					<option>机车</option>
+		                				<select name="classify.tid" >
+		                					<option v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
 		                				</select>
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品销量</label>
-		                				<input type="number" name="name"placeholder="请输入销量">
+		                				<input type="number" value="0" name="counts"placeholder="请输入销量">
 		                			</div>
+		                			
 		                			<div class="form-gorup">
 		                				<label>商品图片</label>
-		                				<input  style="font-size: 10px;" type="file" name="name" >
+		                				<input  style="font-size: 10px;" @change="fileChange" type="file" name="photo" >
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品描述</label>
-		                				<textarea style="vertical-align: middle;" type="text" name="name" rows="6" placeholder="请输入商品名"></textarea>
+		                				<textarea style="vertical-align: middle;" type="text" name="description" 
+		                				rows="6" value="" placeholder="请输入描述信息"></textarea>
 		                			</div>
 		                			
 

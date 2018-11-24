@@ -5,9 +5,25 @@ public class Destail {
 	private String image;
 	private Integer width;
 	private Integer height;
+	private Commodiry commodiry;
 	
 	
-	
+	public Destail() {
+		super();
+	}
+	public Destail(String image, Integer width, Integer height, Commodiry commodiry) {
+		super();
+		this.image = image;
+		this.width = width;
+		this.height = height;
+		this.commodiry = commodiry;
+	}
+	public Commodiry getCommodiry() {
+		return commodiry;
+	}
+	public void setCommodiry(Commodiry commodiry) {
+		this.commodiry = commodiry;
+	}
 	public Integer getDid() {
 		return did;
 	}
@@ -34,6 +50,7 @@ public class Destail {
 	}
 	@Override
 	public String toString() {
-		return "Destail [did=" + did + ", image=" + image + ", width=" + width + ", height=" + height + "]";
+		return "Destail [did=" + did + ", image=" + image + ", width=" + width + ", height=" + height + ", commodiry="
+				+ commodiry + "]";
 	}
 }

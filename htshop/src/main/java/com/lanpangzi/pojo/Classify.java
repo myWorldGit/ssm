@@ -19,6 +19,15 @@ public class Classify {
 		return commodirys;
 	}
 
+	public Classify() {
+		super();
+	}
+
+	public Classify(Integer tid) {
+		super();
+		this.tid = tid;
+	}
+
 	public void setCommodirys(List<Commodiry> commodirys) {
 		this.commodirys = commodirys;
 	}

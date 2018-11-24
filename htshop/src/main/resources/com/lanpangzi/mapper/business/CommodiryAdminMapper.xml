@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.CommodiryAdminMapper">
+	<select id="findAllClassify" resultType="com.lanpangzi.pojo.Classify">
+		SELECT *FROM classify;
+	</select>
+	<select id="prevInesrtId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	<delete id="deleteCommodiryById">
+		DELETE FROM commodiry WHERE cid=#{cid}
+	</delete>
+	<delete id="deleteDetailsByCid">
+		DELETE FROM details WHERE cid=#{cid}
+	</delete>
+	<insert id="addCommodiry" parameterType="com.lanpangzi.pojo.Commodiry">
+		Insert Into commodiry (cname,description,tid,ctype,counts,price,photo)
+			values(#{c.cname},   #{c.description},  #{c.classify.tid},
+			#{c.ctype} , #{c.counts} , #{c.price} , #{c.photo}  )
+	</insert>
+	<update id="updateCommodiry" parameterType="com.lanpangzi.pojo.Commodiry">
+		UPDATE commodiry SET
+			cname=#{cname},description=#{description},
+			tid=#{classify.tid},counts=#{counts},ctype=#{ctype},
+				<if test="photo !=null">
+					photo=#{photo},
+				</if>
+			price=#{price}
+			WHERE cid=#{cid}
+	</update>
+	
+	
+	
+	<insert id="insertDetails" parameterType="com.lanpangzi.pojo.Destail">
+		INSERT INTO details (cid,image,width,height) 
+			VALUES(#{commodiry.cid},#{image},#{width},#{height})
+	</insert>	
+
+	<update id="updateDetailById" parameterType="com.lanpangzi.pojo.Destail">
+		UPDATE  details  SET image=#{image},width=#{width},height=#{height}
+			WHERE did=#{did}
+	</update>
+	
+	
+	
+	
+	
+</mapper>

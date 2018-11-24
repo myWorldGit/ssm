@@ -82,6 +82,7 @@
     flex-wrap: wrap;
 }
 #commodiry-list>li {
+	background: #dde7e8;
 	border: 1px solid #666;
 	width: 24%;
 	margin: 5px auto
@@ -189,11 +190,12 @@
 	background: rgba(0,0,0,0.5);
     }
 .dialog_container{
-	top: -700px;
+	top: 120px;
+	left: 400px;
     background: #fff;
 	width: 800px;
 	
-	position: relative;
+	position: absolute;
 	border-radius: 10px;
 	margin: 0 auto;
 	padding-bottom: 60px;

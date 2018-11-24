@@ -25,7 +25,7 @@
 					</a>
 				</li>
 				<li class="aside-li">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/commodiry">
 					<span class="iconfont icon-shangping">&nbsp;&nbsp;</span>
 						商品信息 
 					</a>

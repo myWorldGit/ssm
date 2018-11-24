@@ -6,10 +6,11 @@ public class Commodiry {
     private Integer cid;
 
     private String cname;
-
+    private Classify classify;
+    
     private String description;
 
-    private Integer ctype;
+    private String ctype;
     
     private Integer counts;
 
@@ -25,6 +26,31 @@ public class Commodiry {
     
     private List<Destail> details;
    
+
+	public Commodiry(Integer cid) {
+		super();
+		this.cid = cid;
+	}
+
+	public Commodiry() {
+		super();
+	}
+
+	public Classify getClassify() {
+		return classify;
+	}
+
+	public void setClassify(Classify classify) {
+		this.classify = classify;
+	}
+
+	public List<Destail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<Destail> details) {
+		this.details = details;
+	}
 
 	public String getPhoto() {
 		return photo;
@@ -60,9 +86,9 @@ public class Commodiry {
 
     @Override
 	public String toString() {
-		return "Commodiry [cid=" + cid + ", cname=" + cname + ", description=" + description + ", ctype=" + ctype
-				+ ", counts=" + counts + ", ishot=" + ishot + ", isrecommand=" + isrecommand + ", price=" + price
-				+ ", photo=" + photo + ", color=" + color + ", details=" + details + "]";
+		return "Commodiry [cid=" + cid + ", cname=" + cname + ", classify=" + classify + ", description=" + description
+				+ ", ctype=" + ctype + ", counts=" + counts + ", ishot=" + ishot + ", isrecommand=" + isrecommand
+				+ ", price=" + price + ", photo=" + photo + ", color=" + color + ", details=" + details + "]";
 	}
 	public String getCname() {
         return cname;
@@ -85,11 +111,11 @@ public class Commodiry {
 
     
 
-    public Integer getCtype() {
+    public String getCtype() {
 		return ctype;
 	}
 
-	public void setCtype(Integer ctype) {
+	public void setCtype(String ctype) {
 		this.ctype = ctype;
 	}
 
@@ -125,8 +151,18 @@ public class Commodiry {
         this.price = price;
     }
 
-	public Commodiry() {
+	
+
+	public Commodiry(String cname, Classify classify, String description, String ctype, Integer counts, Double price,
+			String photo) {
 		super();
+		this.cname = cname;
+		this.classify = classify;
+		this.description = description;
+		this.ctype = ctype;
+		this.counts = counts;
+		this.price = price;
+		this.photo = photo;
 	}
     
 }
