@@ -41,7 +41,7 @@ public class Test02 {
 						sqlSeesion.getMapper(CommodiryAdminMapper.class);
 			Destail d= new Destail("122221",5225,5225,new Commodiry(57));
 			d.setDid(78);
-			Boolean flag =mapper.updateDetailById(d);
+			Integer flag =mapper.getCommodiryKeywordByPageCount(2,"");
 			
 			System.out.println(flag);
 			sqlSeesion.commit();

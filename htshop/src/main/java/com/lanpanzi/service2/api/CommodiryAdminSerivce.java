@@ -21,4 +21,10 @@ public interface CommodiryAdminSerivce {
 
 	public Boolean updateDetailById(Destail detail);
 
+	public List<Commodiry> conditionBykeyWord(Integer tid ,String keyword,Integer page);
+	//分页需要的数据总数
+	public Integer getCommodiryByPageCount(Integer tid);
+	
+	public Integer getCommodiryKeywordByPageCount(Integer tid,String keyword);
+
 }

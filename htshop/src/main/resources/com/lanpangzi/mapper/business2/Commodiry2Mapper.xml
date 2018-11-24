@@ -25,13 +25,14 @@
 	<resultMap type="com.lanpangzi.pojo.Commodiry" id="commodiryDetails">
 		<id column="cid" property="cid"/>
 		<result column="cname" property="cname"/>
+		<result column="tid" property="classify.tid"/>
 		<result column="description" property="description"/>
 		<result column="ctype" property="ctype"/>
 		<result column="counts" property="counts"/>
 		<result column="ishot" property="ishot"/>
 		<result column="isrecommand" property="isrecommand"/>
 		<result column="price" property="price"/>
-		<result column="photo" property="photo"/>
+		<result column="photo" property="photo"/> 
 		<result column="color" property="color"/>
 		
 		<!-- 指定联合的bean对象 -->

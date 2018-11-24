@@ -4,6 +4,7 @@ $(function(){
         props:['flag','temp','classifys'],
         data:function(){	
             return {
+            	
             }
         },
         methods:{
@@ -12,6 +13,7 @@ $(function(){
         		this.$emit('modify-dialogmod');
         	},
         	close:function(){
+        		//console.log(this.temp.classify.tid)
         		document.getElementById('form-modify').reset();
         		this.$emit('close-dialogmod');
         	},
@@ -19,6 +21,7 @@ $(function(){
         		const file = e.srcElement.files[0]
         		const imgURL = window.URL.createObjectURL(file)
         		this.temp.photo=imgURL
+        		
          	}
         },
         mounted:function(){
@@ -43,6 +46,7 @@ $(function(){
         		 this.urlPath=imgURL;     		
         	},
         	close:function(){
+        		
         		this.urlPath='默认图片  还原';
         		this.$emit('close-dialogadd');
         	},
@@ -149,10 +153,13 @@ $(function(){
     	}
     })
 
-
+   
 	new Vue({
 		el:'#application',
 		data:{
+			sumPage:0,
+			currentPage:1,
+			countData:0,
 			currentIndex:0,
 			currentPhoto:'',
 			classifys:[],
@@ -160,6 +167,16 @@ $(function(){
 			http:'',
 			commodiry_List:[],
 			modal:{showDialogmod:false,showDialogadd:false,showDialogdetail:false}
+		},
+		watch:{
+			countData:function(){
+				this.sumPage=Math.ceil(parseInt(this.countData)/8);
+			},
+			currentPage:function(){
+				//给当前按钮添加样式
+				$('.btn-group-pages').find('.nbtnflag').removeClass("bypage-btn")
+				$('.btn-group-pages').find('.nbtnflag').eq(this.currentPage-1).addClass("bypage-btn")
+			}
 		},
 		mounted:function(){
         	this.http=$("#http").val()
@@ -169,6 +186,7 @@ $(function(){
         	axios.post(this.http+'/adminCommodiry/getinit', params)
         		.then((response) => {
         			if(response.data.code==1){
+    					this.countData=response.data.data.datasum
 	    				var res = response.data.data.commodirys
 	    				for(var i=0 ;i<res.length;i++){  //商品数据
 	    					this.commodiry_List.push({cname:res[i].cname,ctype:res[i].ctype
@@ -210,6 +228,7 @@ $(function(){
         		.then((response) => {
     				if(response.data.code==1){
     					//插入数组中  //按钮商品+1
+    					this.countData++;
     					var commodiry = response.data.data.commodiry
     					if(this.commodiry_List.length<8){
     						//加入商品行列回显
@@ -288,7 +307,9 @@ $(function(){
         		.then((response) => {
     				if(response.data.code==1){
     					this.temp.mod=response.data.data.commodiry
-    					this.currentPhoto=this.temp.mod.photo
+    					this.temp.mod.tid=this.temp.mod.classify.tid
+    					this.currentPhoto=this.temp.mod.photo;
+    					//console.log(JSON.stringify(this.temp.mod.classify.tid))
     				}
     			})
     			.catch(function (error) {
@@ -298,6 +319,7 @@ $(function(){
 				this.modal.showDialogmod=true;
 			},
 			delCommodiry:function(cid,index){
+				
 				var flag = confirm("确认删除？？？")
 				if(flag==false)return;
 				//cid删除
@@ -309,7 +331,8 @@ $(function(){
         		.then((response) => {
     				if(response.data.code==1){
     					this.commodiry_List.splice(index,1);
-
+    					this.searchBtn();  //刷新
+    					this.currentPage=1;
     				}
     			})
     			.catch(function (error) {
@@ -338,34 +361,94 @@ $(function(){
     			});
 				this.modal.showDialogdetail=true;
 			},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			prev:function(){
-				alert("prev")
+			searchBtn:function(){
+				var forms = $('#search-form').serializeArray();
+				var params = new URLSearchParams()
+				params.append(forms[0].name,forms[0].value)	
+				params.append(forms[1].name,forms[1].value)
+				params.append('page',0)
+				axios.post(this.http+'/adminCommodiry/keyword', params)
+        		.then((response) => {
+    				if(response.data.code==1){
+    					this.countData=response.data.data.datasum
+    					var commodirys = response.data.data.commodirys
+    					this.commodiry_List=[];
+    					for(var i=0;i<commodirys.length;i++){
+    						this.commodiry_List.push({
+    							cname:commodirys[i].cname,
+    							ctype:commodirys[i].ctype,
+    							counts:commodirys[i].counts,
+    							price:commodirys[i].price,
+		    					cid:commodirys[i].cid,
+		    					photo:commodirys[i].photo})
+    					}
+    				
+    				}
+    			})
+    			.catch(function (error) {
+    			    console.log(error);
+    			});
+				
+			},
+			Tooption:function(){
+				this.searchBtn()
+			},
+			prev:function(e){
+				if(this.currentPage==1){
+					return;
+				}
+				this.number(--this.currentPage,e)
 
 			},
-			number:function(){
-				alert("number")
+			number:function(btn,e){
+				if(this.currentPage==btn&&e.target.name=='number'){
+					return;  //当前就不用了
+				}
+				this.currentPage=btn;
+				
+				var forms = $('#search-form').serializeArray();
+				var params = new URLSearchParams()
+				params.append(forms[0].name,forms[0].value)	
+				params.append(forms[1].name,forms[1].value)
+				params.append('page',btn-1)
+				axios.post(this.http+'/adminCommodiry/keyword', params)
+        		.then((response) => {
+    				if(response.data.code==1){
+    					this.countData=response.data.data.datasum
+    					var commodirys = response.data.data.commodirys
+    					this.commodiry_List=[];
+    					for(var i=0;i<commodirys.length;i++){
+    						this.commodiry_List.push({
+    							cname:commodirys[i].cname,
+    							ctype:commodirys[i].ctype,
+    							counts:commodirys[i].counts,
+    							price:commodirys[i].price,
+		    					cid:commodirys[i].cid,
+		    					photo:commodirys[i].photo})
+    					}
+    				
+    				}
+    			})
+    			.catch(function (error) {
+    			    console.log(error);
+    			});
+				
 
 			},
-			next:function(){
-				alert("next")
+			next:function(e){
+				if(this.currentPage>=this.sumPage){
+					return;
+				}
+				this.number(++this.currentPage,e)
+			},
+			keywordsubmit:function(){
+				alert("")
+				
 			}
 
 		}
 	})
-
+	
+	//$('.btn-group-pages').find('.nbtnflag').eq(0).addClass("bypage-btn")
 
 })

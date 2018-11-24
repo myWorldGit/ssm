@@ -41,8 +41,18 @@
 			WHERE did=#{did}
 	</update>
 	
+	<select id="findBykeyword" resultType="com.lanpangzi.pojo.Commodiry">
+		SELECT cid, cname,ctype,price,photo,counts  
+			FROM commodiry WHERE tid=#{tid} and cname  LIKE '%${keyword}%'
+			 ORDER BY counts DESC LIMIT #{page},8
+	</select>
 	
-	
+	<select id="getCommodiryByPageCount" resultType="int">
+		SELECT COUNT(*) FROM commodiry WHERE tid=#{tid} 
+	</select>
+	<select id="getCommodiryKeywordByPageCount" resultType="int">
+		SELECT COUNT(*) FROM commodiry WHERE tid=#{tid} and cname  LIKE '%${keyword}%'
+	</select>
 	
 	
 </mapper>

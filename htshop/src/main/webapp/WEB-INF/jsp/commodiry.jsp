@@ -65,14 +65,14 @@
 			<div class="slection-wrap" id='application'>
 				<div class="container" >
 					<div class="from-search">
-						<form>
+						<form id="search-form" >
 								<label><a href="#" @click.prevent='addCommodriy'><i class="iconfont icon-webicon308"  ></i>添加商品</a></label>
-								<select class="form-select-optional" >
+								<select class="form-select-optional" name="tid" @change="Tooption">
 									<option v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
 									
 								</select>
-								<input type="text" name="search-text" 
-									placeholder="请输入查询关键字"><a href="script:void(0)" >
+								<input type="text" name="keyword" value=""  @keyup.enter="keywordsubmit()"
+									placeholder="请输入查询关键字" ><a href="#" @click.stop.prevent='searchBtn'>
 									<span class="iconfont icon-chazhao"></span>
 								</a>
 						</form>   
@@ -97,16 +97,15 @@
 							</li>
 						</ul>
 						<div class="btn-group-pages">
-							<ul>
-								<li><a href="#" @click.prevent='prev'>上一页</a></li>
-								<li><a href="#" @click.prevent='number'>1</a></li>
-								<li><a href="#" @click.prevent='number'>2</a></li>
-								<li><a href="#" @click.prevent='number'>3</a></li>
-								<li><a href="#" @click.prevent='number'>4</a></li>
-								<li><a href="#" @click.prevent='number'>5</a></li>
-								<li><a href="#" @click.prevent='number'>6</a></li>
-								<li><a href="#" @click.prevent='number'>7</a></li>
-								<li><a href="#" @click.prevent='next'>下一页</a></li>
+							<ul v-if="sumPage>1">
+								<li><a href="#" @click.prevent='prev($event)'>上一页</a></li>
+								<li v-for="(btn,index) in sumPage" >
+								<a :class="{'bypage-btn':!index}" class='nbtnflag' name="number"  href="#" @click.prevent='number(btn,$event)'>{{btn}}
+								</a>
+								</li>
+								
+								
+								<li><a href="#" @click.prevent='next($event)'>下一页</a></li>
 							</ul>
 						</div>
 						<v-dialog-modify   :flag="modal.showDialogmod" :temp="temp.mod"
@@ -196,7 +195,7 @@
 		                			</div>
 		                			<div class="form-gorup">
 		                				<label>商品类别</label>
-		                				<select name="classify.tid" >
+		                				<select name="classify.tid" :value="temp.tid" >
 		                					<option  v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
 		                				</select>
 		                			</div>

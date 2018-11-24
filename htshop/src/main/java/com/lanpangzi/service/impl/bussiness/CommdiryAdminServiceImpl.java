@@ -52,4 +52,20 @@ public class CommdiryAdminServiceImpl implements CommodiryAdminSerivce{
 		return commodiryAdminDao.updateDetailById(detail);
 	}
 
+	@Override
+	public List<Commodiry> conditionBykeyWord(Integer tid ,String keyword,Integer page) {
+		// TODO Auto-generated method stub
+		return commodiryAdminDao.findBykeyword(tid,keyword,page);
+	}
+
+	@Override
+	public Integer getCommodiryByPageCount(Integer tid) {
+		return commodiryAdminDao.getCommodiryByPageCount(tid);
+	}
+	@Override
+	public Integer getCommodiryKeywordByPageCount(Integer tid,String keyword) {
+		return commodiryAdminDao.getCommodiryKeywordByPageCount(tid,keyword);
+	}
+
+
 }

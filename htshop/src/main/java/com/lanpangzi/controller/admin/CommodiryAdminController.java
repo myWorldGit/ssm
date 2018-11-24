@@ -50,6 +50,7 @@ public class CommodiryAdminController {
 		for(Commodiry c :commodirys) {
 			c.setPhoto(localPath +c.getPhoto());
 		}
+		form.addData("datasum", commodiryAdminExDao.getCommodiryByPageCount(tid));
 		form.addData("commodirys", commodirys);
 		form.addData("classifys", commodiryAdminExDao.findAllClassify());
 		form.setCodeAndMessage("1","success");
@@ -271,5 +272,39 @@ public class CommodiryAdminController {
 		form.setCodeAndMessage("1","success");
 		return form;
 	}
+	
+	@RequestMapping(value="/keyword",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm keywordSearch(Integer tid,HttpServletRequest request,Integer page,
+			String keyword) {
+		//查询获取  总数+ limit8个数据
+		String localUrl =request.getRequestURL().toString()
+				.replace("/adminCommodiry/keyword", "")+C_IMG_DIR;
+		List<Commodiry>list =null;
+		if(keyword!=null&& !keyword.equals("")) {
+			list=commodiryAdminExDao.conditionBykeyWord(tid,keyword,page);
+			for(Commodiry c:list) {
+				c.setPhoto(localUrl+c.getPhoto());
+			}
+			MobileJsonForm form = new  MobileJsonForm();
+			form.addData("datasum", commodiryAdminExDao.getCommodiryKeywordByPageCount(tid,keyword));
+			form.addData("commodirys", list);
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		//查询获取  总数+ limit8个数据
+		List<Commodiry> commodirys = commodiryAdminDao.getCommodiryByPage(tid, page);
+		for(Commodiry c:commodirys) {
+			c.setPhoto(localUrl+c.getPhoto());
+		}
+		MobileJsonForm form = new  MobileJsonForm();
+		form.addData("datasum", commodiryAdminExDao.getCommodiryByPageCount(tid));
+		form.addData("commodirys", commodirys);
+		form.setCodeAndMessage("1", "success");
+		
+		return form;
+	}
+	
+	
 		
 }

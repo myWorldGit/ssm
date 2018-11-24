@@ -24,4 +24,14 @@ public interface CommodiryAdminMapper {
 	public Boolean insertDetails(Destail detail);
 
 	public Boolean updateDetailById(Destail detail);
+
+	public List<Commodiry> findBykeyword(@Param("tid")Integer tid,
+			@Param("keyword") String keyword,@Param("page") Integer page);
+
+	
+	
+	public Integer getCommodiryByPageCount(@Param("tid")Integer tid);
+
+	public Integer getCommodiryKeywordByPageCount(@Param("tid")Integer tid,
+			@Param("keyword") String keyword);
 }
