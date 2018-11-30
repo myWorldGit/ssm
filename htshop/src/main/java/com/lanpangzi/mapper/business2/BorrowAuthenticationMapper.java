@@ -1,5 +1,8 @@
 package com.lanpangzi.mapper.business2;
 
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lanpangzi.pojo.Borrow;
@@ -10,6 +13,9 @@ import com.lanpangzi.pojo.Borrow;
  *
  */
 public interface BorrowAuthenticationMapper {
+	//查询四个状态
+	public Map<String,String> findAllStates(Integer uid);
+	
 	//用户id对用表中的id是否存在过
 	public Boolean IsAuthentication(@RequestParam("uid")Integer bid);
 	/**
@@ -42,5 +48,10 @@ public interface BorrowAuthenticationMapper {
 	public Boolean insertAliPayAuthentication(@RequestParam("borrow") Borrow borrow);
 	public Boolean insertPersonalAuthentication(@RequestParam("borrow") Borrow borrow);
 	
-	
+	/**
+	 * 人脸识别
+	 */
+	public Boolean insertDiscernAuthentication(@Param("uid")Integer uid ,@Param("img")String img);
+	public Boolean updateDiscernAuthentication(@Param("uid")Integer uid ,@Param("img")String img);
+	public String getDiscernAuthenticaion(Integer uid);
 }

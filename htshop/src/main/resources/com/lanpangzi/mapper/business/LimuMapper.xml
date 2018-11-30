@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.LimuMapper">
+
+	<select id="isHasLimuInfo" resultType="boolean">
+		SELECT lid FROM limu WHERE lid=#{uid} limit 0,1
+	</select>
+
+	<select id="getLimuAutheritcationInfo" resultType="com.lanpangzi.pojo.Limu">
+		SELECT * FROM limu  WHERE 
+			ishaspay=1 and (
+			alitoken!='' or 
+			facetoken !='' or
+			phonetoken !='' or
+			banktoken !=''  )
+		  	LIMIT 0,10 
+	</select>
+	
+	<select  id="getBypagesCount" resultType="int">
+		SELECT count(*) FROM limu WHERE 
+			ishaspay=1 and (
+			alitoken!='' or 
+			facetoken !='' or
+			phonetoken !='' or
+			banktoken !=''  )
+		  	LIMIT 0,10 
+	</select>
+	
+	
+	<update id="clearLimuTokens" >
+		UPDATE limu SET 
+			alitoken='',
+			facetoken='',
+			phonetoken='',
+			banktoken=''
+		 WHERE lid=#{uid}
+	</update>
+	
+	<insert id="insertLimuToken" parameterType="com.lanpangzi.pojo.Limu">
+		INSERT INTO limu 
+		<trim prefix="(" suffixOverrides="," suffix=")">
+			<if test="lid!=null">
+				lid,
+			</if>
+			<if test="alitoken!=null">
+				alitoken,
+			</if>
+			<if test="facetoken!=null">
+				facetoken,
+			</if>
+			<if test="phonetoken!=null">
+				phonetoken,
+			</if>
+			<if test="banktoken!=null">
+				banktoken,
+			</if>
+			<if test="ishaspay!=null">
+				ishaspay,
+			</if>
+			<if test="money!=null">
+				money,
+			</if>
+		</trim>
+		<trim prefix="values(" suffixOverrides="," suffix=")">
+			<if test="lid!=null">
+				#{lid},
+			</if>
+			<if test="alitoken!=null">
+				#{alitoken},
+			</if>
+			<if test="facetoken!=null">
+				#{facetoken},
+			</if>
+			<if test="phonetoken!=null">
+				#{phonetoken},
+			</if>
+			<if test="banktoken!=null">
+				#{banktoken},
+			</if>
+			<if test="ishaspay!=null">
+				#{ishaspay},
+			</if>
+			<if test="money!=null">
+				#{money},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateLimuToken" parameterType="com.lanpangzi.pojo.Limu">
+		UPDATE limu <set>
+			<if test="alitoken!=null">
+				alitoken=#{alitoken},
+			</if>
+			<if test="facetoken!=null">
+				facetoken=#{facetoken},
+			</if>
+			<if test="phonetoken!=null">
+				phonetoken=#{phonetoken},
+			</if>
+			<if test="banktoken!=null">
+				banktoken=#{banktoken},
+			</if>
+			<if test="ishaspay!=null">
+				ishaspay=#{ishaspay},
+			</if>
+			<if test="money!=null">
+				money=#{money},
+			</if>
+		</set>
+		WHERE lid=#{lid}
+	</update>
+</mapper>

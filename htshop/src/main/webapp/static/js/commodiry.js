@@ -46,7 +46,6 @@ $(function(){
         		 this.urlPath=imgURL;     		
         	},
         	close:function(){
-        		
         		this.urlPath='默认图片  还原';
         		this.$emit('close-dialogadd');
         	},
@@ -65,17 +64,60 @@ $(function(){
     	props:['flag','temp','http'],
     	data:function(){
     		return {
-    		args:{active:'',did:0,img:'',index:0}
+    		args:{active:'',did:0,img:'',index:0},
+    		text:''
     		}
+    	},	
+    	mounted:function(){	
     	},
     	methods:{
+    		delcolor:function(index){
+    			//console.log(this.temp.color)
+    			$('.color-list-item').eq(index).css('background-color','#e6478b ');
+    			this.$emit("del-color",index);
+    			
+    		},
+    		addColor:function(){
+    			if(this.text==''||this.text.length>6
+    					||this.text.charAt(this.text.length-1)!='色'){
+    				alert('长度不能大于6个  色字结尾  如  "红色"   ')
+    				return;
+    			}
+    		
+    			this.temp.color.push(this.text);
+    			this.text='';
+    		},
+    		saveColor:function(){
+    			var len = this.temp.color.length;
+    			var arr = this.temp.color;
+    			var str='';
+    			for(var i=0; i<len;i++){
+    				if(arr[i]==''){
+    					continue;
+    				}
+    				str+=arr[i]+';';
+    			}
+    			
+    			var params = new URLSearchParams()
+    			params.append('cid', this.temp.cid)
+     			params.append('color', str.slice(0,str.length-1))
+    			axios.post(this.http+'/adminCommodiry/modifycolor', params)
+        		.then((response) => {
+    				if(response.data.code==1){
+    	    		//	alert("success")
+    					this.$emit('close-dialogdetail');
+    				}
+    			})
+    			.catch(function (error) {
+    			    console.log(error);
+    			});
+    		},
     		close:function(){
     			this.$emit('close-dialogdetail');
     		},
     		append:function(){
     			document.getElementById("detailsFile").click();
     			this.args.active='insert';
-    			//加个行为  删除还是插入
     			//添加进去
     		},
     		replace:function(img,did,index){
@@ -177,6 +219,8 @@ $(function(){
 				$('.btn-group-pages').find('.nbtnflag').removeClass("bypage-btn")
 				$('.btn-group-pages').find('.nbtnflag').eq(this.currentPage-1).addClass("bypage-btn")
 			}
+		},
+		created:function(){
 		},
 		mounted:function(){
         	this.http=$("#http").val()
@@ -353,7 +397,8 @@ $(function(){
     				if(response.data.code==1){
     					this.temp.det=response.data.data.commodiry
     					this.temp.det.cid=response.data.data.cid;   /****ccccccccccccccc**/
-    					console.log(this.temp)
+    				//	console.log(JSON.stringify(response.data.data.color))
+    					this.temp.det.color=response.data.data.color;
     				}
     			})
     			.catch(function (error) {
@@ -441,9 +486,12 @@ $(function(){
 				}
 				this.number(++this.currentPage,e)
 			},
-			keywordsubmit:function(){
-				alert("")
-				
+			onSubmit:function(){
+				this.searchBtn()
+			},
+			delColor:function(index){
+			//	alert(index)
+				this.temp.det.color.splice(index,1);
 			}
 
 		}

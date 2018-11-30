@@ -5,6 +5,12 @@ import java.util.Map;
 import com.lanpangzi.pojo.Borrow;
 
 public interface BorrowAuthenticationService2 {
+	
+	public Boolean saveAuthDiscernImage(Integer uid ,String img);
+	public String getAuthDiscernInfo(Integer uid);
+	
+	public Map<String ,String> findAutheAllStates(Integer uid);
+	
 	public Boolean IsExist(Integer uid);
 	
 	public Boolean saveBankAuthentication(Borrow borrow);

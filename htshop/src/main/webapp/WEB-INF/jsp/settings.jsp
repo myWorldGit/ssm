@@ -43,8 +43,8 @@
 					</a>
 					
 				</li>
-				<li class="aside-li"><a href="#"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
-				</span>未开发的</a></li>
+				<li class="aside-li"><a href="${pageContext.request.contextPath }/admin/limu"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
+				</span>立木征信</a></li>
 				<li class="aside-li"><a href="#"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
 				</span>未开发的</a></li>
 				<li class="aside-li aside-active">

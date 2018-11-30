@@ -54,5 +54,11 @@
 		SELECT COUNT(*) FROM commodiry WHERE tid=#{tid} and cname  LIKE '%${keyword}%'
 	</select>
 	
+	<select id="findCommodryColors" resultType="string">
+		SELECT color FROM commodiry WHERE cid=#{cid} LIMIT 0,1
+	</select>
 	
+	<update id="modifyCommodiryColors">
+		UPDATE commodiry SET color=#{color} WHERE cid=#{cid}
+	</update>
 </mapper>

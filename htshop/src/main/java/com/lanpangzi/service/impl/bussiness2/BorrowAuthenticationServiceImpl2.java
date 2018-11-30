@@ -107,5 +107,40 @@ public class BorrowAuthenticationServiceImpl2 implements BorrowAuthenticationSer
 		}
 		return map;
 	}
+	//查询所有的状态信息
+	@Override
+	public Map<String, String> findAutheAllStates(Integer uid) {
+		if(!this.IsExist(uid)) {
+			Map<String,String> map =new HashMap<String,String>();
+			map.put("bank_state", "0");
+			map.put("pay_state", "0");
+			map.put("discern_state", "0");
+			map.put("operator_state", "0");
+			return map;
+		}
+		Map<String,String> map2 = borrowAuthenticationDao.findAllStates(uid);
+		for(String s : map2.keySet()) {
+			if(map2.get(s)==null ||map2.get(s).equals("")) {
+				map2.put(s, "0");
+			}
+		}
+		return map2;
+	}
+
+	@Override
+	public Boolean saveAuthDiscernImage(Integer uid ,String img) {
+		if(this.IsExist(uid)) {//has
+			return borrowAuthenticationDao.updateDiscernAuthentication(uid, img);
+		}
+		return borrowAuthenticationDao.insertDiscernAuthentication(uid, img);
+	}
+
+
+
+	@Override
+	public String getAuthDiscernInfo(Integer uid) {
+		// TODO Auto-generated method stub
+		return borrowAuthenticationDao.getDiscernAuthenticaion(uid);
+	}
 
 }

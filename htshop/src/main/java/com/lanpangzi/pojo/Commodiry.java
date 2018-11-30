@@ -68,13 +68,6 @@ public class Commodiry {
 		this.color = color;
 	}
 
-	public List<Destail> getDestails() {
-		return details;
-	}
-
-	public void setDestails(List<Destail> destails) {
-		this.details = destails;
-	}
 
 	public Integer getCid() {
         return cid;

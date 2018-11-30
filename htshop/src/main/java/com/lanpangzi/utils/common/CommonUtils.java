@@ -14,4 +14,7 @@ public class CommonUtils{
 		}
 		return list;
 	}
+	public static String firstWordToBig(String str) {
+		return str.toUpperCase().charAt(0)+str.substring(1);
+	}
 }

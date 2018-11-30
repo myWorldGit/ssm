@@ -34,4 +34,9 @@ public interface CommodiryAdminMapper {
 
 	public Integer getCommodiryKeywordByPageCount(@Param("tid")Integer tid,
 			@Param("keyword") String keyword);
+
+	public String findCommodryColors(Integer cid);
+
+	public Boolean modifyCommodiryColors(@Param("color")String color,
+			@Param("cid")Integer cid);
 }

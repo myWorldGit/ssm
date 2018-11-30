@@ -1,5 +1,6 @@
 package com.lanpangzi.service.impl.bussiness;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,19 @@ public class CommdiryAdminServiceImpl implements CommodiryAdminSerivce{
 	@Override
 	public Integer getCommodiryKeywordByPageCount(Integer tid,String keyword) {
 		return commodiryAdminDao.getCommodiryKeywordByPageCount(tid,keyword);
+	}
+
+	@Override
+	public List<String> findColorArray(Integer cid) {
+		String colors = commodiryAdminDao.findCommodryColors(cid);	
+		
+		return Arrays.asList(colors.split(";"));
+	}
+
+	@Override
+	public Boolean modifyCommodiryColors(String color, Integer cid) {
+		
+		return commodiryAdminDao.modifyCommodiryColors(color,cid);
 	}
 
 

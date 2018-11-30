@@ -26,5 +26,9 @@ public interface CommodiryAdminSerivce {
 	public Integer getCommodiryByPageCount(Integer tid);
 	
 	public Integer getCommodiryKeywordByPageCount(Integer tid,String keyword);
+	//查找颜色
+	public List<String> findColorArray(Integer cid);
+
+	public Boolean modifyCommodiryColors(String color, Integer cid);
 
 }

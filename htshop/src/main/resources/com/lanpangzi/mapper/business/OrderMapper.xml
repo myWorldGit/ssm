@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.OrderMapper">
+	<select id="findAllOrdersByUid" resultType="com.lanpangzi.pojo.Orders">
+		SELECT * FROM orders WHERE uid=#{uid} 
+			<if test="cstate!=null">
+				and cstate=#{cstate}
+			</if>
+			
+	</select>
+	<select id="findOrderDetailByOid" resultType="com.lanpangzi.pojo.Orders">
+		SELECT * FROM orders WHERE oid=#{oid} LIMIT 0,1
+	</select>
+	<!--    此处扩展分期订单   -->
+	<insert id="createOrder" parameterType="com.lanpangzi.pojo.Orders">
+		INSERT INTO orders
+		 <trim prefix="(" suffix=")" suffixOverrides=","> 
+			 <if test="ordernumber != null"> ordernumber, </if> 
+			 <if test="cstate != null"> cstate, </if> 
+			 <if test="uid != null"> uid, </if> 
+			 <if test="cid != null"> cid, </if> 
+			 <if test="cname != null"> cname, </if> 
+			 <if test="ctype != null"> ctype, </if> 
+			 <if test="photo != null"> photo, </if>
+			 <if test="price != null"> price, </if> 
+			 <if test="color != null"> color, </if> 
+			 <if test="countmonth != null"> countmonth, </if>
+			 <if test="rate != null"> rate, </if> 
+			 <if test="beginbystages != null"> beginbystages, </if> 
+			 <if test="rname != null"> rname, </if> 
+			 <if test="phone != null"> photo, </if>
+			 <if test="address != null"> address, </if> 
+			 <if test="express != null"> express, </if> 
+			 <if test="company != null"> company, </if> 
+			 <if test="vid != null"> vid, </if>
+			 <if test="ordertime != null"> ordertime, </if> 
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides=","> 
+			 <if test="ordernumber != null"> #{ordernumber}, </if> 
+			 <if test="cstate != null"> #{cstate}, </if> 
+			 <if test="uid != null"> #{uid}, </if> 
+			 <if test="cid != null"> #{cid}, </if> 
+			 <if test="cname != null"> #{cname}, </if> 
+			 <if test="ctype != null"> #{ctype}, </if> 
+			 <if test="photo != null">#{ photo}, </if>
+			 <if test="price != null"> #{price}, </if> 
+			 <if test="color != null"> #{color}, </if> 
+			 <if test="countmonth != null"> #{countmonth}, </if>
+			 <if test="rate != null"> #{rate, </if> 
+			 <if test="beginbystages != null"> #{beginbystages}, </if> 
+			 <if test="rname != null"> #{rname}, </if> 
+			 <if test="phone != null">#{ photo}, </if>
+			 <if test="address != null"> #{address}, </if> 
+			 <if test="express != null"> #{express}, </if> 
+			 <if test="company != null"> #{company}, </if> 
+			 <if test="vid != null"> #{vid}, </if>
+			 <if test="ordertime != null">#{ ordertime}, </if> 
+	     </trim>
+
+
+	</insert>
+	<delete id="deleteOrderByOid" >
+		DELETE FROM orders WHERE oid=#{oid}
+	</delete>
+
+</mapper>

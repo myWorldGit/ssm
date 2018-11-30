@@ -22,6 +22,8 @@
 	<!-- 视图  处 -->
 	<mvc:view-controller path="admin/settings" view-name="settings"/>
 	<mvc:view-controller path="admin/commodiry" view-name="commodiry"/>
+	<mvc:view-controller path="admin/limu" view-name="limu"/>
+	
 	
 	<!-- 处理请求返回json字符串的中文乱码问题 -->
     <mvc:annotation-driven>

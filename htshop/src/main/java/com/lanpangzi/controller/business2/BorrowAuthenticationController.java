@@ -1,6 +1,7 @@
 package com.lanpangzi.controller.business2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.lanpanzi.service2.BorrowAuthenticationService2;
 @RequestMapping("/borrowAuthentication")
 @Controller
 public class BorrowAuthenticationController {
+	public static final String DISCERN_PATH = "/borrowAuthentication/getdiscern";
 	@Autowired
 	private BorrowAuthenticationService2 borrowAuthenticationDao;
 
@@ -176,8 +178,8 @@ public class BorrowAuthenticationController {
 			Map<String,String> map=borrowAuthenticationDao.findAliPayAuthentication(uid);
 			String localUrl = request.getRequestURL().toString();
 			if(map.get("payimg1")==null || map.get("payimg1").equals("")) {
-				form.setCodeAndMessage("1","success");
-				form.addData("authInfo","");
+				form.setCodeAndMessage("2","空字段");
+				//form.addData("authInfo","");
 				return form;
 			}
 			for(String key: map.keySet()) {
@@ -203,7 +205,7 @@ public class BorrowAuthenticationController {
 	
 		if(uid !=null && uid!=-1) {
 			if(map.get("justbank")==null || map.get("justbank").equals("")) {
-				form.setCodeAndMessage("1","success");
+				form.setCodeAndMessage("2","没有数据");
 				form.addData("authInfo", "");
 				return form;
 			}
@@ -218,6 +220,84 @@ public class BorrowAuthenticationController {
 		form.setCodeAndMessage("0", "token异常");
 		return form;
 	}
+	
+	
+	
+	@RequestMapping(value="/allstate",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm findAllAuthStates(@RequestParam("token")String token) {
+		Integer uid = TokenUtil.getAppUID(token);
+		MobileJsonForm form = new MobileJsonForm();
+		if(uid !=null && uid!=-1) {
+			form.addData("states",borrowAuthenticationDao.findAutheAllStates(uid));
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		form.setCodeAndMessage("0", "token异常");
+		return form;
+	}
+	
+	
+	
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/setdiscern",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm setDiscernInfo(@RequestParam("token")String token,
+			MultipartHttpServletRequest request) {
+		Integer uid = TokenUtil.getAppUID(token);
+		MobileJsonForm form = new MobileJsonForm();
+		if(uid !=null && uid!=-1) {
+			MultipartFile multifile = request.getFile("myseifface");
+			String realPath = request.getRealPath(DISCERN_PATH);
+			String oldFile = borrowAuthenticationDao.getAuthDiscernInfo(uid);
+			String filename = UploadUtils.uploadToServer(realPath, multifile);
+			if(borrowAuthenticationDao.saveAuthDiscernImage(uid, filename)!=true) {
+				form.setCodeAndMessage("2", "数据库异常");
+				return form;
+			}
+			if(oldFile!=null) {
+				UploadUtils.clearOldImage(realPath, Arrays.asList(oldFile));
+			}
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		form.setCodeAndMessage("0", "token异常");
+		return form;
+	}
+
+	@RequestMapping(value="/getdiscern",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm findDiscernInfo(@RequestParam("token")String token,
+			HttpServletRequest request) {
+		Integer uid = TokenUtil.getAppUID(token);
+		MobileJsonForm form = new MobileJsonForm();
+		if(uid !=null && uid!=-1) {
+			if(!borrowAuthenticationDao.IsExist(uid)) {
+				form.setCodeAndMessage("2", "没有数据");
+				return form; 
+			}
+			String discern = borrowAuthenticationDao.getAuthDiscernInfo(uid);
+			
+			if(discern==null || discern.equals("")) {
+				form.setCodeAndMessage("2", "没有数据");
+				return form; 
+			}
+			form.addData("discern",	request.getRequestURL().toString()+ discern);
+			form.setCodeAndMessage("1", "success");
+			return form; 
+		}
+		form.setCodeAndMessage("0", "token异常");
+		return form;
+	}
+	
+	/**
+	 * 垃圾立木的token保存在下面
+	 */
+	
+	
+	
+	
+	
 	
 	
 }

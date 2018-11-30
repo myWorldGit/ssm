@@ -43,8 +43,8 @@
 					</a>
 				
 				</li>
-				<li class="aside-li"><a href="#"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
-				</span>未开发的</a></li>
+				<li class="aside-li"><a href="${pageContext.request.contextPath }/admin/limu"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
+				</span>立木征信</a></li>
 				<li class="aside-li"><a href="#"><span class="iconfont icon-shezhi">&nbsp;&nbsp;
 				</span>未开发的</a></li>
 				<li class="aside-li">
@@ -53,6 +53,9 @@
 						界面设置
 
 					</a>
+				</li>
+			</ul>
+				
 		
 		</div>
 
@@ -65,13 +68,13 @@
 			<div class="slection-wrap" id='application'>
 				<div class="container" >
 					<div class="from-search">
-						<form id="search-form" >
+						<form id="search-form" @submit.prevent="onSubmit">
 								<label><a href="#" @click.prevent='addCommodriy'><i class="iconfont icon-webicon308"  ></i>添加商品</a></label>
 								<select class="form-select-optional" name="tid" @change="Tooption">
 									<option v-for="type in classifys" :value="type.tid">{{type.tname}}</option>
 									
 								</select>
-								<input type="text" name="keyword" value=""  @keyup.enter="keywordsubmit()"
+								<input type="text" name="keyword" value=""  
 									placeholder="请输入查询关键字" ><a href="#" @click.stop.prevent='searchBtn'>
 									<span class="iconfont icon-chazhao"></span>
 								</a>
@@ -115,7 +118,7 @@
 						<v-dialog-add   :flag="modal.showDialogadd" :classifys="classifys"
 						@close-dialogadd="closeDialogadd" @insert-dialogadd="addDialogadd"> 
 						</v-dialog-add>
-						<v-dialog-detail :http="http" :flag="modal.showDialogdetail"
+						<v-dialog-detail :http="http" :flag="modal.showDialogdetail" @del-color='delColor' 
 						 :temp="temp.det" @close-dialogdetail="closeDialogdetail"> </v-dialog-detail>
 
 					</div>
@@ -155,14 +158,26 @@
 	                		<a href="#" class="delete" @click.prevent='deletes(t.image,t.did,index)'>删除</a>
 		                		</li>		            
 		                	</ul>
-		                
 		                	
-		                	
-		              		
-		                    <div class="dialog_btn">
-		                        <a href="javascript:;" class="btn" @click="append">添加</a>
+		                    <div class="dialog_btn" style="margin-bottom: 20px;">
+		                        <a href="javascript:;" class="btn" @click="append">添加图</a>
 		                        <a href="javascript:;" class="btn" @click="close">取消</a>
 		                    </div>
+		                   	<hr/>
+		                    <div class="color-list-wrap">
+		                		<input  type="text"  v-model='text' />
+		                		<a class='add' href="#" @click.prevent='addColor'>添加颜色</a >
+		                		<a href="#" class='save' @click.prevent='saveColor'>保存颜色</a>
+		                		<div>
+		                		<select multiple="multiple" class='dispalySelect' >
+		                			<option   @click="delcolor(index)" v-for="(c ,index) in temp.color" >
+		                				{{c}}
+		                			</option>
+		                		</select>
+		         		
+		                		</div>
+		                		
+		                	</div>
 		                </div>
 		            </div>
 		        </div>

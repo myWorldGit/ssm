@@ -1,7 +1,6 @@
 package com.lanpangzi.controller.admin;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -9,26 +8,20 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.aliyun.oss.common.comm.ServiceClient.Request;
-import com.lanpangzi.mapper.business.CommodiryAdminMapper;
 import com.lanpangzi.pojo.Commodiry;
 import com.lanpangzi.pojo.Destail;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.UploadUtils;
 import com.lanpanzi.service2.CommodiryService2;
 import com.lanpanzi.service2.api.CommodiryAdminSerivce;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller
 @RequestMapping("/adminCommodiry")
@@ -85,7 +78,8 @@ public class CommodiryAdminController {
 		List<Destail> details = commodiryAdminDao.findAllDetails(cid);
 		for(Destail d :details) {
 			d.setImage(localUrl + d.getImage());
-		}
+		}  
+		form.addData("color", commodiryAdminExDao.findColorArray(cid));
 		form.addData("commodiry", details);
 		form.setCodeAndMessage("1","success"); 
 		return form;
@@ -305,6 +299,18 @@ public class CommodiryAdminController {
 		return form;
 	}
 	
+	
+	@RequestMapping(value="/modifycolor",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm modifyCommodifyColors(String color,Integer cid) {
+		MobileJsonForm form = new MobileJsonForm();
+		if(commodiryAdminExDao.modifyCommodiryColors(color,cid)) {
+			form.setCodeAndMessage("1", "success");	
+			return form;
+		}	
+		form.setCodeAndMessage("1", "success");
+		return form;
+	}
 	
 		
 }

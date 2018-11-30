@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanpangzi.mapper.business2.BorrowAuthenticationMapper">
+	<!-- 状态信息 -->
+	<select id="getDiscernAuthenticaion" resultType="string">
+		SELECT discern  FROM borrow WHERE bid=#{uid} LIMIT 0,1
+	</select>
+	<insert id="insertDiscernAuthentication">
+		INSERT INTO borrow (bid,discern,discern_state) VALUES(#{uid},#{img},1) 
+	</insert>
+	<update id="updateDiscernAuthentication">
+		UPDATE  borrow SET discern=#{img},discern_state=1 WHERE bid=#{uid}
+	</update>  
+	
+	<select id="findAllStates" resultType="java.util.Map">
+		 SELECT discern_state ,bank_state,operator_state,pay_state
+			FROM borrow WHERE bid=#{uid} LIMIT 0,1		  
+	</select>
+
+
 	<select id="IsAuthentication" resultType="boolean">
 		SELECT bid FROM borrow WHERE bid=#{uid} LIMIT 0,1
 	</select>
@@ -39,6 +56,7 @@
 		UPDATE borrow 
 			SET bank_a = #{bankA}
 			   ,bank_b = #{bankB}
+			   ,bank_state=1
 			WHERE bid=#{bid} 
 	</update>
 	<update id="updateAliPayAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
@@ -47,6 +65,7 @@
 			   ,pay_b = #{payB}
 			   ,pay_c = #{payC}
 			   ,pay_d = #{payD}
+			   ,pay_state=1
 			WHERE bid=#{bid} 
 	</update>
 	<update id="updatePersonalAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
@@ -55,21 +74,23 @@
 			   ,operator_idcard =#{operatorIdcard}
 			   ,operator_name = #{operatorName}
 			   ,is_agreement = #{isAgreement}
+			   ,operator_state=1
 			WHERE bid=#{bid} 
 	</update>
 	<insert id="insertBankAuthentication" parameterType="com.lanpangzi.pojo.Borrow"> 
-		INSERT INTO borrow (bid ,bank_a,bank_b) 
-				VALUES(#{bid},#{bankA},#{bankB})
+		INSERT INTO borrow (bid ,bank_a,bank_b,bank_state) 
+				VALUES(#{bid},#{bankA},#{bankB},1)
 	</insert>
 	<insert id="insertAliPayAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
-		INSERT INTO borrow (bid ,pay_a,pay_b,pay_c,pay_d) 
-				VALUES(#{bid},#{payA},#{payB},#{payC},#{payD})
+		INSERT INTO borrow (bid ,pay_a,pay_b,pay_c,pay_d,pay_state) 
+				VALUES(#{bid},#{payA},#{payB},#{payC},#{payD},1)
 	</insert>
 	<insert id="insertPersonalAuthentication" parameterType="com.lanpangzi.pojo.Borrow">
-		INSERT INTO borrow (bid ,operator_phone,operator_idcard,operator_name,is_agreement) 
+		INSERT INTO borrow (bid ,operator_phone,operator_idcard,operator_name,is_agreement
+		,operator_state) 
 				VALUES(#{bid},#{operatorPhone},#{operatorIdcard}
-					  				,#{operatorName},#{isAgreement})
-	</insert>
+					  				,#{operatorName},#{isAgreement},1)
+	</insert>  
 	
 	
 	

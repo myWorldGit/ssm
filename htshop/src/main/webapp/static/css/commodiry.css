@@ -365,3 +365,46 @@
 .bypage-btn {
 	background-color: rgba(255,2,2,.4) !important;
 }
+.color-list-wrap {
+	width: 600px;
+	margin: 5px auto;
+}
+.color-list-item {
+	padding: 4px 3px;
+	display: inline-block;
+	font-size: 12px
+	position:absolute;
+	text-overflow: ellipsis;
+	white-space: normal;
+	overflow: hidden;
+	color: #fff;
+}
+.color-list-item:hover {
+	cursor: pointer;
+}
+.color-list-wrap >input{
+	height: 30px;
+	vertical-align: super;
+	display: inline-block;
+}
+.color-list-wrap >a {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 10px;
+	height: 30px;
+	font-size: 14px;
+	vertical-align: top;
+	color: #fff;
+}
+.color-list-wrap> .add {
+	background-color: rgb(29, 137, 52);
+}
+.color-list-wrap >.save {
+	background-color: rgb(52,58,64);
+}
+.dispalySelect {
+	overflow: visible;
+	max-height:200px;
+	width: 100px;
+	text-align: center;
+}
