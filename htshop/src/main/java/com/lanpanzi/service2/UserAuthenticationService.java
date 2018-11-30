@@ -15,5 +15,7 @@ public interface UserAuthenticationService {
 	 * 	查找手机号是否被注册
 	 */
 	public String findIsRegisterAuthentication(String phone);
+	public Boolean modifyHeaderPhoto(Users user);
+	public Boolean modifyforgetPassword(String phone, String password);
 
 }

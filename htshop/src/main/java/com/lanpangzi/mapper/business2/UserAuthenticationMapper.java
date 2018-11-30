@@ -27,5 +27,11 @@ public interface UserAuthenticationMapper {
 	public String findIsRegister(@Param("phone")String phone);
 	
 	
+	public Boolean modifyHeaderPhoto(Users user);
+	
+	public Boolean modifyforgetPassword(@Param("phone")String phone, 
+			@Param("password")String password);
+	
+	
 	
 }

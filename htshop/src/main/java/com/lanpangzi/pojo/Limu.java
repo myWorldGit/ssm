@@ -9,7 +9,14 @@ public class Limu {
 	private Integer ishaspay;
 	private Double money;
 	private Users user;
+	private Usersextend userex;
 	
+	public Usersextend getUserex() {
+		return userex;
+	}
+	public void setUserex(Usersextend userex) {
+		this.userex = userex;
+	}
 	public Users getUser() {
 		return user;
 	}

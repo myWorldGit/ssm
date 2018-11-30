@@ -27,5 +27,15 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 	public String findIsRegisterAuthentication(String phone) {
 		return userAuthenticationDao.findIsRegister(phone);
 	}
+	@Override
+	public Boolean modifyHeaderPhoto(Users user) {
+		// TODO Auto-generated method stub
+		return userAuthenticationDao.modifyHeaderPhoto(user);
+	}
+	@Override
+	public Boolean modifyforgetPassword(String phone, String password) {
+		// TODO Auto-generated method stub
+		return userAuthenticationDao.modifyforgetPassword(phone,password);
+	}
 
 }

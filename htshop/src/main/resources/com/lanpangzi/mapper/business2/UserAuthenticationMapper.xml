@@ -15,4 +15,23 @@
 			values(#{phone},#{password},#{createTime})
 	</insert>
 	
+	
+	<update id="modifyHeaderPhoto"  parameterType="com.lanpangzi.pojo.Users">
+		UPDATE users 
+			<set>
+				<if test="photo!=null">
+					photo=#{photo},
+				</if>
+				<if test="loginpassword!=null">
+					loginpassword=#{loginpassword},
+				</if>
+			</set>
+			WHERE uid=#{uid}
+	</update>
+	
+	<update id="modifyforgetPassword">
+		UPDATE users SET
+		 loginpassword	=#{password} WHERE phone=#{phone}
+	</update>
+	
 </mapper>

@@ -5,14 +5,27 @@
 	<select id="isHasLimuInfo" resultType="boolean">
 		SELECT lid FROM limu WHERE lid=#{uid} limit 0,1
 	</select>
-
-	<select id="getLimuAutheritcationInfo" resultType="com.lanpangzi.pojo.Limu">
-		SELECT * FROM limu  WHERE 
-			ishaspay=1 and (
-			alitoken!='' or 
-			facetoken !='' or
-			phonetoken !='' or
-			banktoken !=''  )
+	
+	<resultMap type="com.lanpangzi.pojo.Limu" id="limuuserInfo">
+		 <id column="lid" property="lid"/>
+         <result column="alitoken" property="alitoken"/>
+         <result column="facetoken" property="facetoken"/>
+         <result column="phonetoken" property="phonetoken"/>
+         <result column="banktoken" property="banktoken"/>
+         <result column="ishaspay" property="ishaspay"/>
+         <result column="money" property="money"/>
+		<association property="user" javaType="com.lanpangzi.pojo.Users">
+         <result column="username" property="username"/>
+         <result column="phone" property="phone"/>
+		</association>
+	</resultMap>
+	<select id="getLimuAutheritcationInfo" resultMap="limuuserInfo">
+		SELECT l.*,u.*   FROM limu l LEFT JOIN users u  ON u.uid=l.lid
+		  WHERE   
+			l.ishaspay>0 and  
+			l.alitoken!='' and 
+			l.phonetoken !='' and
+			l.banktoken !=''  
 		  	LIMIT 0,10 
 	</select>
 	

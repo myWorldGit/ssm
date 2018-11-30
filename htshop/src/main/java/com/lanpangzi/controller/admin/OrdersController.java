@@ -95,7 +95,7 @@ public class OrdersController {
 					.replace("/order/allOrder", "")+CommodiryAdminController.C_IMG_DIR;
 			String state = request.getParameter("state");
 			List <Orders> list = new ArrayList<Orders>();
-			if(state!=null) {
+			if(state!=null) {	
 				list = orderDao.findAllOrdersByUid(uid, Integer.parseInt(state));
 			}else {
 				list = orderDao.findAllOrdersByUid(uid, null);

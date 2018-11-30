@@ -38,6 +38,23 @@ public class Users {
 		return uid;
 	}
 
+	public Users(Integer uid, String photo) {
+		super();
+		this.uid = uid;
+		this.photo = photo;
+	}
+
+	public Users(Integer uid, String username, String loginpassword) {
+		super();
+		this.uid = uid;
+		this.username = username;
+		this.loginpassword = loginpassword;
+	}
+
+	public Users() {
+		super();
+	}
+
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}

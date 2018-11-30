@@ -71,18 +71,16 @@
 					<hr>
 					<ul class="list-tb" >
 						<li class="list-tb-header">
-							<div>征信业务</div>
+							<div>用户名</div>
+							<div>手机号码</div>
+							
 							<div>下款额度</div>
 							<div>管理</div>
 						</li>
 						<li class="list-tb-slection"  v-for="(i,index) in list">
-							<div>
-							<span v-if='i.alitoken!=""'>-阿里</span>
-							<span v-if='i.facetoken!=""'>-人脸</span>
-							<span v-if='i.phonetoken!=""'>-运营商</span>
-							<span v-if='i.banktoken!=""'>-央行</span>
-							</div>
-							<div> <input class="money" v-model='i.money' type="text"/>元</div>
+							<div v-text='i.user.username'></div>
+							<div v-text='i.user.phone'></div>
+							<div> <input  class="money" v-model='i.money' type="text"/>元</div>
 							<div class="operativebtn" ><a class="find" href="#" @click.prevent='lookup(i)'>查看</a>
 								<a @click.prevent='nopass(index,i)' class="nopass" href="#">不通过</a>
 								<a @click.prevent='pass(index,i)' class="pass" href="#">通过</a></div>
@@ -202,7 +200,7 @@ Vue.component('modal-find',{
 								}
 							}).catch(function (error) {
 							    console.log(error);
-							});
+							}); 
 						}
 					}).catch(function (error) { 
 					    console.log(error);
@@ -243,6 +241,7 @@ Vue.component('modal-find',{
     		.then((response) => {
 				if(response.data.code==1){
 	    			this.list=response.data.data.items
+	    			console.log(JSON.stringify(this.list))
 				}
 			}).catch(function (error) {
 			    console.log(error);
