@@ -20,8 +20,8 @@ import com.lanpangzi.pojo.Commodiry;
 import com.lanpangzi.pojo.Destail;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.UploadUtils;
-import com.lanpanzi.service2.CommodiryService2;
-import com.lanpanzi.service2.api.CommodiryAdminSerivce;
+import com.lanpanzi.service.api2.CommodiryAdminSerivce;
+import com.lanpanzi.service.service2.CommodiryService2;
 
 @Controller
 @RequestMapping("/adminCommodiry")

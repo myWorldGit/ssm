@@ -1,6 +1,8 @@
 package com.lanpangzi.controller.business2;
 
+
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,21 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lanpangzi.controller.admin.CommodiryAdminController;
-import com.lanpangzi.pojo.Classify;
-import com.lanpangzi.pojo.Commodiry;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
-import com.lanpanzi.service2.CommodiryService2;
+import com.lanpanzi.service.api2.SystemInfomationService;
+import com.lanpanzi.service.service2.CommodiryService2;
 
 @Controller
 @RequestMapping("/commodiry")
 public class CommodiryController2 {
 	@Autowired
 	private CommodiryService2 commodiryDao;
+	@Autowired
+	private SystemInfomationService systemInfomationDao;
 	
 	@RequestMapping(value="/getdetail" ,method=RequestMethod.POST)
 	@ResponseBody
@@ -84,4 +86,83 @@ public class CommodiryController2 {
 		form.setCodeAndMessage("0", "token异常");
 		return form;
 	}
+	
+	
+	
+	//推荐 2条  商品销量逆序
+	@RequestMapping(value="/bycount2" ,method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm getByCountRecommendCommodiry(HttpServletRequest request,
+			 String token) {
+		Integer uid = TokenUtil.getAppUID(token);
+		MobileJsonForm form =new  MobileJsonForm();
+		if(uid!=null && uid!=-1) {
+			List<Map<String,String>> list =commodiryDao.getByCount2Commodiry();
+			if(list !=null &&list.size()>0) {
+				String localUrl = request.getScheme()+"://"+request.getServerName()+":"+
+						request.getServerPort()+request.getContextPath()
+						+CommodiryAdminController.C_IMG_DIR;
+				for(Map<String,String> m :list) {
+					m.put("photo", localUrl+m.get("photo"));
+				}
+				System.out.println(uid);
+				form.addData("infocount", systemInfomationDao.getUnreadInfomationCount(uid));
+				form.addData("commodirys",list);
+				form.setCodeAndMessage("1", "success");
+				return form;
+			}	
+			form.addData("infocount", systemInfomationDao.getUnreadInfomationCount(uid));
+			form.setCodeAndMessage("2", "null data");
+			return form;
+		}
+		form.setCodeAndMessage("2", "token exception");
+		return form; 
+		
+	}
+	//额度推荐   价格逆序 
+	@RequestMapping(value="/byamount4" ,method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm getByAmountRecommendCommodiry(HttpServletRequest request,
+			String token) {
+		MobileJsonForm form =new  MobileJsonForm();
+		Integer uid =TokenUtil.getAppUID(token);
+		if(uid!=null &&uid != -1) {
+			List<Map<String,String>> list= commodiryDao.getByAmount4Commodiry();
+			if(list !=null &&list.size()>0) {
+				String localUrl = request.getScheme()+"://"+request.getServerName()+":"+
+				request.getServerPort()+request.getContextPath()+CommodiryAdminController.C_IMG_DIR;
+				for(Map<String,String> m :list) { 
+					m.put("photo", localUrl+m.get("photo"));
+				}
+				form.addData("maxAmount", commodiryDao.getUserMaxAmount(uid));
+				form.addData("commodirys",list);
+				form.setCodeAndMessage("1", "success");
+				return form;
+			}
+			form.setCodeAndMessage("2", "null data");
+			form.addData("maxAmount", commodiryDao.getUserMaxAmount(uid));
+			return form;
+		}
+		form.setCodeAndMessage("2", "token exception");
+		return form;
+	
+	}
+	//用户搜索
+	@RequestMapping(value="/keyword" ,method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm findkeywordByCommodirys(String keyword,Integer page,HttpServletRequest request) {
+		MobileJsonForm form =new MobileJsonForm();
+		List<Map<String,String>> commodirys = commodiryDao.findBykeywordByCommodirys(keyword,page);
+		String localUrl = request.getScheme()+"://"+request.getServerName()+":"+
+			request.getServerPort()+request.getContextPath()+CommodiryAdminController.C_IMG_DIR;
+		for(Map<String,String> m : commodirys) {
+			m.put("photo",localUrl +m.get("photo"));
+		}
+		form.addData("commodirys", commodirys);
+		form.setCodeAndMessage("1", "success");
+		return form;
+	}
+	
+	
+	
 }

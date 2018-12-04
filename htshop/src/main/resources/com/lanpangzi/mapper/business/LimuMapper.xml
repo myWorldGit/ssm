@@ -121,4 +121,8 @@
 		</set>
 		WHERE lid=#{lid}
 	</update>
+	
+	<select id="getUserMaxAmount" resultType="int">
+		select money from limu where lid=#{uid} limit 0,1
+	</select>
 </mapper>

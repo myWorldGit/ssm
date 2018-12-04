@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business2.OtherInfomationMapper;
 import com.lanpangzi.pojo.Other;
-import com.lanpanzi.service2.OtherInfomationService2;
+import com.lanpanzi.service.service2.OtherInfomationService2;
 
 @Service
 public class OtherInfomationSeviceImpl2 implements OtherInfomationService2 {

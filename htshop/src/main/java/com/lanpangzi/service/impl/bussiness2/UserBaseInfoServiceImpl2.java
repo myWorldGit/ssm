@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business2.UserBaseInfo2Mapper;
 import com.lanpangzi.pojo.Usersextend;
-import com.lanpanzi.service2.UserBaseInfoService2;
+import com.lanpanzi.service.service2.UserBaseInfoService2;
 @Service
 public class UserBaseInfoServiceImpl2 implements UserBaseInfoService2 {
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business.LimuMapper;
 import com.lanpangzi.pojo.Limu;
-import com.lanpanzi.service2.api.LimuAuthenitcationService;
+import com.lanpanzi.service.api2.LimuAuthenitcationService;
 @Service
 public class LimuAuthenitcationServiceImpl implements LimuAuthenitcationService {
 	@Autowired

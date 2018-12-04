@@ -21,7 +21,7 @@ import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.OssInfoUtils;
 import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.UploadUtils;
-import com.lanpanzi.service2.UserBaseInfoService2;
+import com.lanpanzi.service.service2.UserBaseInfoService2;
 /**
  * 						个人用户基本信息修改控制器--扩展表
  * @author 帅气的老胡

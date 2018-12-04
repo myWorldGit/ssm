@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business2.UserAuthenticationMapper;
 import com.lanpangzi.pojo.Users;
-import com.lanpanzi.service2.UserAuthenticationService;
+import com.lanpanzi.service.service2.UserAuthenticationService;
 @Service
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 	

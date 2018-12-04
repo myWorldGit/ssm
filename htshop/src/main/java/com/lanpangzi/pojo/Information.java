@@ -21,11 +21,28 @@ public class Information {
 
     private Integer receiver;
 
-    private String state;
+    private Integer state;
 
     private Date createtime;
+    
+    
 
-    public Integer getIid() {
+    public Information(Integer receiver) {
+		super();
+		this.receiver = receiver;
+	}
+
+	public Information(Integer receiver, Date createtime) {
+		super();
+		this.receiver = receiver;
+		this.createtime = createtime;
+	}
+
+	public Information() {
+		super();
+	}
+
+	public Integer getIid() {
         return iid;
     }
 
@@ -97,15 +114,23 @@ public class Information {
         this.receiver = receiver;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
 
-    public Date getCreatetime() {
+    public void setState(Integer state) {
+		this.state = state;
+	}
+
+	@Override
+	public String toString() {
+		return "Information [iid=" + iid + ", header=" + header + ", briefly=" + briefly + ", content=" + content
+				+ ", address=" + address + ", category=" + category + ", way=" + way + ", promulgator=" + promulgator
+				+ ", receiver=" + receiver + ", state=" + state + ", createtime=" + createtime + "]";
+	}
+
+	public Date getCreatetime() {
         return createtime;
     }
 

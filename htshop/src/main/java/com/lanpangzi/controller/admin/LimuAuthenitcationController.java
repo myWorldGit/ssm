@@ -17,7 +17,7 @@ import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.common.CommonUtils;
 import com.lanpangzi.utils.common.LAJILimuCommonUtils;
 import com.lanpangzi.utils.common.LimuInfomationUtils;
-import com.lanpanzi.service2.api.LimuAuthenitcationService;
+import com.lanpanzi.service.api2.LimuAuthenitcationService;
 
 @Controller
 @RequestMapping(value="/limutoken")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lanpangzi.pojo.Orders;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
-import com.lanpanzi.service2.api.OrderService;
+import com.lanpanzi.service.api2.OrderService;
 
 
 @RestController
@@ -95,7 +95,7 @@ public class OrdersController {
 					.replace("/order/allOrder", "")+CommodiryAdminController.C_IMG_DIR;
 			String state = request.getParameter("state");
 			List <Orders> list = new ArrayList<Orders>();
-			if(state!=null) {	
+			if(state!=null && !state.equals("")) {	
 				list = orderDao.findAllOrdersByUid(uid, Integer.parseInt(state));
 			}else {
 				list = orderDao.findAllOrdersByUid(uid, null);
@@ -104,6 +104,7 @@ public class OrdersController {
 				order.setPhoto(prefix+order.getPhoto());
 			}
 			form.addData("orders", list);
+			form.setCodeAndMessage("1", "success");
 			return form;
 		}
 		

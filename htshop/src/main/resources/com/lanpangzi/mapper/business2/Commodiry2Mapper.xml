@@ -49,4 +49,25 @@
 			WHERE c.cid=#{cid}
 
 	</select>
+	
+	<select id="getByAmount4Commodiry" resultType="java.util.Map">
+		SELECT cid, cname,ctype,price,photo,counts FROM commodiry ORDER BY price DESC  
+		LIMIT 0,4	
+	</select>
+
+	<select id="getByCount2Commodiry" resultType="java.util.Map">
+		SELECT cid,photo FROM commodiry ORDER BY counts DESC 
+		LIMIT 0,2	 	
+	</select>
+	
+	<select id="getBykeywordByCommodirys" resultType="java.util.Map">
+		SELECT cid, cname,ctype,price,photo,counts
+			 FROM commodiry WHERE  cname  LIKE '%${keyword}%' 
+			 limit #{page},8
+	
+	</select>
+	
+	
+	
+	
 </mapper>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business2.BorrowAuthenticationMapper;
 import com.lanpangzi.pojo.Borrow;
-import com.lanpanzi.service2.BorrowAuthenticationService2;
+import com.lanpanzi.service.service2.BorrowAuthenticationService2;
 
 /**
  * 0  代表未审核状态  1审核通过状态
@@ -141,6 +141,19 @@ public class BorrowAuthenticationServiceImpl2 implements BorrowAuthenticationSer
 	public String getAuthDiscernInfo(Integer uid) {
 		// TODO Auto-generated method stub
 		return borrowAuthenticationDao.getDiscernAuthenticaion(uid);
+	}
+
+	@Override
+	public Map<String, String> getBankNumberAndPhotoInfo(Integer uid) {
+		return borrowAuthenticationDao.findBankNumberAndPhotoInfo(uid);
+	}
+
+	@Override
+	public Boolean saveBankNumberAndPhotoInfo(Borrow borrow) {
+		if(this.IsExist(borrow.getBid())) {
+			return borrowAuthenticationDao.updateBankNumberAndPhotoInfo(borrow);
+		}
+		return borrowAuthenticationDao.insertBankNumberAndPhotoInfo(borrow);
 	}
 
 }

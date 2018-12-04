@@ -1,6 +1,7 @@
 package com.lanpangzi.mapper.business2;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,5 +33,12 @@ public interface Commodiry2Mapper {
 	public List<Destail> getAllDetails(Integer cid);
 	//根据did删除详情图片
 	public Boolean deleteDetailsById(Integer did);
+	
+	//两个推荐
+	public List<Map<String, String>> getByAmount4Commodiry();  
+	public List<Map<String, String>> getByCount2Commodiry();
+	public List<Map<String, String>> getBykeywordByCommodirys(
+			@Param("keyword") String keyword,@Param("page") Integer page);
+	
 	
 }

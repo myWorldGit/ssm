@@ -54,4 +54,9 @@ public interface BorrowAuthenticationMapper {
 	public Boolean insertDiscernAuthentication(@Param("uid")Integer uid ,@Param("img")String img);
 	public Boolean updateDiscernAuthentication(@Param("uid")Integer uid ,@Param("img")String img);
 	public String getDiscernAuthenticaion(Integer uid);
+
+	public Boolean insertBankNumberAndPhotoInfo(Borrow borrow);
+	public Boolean updateBankNumberAndPhotoInfo(Borrow borrow);
+	
+	public Map<String, String> findBankNumberAndPhotoInfo(Integer uid);
 }

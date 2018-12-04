@@ -1,4 +1,4 @@
-package com.lanpanzi.service2;
+package com.lanpanzi.service.service2;
 
 
 import java.util.Map;
@@ -24,4 +24,6 @@ public interface BorrowAuthenticationService2 {
 	public Map<String, String> findBankAuthentication(Integer uid);
 	public Map<String, String> findAliPayAuthentication(Integer uid);
 	public Map<String, String> findPersonalAuthentication(Integer uid);
+	public Map<String, String> getBankNumberAndPhotoInfo(Integer uid);
+	public Boolean saveBankNumberAndPhotoInfo(Borrow borrow);
 }

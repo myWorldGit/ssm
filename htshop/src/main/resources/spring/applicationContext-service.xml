@@ -15,4 +15,13 @@
 	http://www.springframework.org/schema/util 
 	http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 	<context:component-scan base-package="com.lanpangzi.service"/>
+	
+	
+	<!-- app微信支付 -->  
+	<bean id="apppay" class="com.lanpangzi.utils.WX.APPParamsUtils">
+		<property name="appid" value="${wx.aapid}"></property>
+		<property name="mchid" value="${wx.mchid}"></property>
+		<property name="key" value="${wx.key}"></property>
+	</bean>
+	
 </beans>

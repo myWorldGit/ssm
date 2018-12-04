@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business.OrderMapper;
 import com.lanpangzi.pojo.Orders;
-import com.lanpanzi.service2.api.OrderService;
+import com.lanpanzi.service.api2.OrderService;
 
 @Service
 public class OrderServiceImpl implements OrderService {

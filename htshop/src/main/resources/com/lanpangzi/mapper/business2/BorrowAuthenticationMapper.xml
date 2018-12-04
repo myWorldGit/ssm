@@ -92,6 +92,17 @@
 					  				,#{operatorName},#{isAgreement},1)
 	</insert>  
 	
+	<insert id="insertBankNumberAndPhotoInfo" parameterType="com.lanpangzi.pojo.Borrow">
+		INSERT INTO borrow (bid,bankNumber,bankPhone) values(#{bid},#{bankNumber},#{bankPhone})
+	</insert>
+	<update id="updateBankNumberAndPhotoInfo" parameterType="com.lanpangzi.pojo.Borrow">
+		UPDATE  borrow  SET
+			 bankNumber=#{bankNumber},
+			 bankPhone=#{bankPhone} WHERE bid=20
+	</update>
+	<select id="findBankNumberAndPhotoInfo" resultType="java.util.Map">
+		SELECT bankNumber,bankPhone FROM borrow WHERE bid=#{uid}
+	</select>
 	
 	
 

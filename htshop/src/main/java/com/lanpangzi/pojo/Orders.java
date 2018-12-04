@@ -23,7 +23,7 @@ public class Orders {
     //商品图片
     private String photo;
     //商品价格
-    private String price;    
+    private Double price;    
     //商品颜色
     private String color;
     
@@ -177,14 +177,14 @@ public class Orders {
 
 
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
 
 
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

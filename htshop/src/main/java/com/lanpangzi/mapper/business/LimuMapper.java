@@ -27,4 +27,7 @@ public interface LimuMapper {
 	public Boolean updateLimuToken(Limu limu);
 	
 	public Boolean isHasLimuInfo(Integer uid);
+	
+	//获取立木申请的最大额度
+	public Integer getUserMaxAmount(Integer uid);
 }

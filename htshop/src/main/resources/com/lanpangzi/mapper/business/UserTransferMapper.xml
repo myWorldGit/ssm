@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanpangzi.mapper.business.UserTransferMapper">
+	<select id="hasUserInTable" resultType="boolean">
+		SELECT lid FROM limu WHERE lid=#{uid} LIMIT 0,1
+	</select>
+	<insert id="insertTransferFlag" parameterType="com.lanpangzi.pojo.Limu">
+		INSERT INTO limu (lid,ishaspay) values(#{lid} ,#{ishaspay})
+	</insert>
+	<update id="updateTransferFlag" parameterType="com.lanpangzi.pojo.Limu">
+		UPDATE limu SET ishaspay=#{ishaspay} WHERE lid=#{lid}
+	</update>
+</mapper>

@@ -19,7 +19,7 @@ import com.lanpangzi.mapper.business2.OtherInfomationMapper;
 import com.lanpangzi.pojo.Other;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.UploadUtils;
-import com.lanpanzi.service2.OtherInfomationService2;
+import com.lanpanzi.service.service2.OtherInfomationService2;
 
 @Controller
 @RequestMapping("/other")

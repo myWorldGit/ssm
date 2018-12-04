@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lanpangzi.mapper.business2.AddressCollectionMapper;
 import com.lanpangzi.pojo.Address;
-import com.lanpanzi.service2.AddressService2;
+import com.lanpanzi.service.service2.AddressService2;
 @Service
 public class AddressServiceImpl2 implements AddressService2 {
 	@Autowired

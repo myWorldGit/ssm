@@ -1,6 +1,7 @@
-package com.lanpanzi.service2;
+package com.lanpanzi.service.service2;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanpangzi.pojo.Classify;
 import com.lanpangzi.pojo.Commodiry;
@@ -19,4 +20,16 @@ public interface CommodiryService2 {
 	
 	
 	public Boolean deleteDetailsById(Integer did);
+
+
+	public List<Map<String,String>> getByAmount4Commodiry();
+
+
+	public List<Map<String,String>> getByCount2Commodiry();
+
+
+	public Integer getUserMaxAmount(Integer uid);
+
+
+	public List<Map<String, String>> findBykeywordByCommodirys(String keyword, Integer page);
 }

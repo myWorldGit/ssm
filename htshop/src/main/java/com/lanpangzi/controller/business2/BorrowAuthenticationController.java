@@ -21,7 +21,7 @@ import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.UploadUtils;
 import com.lanpangzi.utils.common.CommonUtils;
-import com.lanpanzi.service2.BorrowAuthenticationService2;
+import com.lanpanzi.service.service2.BorrowAuthenticationService2;
 /**
  * 		认证信息
  * @author 帅气的老胡
@@ -294,6 +294,49 @@ public class BorrowAuthenticationController {
 	 * 垃圾立木的token保存在下面
 	 */
 	
+	/**
+	 * bank 信息
+	 */
+	@RequestMapping(value="/getbankbaseinfo",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm getBankNumberAndPhoto(String token) {
+		MobileJsonForm form =new MobileJsonForm();
+		Integer uid = TokenUtil.getAppUID(token);
+		if(uid!=null && uid !=-1) {
+			Map<String,String> map = 
+					borrowAuthenticationDao.getBankNumberAndPhotoInfo(uid);
+			if(map.get("bankPhone")==null || map.get("bankPhone").equals("")) {
+				form.setCodeAndMessage("2", "null  data");
+				return form; 
+			}
+			form.addData("bankinfo", map);
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		form.setCodeAndMessage("2", "token exception");
+		return form;
+	}
+	@RequestMapping(value="/setbankbaseinfo",method=RequestMethod.POST)
+	@ResponseBody  
+	public MobileJsonForm setBankNumberAndPhoto(String token,String bankphone,
+			String banknumber) {
+		MobileJsonForm form =new MobileJsonForm();
+		Integer uid = TokenUtil.getAppUID(token);
+		if(uid!=null && uid !=-1) {
+			Borrow borrow = new Borrow();
+			borrow.setBid(uid);
+			borrow.setBankPhone(bankphone);
+			borrow.setBankNumber(banknumber);
+			if(borrowAuthenticationDao.saveBankNumberAndPhotoInfo(borrow)!=true) {
+				form.setCodeAndMessage("2", "database exception");
+				return form;
+			}
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		form.setCodeAndMessage("2", "token exception");
+		return form;
+	}
 	
 	
 	

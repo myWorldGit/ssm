@@ -50,9 +50,30 @@ public class Borrow {
 
     private String borrowState;
 
+    private String bankNumber;
     
+    public String getBankNumber() {
+		return bankNumber;
+	}
+	public void setBankNumber(String bankNumber) {
+		this.bankNumber = bankNumber;
+	}
+	public String getBankPhone() {
+		return bankPhone;
+	}
+	public void setBankPhone(String bankPhone) {
+		this.bankPhone = bankPhone;
+	}
+
+	private String bankPhone;
 
     public Borrow() {}
+	public Borrow(String uid, String bankNumber, String bankPhone) {
+		super();
+		this.uid = uid;
+		this.bankNumber = bankNumber;
+		this.bankPhone = bankPhone;
+	}
 	public Borrow(String operatorPhone, String operatorIdcard, String operatorName, String isAgreement) {
 		this.operatorPhone = operatorPhone;
 		this.operatorIdcard = operatorIdcard;
@@ -260,7 +281,8 @@ public class Borrow {
 				+ ", isAgreement=" + isAgreement + ", operatorState=" + operatorState + ", taobaoToken=" + taobaoToken
 				+ ", taobaoState=" + taobaoState + ", alipayToken=" + alipayToken + ", alipayState=" + alipayState
 				+ ", payA=" + payA + ", payB=" + payB + ", payC=" + payC + ", payD=" + payD + ", payE=" + payE
-				+ ", payState=" + payState + ", auditor=" + auditor + ", borrowState=" + borrowState + "]";
+				+ ", payState=" + payState + ", auditor=" + auditor + ", borrowState=" + borrowState + ", bankNumber="
+				+ bankNumber + ", bankPhone=" + bankPhone + "]";
 	}
     
 }

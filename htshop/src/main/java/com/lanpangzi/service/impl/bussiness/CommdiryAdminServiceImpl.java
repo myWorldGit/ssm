@@ -10,7 +10,7 @@ import com.lanpangzi.mapper.business.CommodiryAdminMapper;
 import com.lanpangzi.pojo.Classify;
 import com.lanpangzi.pojo.Commodiry;
 import com.lanpangzi.pojo.Destail;
-import com.lanpanzi.service2.api.CommodiryAdminSerivce;
+import com.lanpanzi.service.api2.CommodiryAdminSerivce;
 @Service
 public class CommdiryAdminServiceImpl implements CommodiryAdminSerivce{
 	@Autowired

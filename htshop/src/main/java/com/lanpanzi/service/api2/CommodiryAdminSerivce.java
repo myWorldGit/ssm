@@ -1,4 +1,4 @@
-package com.lanpanzi.service2.api;
+package com.lanpanzi.service.api2;
 
 import java.util.List;
 

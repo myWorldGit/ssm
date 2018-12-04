@@ -16,7 +16,7 @@ import com.lanpangzi.utils.AliMessageSend;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.UploadUtils;
-import com.lanpanzi.service2.UserAuthenticationService;
+import com.lanpanzi.service.service2.UserAuthenticationService;
 
 
 @RequestMapping("/userAuthentication")

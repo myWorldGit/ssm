@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lanpangzi.pojo.Address;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
-import com.lanpanzi.service2.AddressService2;
+import com.lanpanzi.service.service2.AddressService2;
 
 @Controller
 @RequestMapping("/address")
