@@ -109,15 +109,16 @@
 							</div>
 							
 							<div class="commodiry-recommend">
-								<h1>为您推荐</h1>
-								<a href="#">  <!--跳转至调整推荐商品-->
-								跳转到热门推荐
-								</a>
+								<h1>预付定金</h1>
+								<div style="position: relative; height: 50px;">
+									<input type="text" v-model='amount' class="preAmount-count" >
+									<a href="#" @click.prevent='changeAmount' class="preAmount-submit" >改变定金额度</a>
+								</div>
 							</div>
 							<form class="hidden" id="form-file">
 								<input @change='fileChange' id="temp-file" type="file" >
 								<input id="httpsufix" type="hidden" 
-								value="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}">
+								value="${pageContext.request.scheme }://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}">
 								<input @change='sowingChange' id="sowingMap-file" type="file">
 								<input type="reset" id="temp-reset">
 							</form>
@@ -174,6 +175,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/Vue.v2.5.17.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/axios.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/settings.js"></script>
 
 </html>

@@ -2,6 +2,7 @@ package com.lanpangzi.service.impl.bussiness;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Override
-	public List<Orders> findAllOrdersByUid(Integer uid, Integer cstate) {
+	public List<Orders> findAllOrdersByUid(Integer uid, Integer cstate,Integer page) {
 		// TODO Auto-generated method stub
-		return ordersDao.findAllOrdersByUid(uid, cstate);
+		return ordersDao.findAllOrdersByUid(uid, cstate,page*8);
 	}
 
 	@Override
@@ -42,5 +43,7 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return ordersDao.deleteOrderByOid(oid);
 	}
+
+
 
 }

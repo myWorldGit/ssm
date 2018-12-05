@@ -26,4 +26,5 @@ public interface OtherInfomationService2 {
 	
 	public Boolean deleteValueById(Integer oid);
 	public String findOtherById(Integer oid);
+	public Boolean savePreAmount(String preAmount);
 }

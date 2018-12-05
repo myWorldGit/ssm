@@ -10,20 +10,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.aliyun.oss.OSSClient;
 import com.lanpangzi.pojo.Usersextend;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.UploadUtils;
 import com.lanpangzi.utils.WX.APPParamsUtils;
+import com.lanpangzi.utils.WX.KdniaoTrackQueryAPI;
 
 @Controller
 @RequestMapping("/test")
 public class TestController {
 	@Autowired
-	private APPParamsUtils AppParamsInfo;
+	private KdniaoTrackQueryAPI kdniaoDao;
 	
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
 	@ResponseBody 
 	public String test0101(HttpServletRequest request) {
-		return AppParamsInfo.getAppid()+AppParamsInfo.getKey()+AppParamsInfo.getMchid();
+		try {
+			System.out.println(kdniaoDao.getOrderTracesByJson("ANE", "210001633605"));
+			return kdniaoDao.getOrderTracesByJson("ANE", "210001633605");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return"";
+		}
 	}
 }

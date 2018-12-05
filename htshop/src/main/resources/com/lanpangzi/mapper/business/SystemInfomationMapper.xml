@@ -37,7 +37,7 @@
 		UPDATE information SET state =1 WHERE iid=#{iid}
 	</update>
 	<select id="findAllInfomation" resultType="com.lanpangzi.pojo.Information">
-		SELECT * FROM information WHERE receiver = #{uid}
+		SELECT * FROM information WHERE receiver = #{uid} LIMIT #{page},10
 	</select>
 	<select id="findDetailInfomationById" resultType="com.lanpangzi.pojo.Information">
 		SELECT * FROM information WHERE iid=#{iid} LIMIT 0,1

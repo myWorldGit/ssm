@@ -41,6 +41,7 @@ public class OtherInfomationController {
 			other.setValue(request.getRequestURL().toString().replace("/other/getsowingMap"
 					, "")+FILE_DIR+other.getValue());
 		}
+		form.addData("preAmount", otherInfoDao.findSingleInfo("preAmount"));
 		form.addData("sowingMap", others);	
 		form.setCodeAndMessage("1","success");
 		return form;

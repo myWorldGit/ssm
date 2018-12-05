@@ -2,6 +2,8 @@ package com.lanpangzi.mapper.business;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.lanpangzi.pojo.Information;
 
 public interface SystemInfomationMapper {
@@ -12,7 +14,7 @@ public interface SystemInfomationMapper {
 	//改变已读状态
 	public Boolean modifyInfoState(Integer iid);
 	//获取一个用户的所有消息
-	public List<Information> findAllInfomation(Integer uid);
+	public List<Information> findAllInfomation(@Param("uid")Integer uid,@Param("page") Integer page);
 	//详情id
 	public Information findDetailInfomationById(Integer iid);
 	//未读信息

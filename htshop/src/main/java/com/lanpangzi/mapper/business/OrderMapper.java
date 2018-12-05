@@ -14,7 +14,7 @@ public interface OrderMapper {
 	 * @return  所有的订单信息 null待付   1支付    2待发    3待收    4完成
 	 */
 	public List<Orders> findAllOrdersByUid(@Param("uid")Integer uid,
-			@Param("cstate")Integer cstate);
+			@Param("cstate")Integer cstate,@Param("page")Integer page);
 	
 	/**
 	 * 根据oid查看单个详情订单
@@ -34,5 +34,6 @@ public interface OrderMapper {
 	 * @return
 	 */
 	public Boolean deleteOrderByOid(Integer oid);
+
 	
 }

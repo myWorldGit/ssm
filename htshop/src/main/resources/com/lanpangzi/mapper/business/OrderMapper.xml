@@ -6,8 +6,12 @@
 			<if test="cstate!=null">
 				and cstate=#{cstate}
 			</if>
+			Limit #{page},8
 			
 	</select>
+	
+	
+	
 	<select id="findOrderDetailByOid" resultType="com.lanpangzi.pojo.Orders">
 		SELECT * FROM orders WHERE oid=#{oid} LIMIT 0,1
 	</select>

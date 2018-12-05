@@ -22,6 +22,7 @@ import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.UploadUtils;
 import com.lanpanzi.service.api2.CommodiryAdminSerivce;
 import com.lanpanzi.service.service2.CommodiryService2;
+import com.lanpanzi.service.service2.OtherInfomationService2;
 
 @Controller
 @RequestMapping("/adminCommodiry")
@@ -29,6 +30,8 @@ public class CommodiryAdminController {
 	public final static String C_IMG_DIR="/adminCommodiry/addCommodiry";
 	@Autowired
 	private CommodiryService2 commodiryAdminDao;
+	@Autowired
+	private OtherInfomationService2 otherInfoDao;
 	
 	@Autowired
 	private CommodiryAdminSerivce commodiryAdminExDao;
@@ -311,6 +314,22 @@ public class CommodiryAdminController {
 		form.setCodeAndMessage("1", "success");
 		return form;
 	}
+	
+	@RequestMapping(value="/preAmount",method=RequestMethod.POST)
+	@ResponseBody
+	public MobileJsonForm modifyPreAmount(String preAmount) {
+		MobileJsonForm form = new MobileJsonForm();
+		otherInfoDao.clearByKeyAllInfo("preAmount");
+		if(otherInfoDao.savePreAmount(preAmount)!=true) {
+			form.setCodeAndMessage("2", "database exception");
+			return form;
+		}
+	
+		form.setCodeAndMessage("1", "success");
+		return form;
+	}
+	
+	
 	
 		
 }

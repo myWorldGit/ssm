@@ -12,7 +12,7 @@ public interface SystemInfomationService {
 	//改变已读状态
 	public Boolean modifyInfoStateInfomation(Integer iid);
 	//获取一个用户的所有消息
-	public List<Information> findAllInfomation(Integer uid);
+	public List<Information> findAllInfomation(Integer uid,Integer page);
 	//详情id
 	public Information findDetailInfomationById(Integer iid);
 	//未读信息

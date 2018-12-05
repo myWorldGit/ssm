@@ -8,6 +8,6 @@ import com.lanpangzi.utils.WX.APPParamsUtils;
 public class Test022 {
 	@Test
 	public void test() {
-		System.out.println(TokenUtil.createToken(330)); 
+		System.out.println(TokenUtil.createToken(20)); 
 	}
 }

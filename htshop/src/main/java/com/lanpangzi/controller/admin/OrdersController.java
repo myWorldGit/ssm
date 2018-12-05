@@ -86,7 +86,7 @@ public class OrdersController {
 	
 	@ResponseBody
 	@RequestMapping(value="/allOrder",method=RequestMethod.POST)
-	public MobileJsonForm findAllOrdersByUid(String token,
+	public MobileJsonForm findAllOrdersByUid(String token,Integer page,
 			HttpServletRequest request) {
 		MobileJsonForm form =new MobileJsonForm();
 		Integer uid = TokenUtil.getAppUID(token);
@@ -96,9 +96,9 @@ public class OrdersController {
 			String state = request.getParameter("state");
 			List <Orders> list = new ArrayList<Orders>();
 			if(state!=null && !state.equals("")) {	
-				list = orderDao.findAllOrdersByUid(uid, Integer.parseInt(state));
+				list = orderDao.findAllOrdersByUid(uid, Integer.parseInt(state),page);
 			}else {
-				list = orderDao.findAllOrdersByUid(uid, null);
+				list = orderDao.findAllOrdersByUid(uid, null,page);
 			}
 			for(Orders order : list) {
 				order.setPhoto(prefix+order.getPhoto());

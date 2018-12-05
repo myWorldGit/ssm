@@ -3,6 +3,7 @@ $(function(){
 	var vue=new Vue({
 		el:'#application',
 		data:{
+			amount:'222',
 			list:[],
 			tempFile:null,
 			location:'',
@@ -19,74 +20,93 @@ $(function(){
 			httpn = document.getElementById("httpsufix").value;	
 			
 			//轮播图
-			var list =null;
-			$.ajax({
-				url:httpn +'/other/getsowingMap',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(data){
-					if(data.code==1){
-						list =data.data;
-					}			
-				},error:function(data){
-					alert("fail")
-				}
-			})
-			for(var i in list){
-				for(var j=0;j<list[i].length;j++ ){
-					this.filepath.sowingMap.push({value:list[i][j].value
-						,oid:list[i][j].otherid})
-				}
-			}			
-			//渲染后调用生命周期函数
-			var temp=null; 
-			$.ajax({
-				url:httpn +'/other/getuploadMap',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(data){
-					temp =data;
-				},error:function(data){
-					alert("fail")
-				}
-			})
-			this.filepath.areaLeft=temp.data.areaLeft;
-			this.filepath.areaRight=temp.data.areaRight;
-			this.filepath.recommend1=temp.data.recommend1;
-			this.filepath.recommend2=temp.data.recommend2;
-			this.filepath.recommend3=temp.data.recommend3;
-			this.filepath.hotLeft=temp.data.hotLeft;
-			this.filepath.hotRightUp=temp.data.hotRightUp;
-			this.filepath.hotRightDown=temp.data.hotRightDown;
-			//系统消息加载
-			var sysinfo=null;
-			$.ajax({
-				url:httpn+'/other/getsystemInfo',
-				type:'post',
-				dataType:'json',
-				async:false,
-				success:function(data){
-					if(data.code==1){
-						sysinfo=data.data
+			axios.post(httpn+'/other/getsowingMap')
+    		.then((response) => {
+				if(response.data.code==1){
+					console.log(response.data.data.sowingMap)
+					var t= response.data.data.sowingMap
+					for(var i =0 ;i<t.length;i++){
+						this.filepath.sowingMap.push({value:t[i].value,oid:t[i].otherid})
 					}
-				},error:function(data){
-					alert("fail")
+					this.amount=response.data.data.preAmount
 				}
-			})				
-			for(var i in sysinfo){
-				for(var j=0;j<sysinfo[i].length;j++){
-					this.list.push({value:sysinfo[i][j].value,oid:sysinfo[i][j].otherid})
+			})
+			.catch(function (error) {
+			    console.log(error);
+			});
+				
+			axios.post(httpn+'/other/getuploadMap')
+    		.then((response) => {
+				if(response.data.code==1){
+					var data= response.data.data;
+					this.filepath.areaLeft= data.areaLeft;
+					this.filepath.areaRight= data.areaRight;
+					this.filepath.recommend1= data.recommend1;
+					this.filepath.recommend2= data.recommend2;
+					this.filepath.recommend3= data.recommend3;
+					this.filepath.hotLeft= data.hotLeft;
+					this.filepath.hotRightUp= data.hotRightUp;
+					this.filepath.hotRightDown= data.hotRightDown;
 				}
-			}
+			})
+			.catch(function (error) {
+			    console.log(error);
+			});
 			
+			
+			axios.post(httpn+'/other/getsystemInfo')
+    		.then((response) => {
+				if(response.data.code==1){
+					var data= response.data.data.data;
+					//console.log(data.data)
+					for(var i=0;i<data.length;i++){
+						this.list.push({value:data[i].value,oid:data[i].otherid})
+					}
+				}
+			})
+			.catch(function (error) {
+			    console.log(error);
+			});
+				
+			//系统消息加载
+	
 			
 		},
 		watch:{
-			
+			amount:function(){  
+				var reg =/^[0-9]*$/;
+				//alert(this.amount)
+				if(!reg.test(this.amount)){
+					this.amount = this.amount.substr(0,this.amount.length-1)
+				}
+				
+			}
 		},
 		methods: {
+			changeAmount:function(){
+				var flag =confirm("是否确定修改 ？？")
+				if(flag!=true){
+					return;
+				}
+				if(this.amount>100000000){
+					alert("数额较大!!!!")
+				}
+				//ajax  做修改
+				var params = new URLSearchParams()
+	        	params.append('preAmount', this.amount) 
+				axios.post(httpn+'/adminCommodiry/preAmount', params)
+        		.then((response) => {
+    				if(response.data.code==1){
+    					
+    				}
+    			})
+    			.catch(function (error) {
+    			    console.log(error);
+    			});
+
+				
+				
+			},
 			fileChange:function(e){
 				var targetFile = e.target.files[0];
 				var formData =new FormData();

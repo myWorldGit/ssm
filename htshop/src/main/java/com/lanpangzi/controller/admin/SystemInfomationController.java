@@ -68,11 +68,11 @@ public class SystemInfomationController {
 	
 	@RequestMapping(value="allinfo",method=RequestMethod.POST)
 	@ResponseBody
-	public MobileJsonForm findAllInfomations(String token) {
+	public MobileJsonForm findAllInfomations(String token,Integer page) {
 		MobileJsonForm form =new MobileJsonForm();
 		Integer uid = TokenUtil.getAppUID(token);
 		if(uid!=null && uid!=-1) {
-			form.addData("infomations", systemInfoDao.findAllInfomation(uid));
+			form.addData("infomations", systemInfoDao.findAllInfomation(uid,page));
 			form.setCodeAndMessage("1", "success");
 			return form;
 		}

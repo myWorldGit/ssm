@@ -33,8 +33,8 @@ public class SystemInfomationServiceImpl implements SystemInfomationService {
 	}
 
 	@Override
-	public List<Information> findAllInfomation(Integer uid) {
-		return systemInfoDao.findAllInfomation(uid);
+	public List<Information> findAllInfomation(Integer uid,Integer page) {
+		return systemInfoDao.findAllInfomation(uid,page*10);
 	}
 
 	@Override

@@ -1,3 +1,19 @@
+.preAmount-count {
+	height: 30px;
+	left:30px;
+	position: absolute;
+	color : pink;
+	border: 1px solid pink;
+}
+.preAmount-submit {
+	line-height:32px;
+	position: absolute;
+	height: 32px;
+	padding: 0 10px;
+	right: 50px;
+	background-color: #eafd02;
+	color: #f62917;
+}
 #application {
 	padding-top: 20px;
 	display: flex;

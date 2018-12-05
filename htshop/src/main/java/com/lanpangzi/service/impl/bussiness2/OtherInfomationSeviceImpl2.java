@@ -1,5 +1,6 @@
 package com.lanpangzi.service.impl.bussiness2;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,13 @@ public class OtherInfomationSeviceImpl2 implements OtherInfomationService2 {
 	public String findOtherById(Integer oid) {
 		// TODO Auto-generated method stub
 		return otherInfomationDao.findvalueById(oid);
+	}
+
+	@Override
+	public Boolean savePreAmount(String preAmount) {
+		// TODO Auto-generated method stub
+		return otherInfomationDao.insertOtherInfoById(new Other(preAmount,"preAmount",
+				new Date(System.currentTimeMillis())));
 	}
 
 

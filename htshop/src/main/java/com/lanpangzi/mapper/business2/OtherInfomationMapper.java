@@ -41,4 +41,5 @@ public interface OtherInfomationMapper {
 	public String findSingleInfo(@Param("types")String types);
 	public String findvalueById(Integer oid);
 	
+	
 }
