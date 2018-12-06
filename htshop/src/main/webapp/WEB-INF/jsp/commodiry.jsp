@@ -19,13 +19,13 @@
 			</div>
 			<ul>
 				<li class="aside-li">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/first">
 					<span class="iconfont icon-shouye1">&nbsp;&nbsp;</span>
 						首页
 					</a>
 				</li>
 				<li class="aside-li aside-active">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/commodiry">
 					<span class="iconfont icon-shangping ">&nbsp;&nbsp;</span>
 						商品信息
 					</a>
@@ -62,7 +62,7 @@
 		<div class="index-page-right">
 			<div class="topbar-wrap">
 				<div class="container">
-						<a href="#"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;<span>&nbsp;&nbsp;商品管理&nbsp;</span>
+						<a href="${pageContext.request.contextPath }/admin/first"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;<span>&nbsp;&nbsp;商品管理&nbsp;</span>
 				</div>
 			</div>
 			<div class="slection-wrap" id='application'>

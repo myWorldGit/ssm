@@ -5,7 +5,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
- 
+
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -167,5 +170,31 @@ public class HttpClientUtils {
         }
         return null;
     }
+	/**
+	 * 立木的
+	 */
+	
+	 public static String doPostLimu(String url,List<BasicNameValuePair> params){
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+	        String result="";
+	        HttpEntity entity = null;
+	        CloseableHttpResponse response=null;
+	        HttpPost method=new HttpPost(url);
+	        try{
+	            if(params != null && !params.isEmpty()){
+	                UrlEncodedFormEntity encodedFormEntity=new UrlEncodedFormEntity(params, Consts.UTF_8);
+	                method.setEntity(encodedFormEntity);
+	            }
+	            response=httpclient.execute(method);
+	            if(response.getStatusLine().getStatusCode()== HttpStatus.SC_OK){
+	                entity=response.getEntity();
+	                result=EntityUtils.toString(entity);
+	            }
+	        }catch (Exception ex){
+	            ex.printStackTrace();
+	            return null;
+	        }
+	        return result;
+	 }
 	
 }

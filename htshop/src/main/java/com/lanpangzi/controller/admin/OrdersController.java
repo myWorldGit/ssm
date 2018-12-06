@@ -24,6 +24,24 @@ public class OrdersController {
 	@Autowired
 	private OrderService orderDao;
 	
+	@RequestMapping("/changeOrderstate")
+	@ResponseBody
+	public MobileJsonForm modifyOrderState(Integer oid, Integer cstate, String token) {
+		MobileJsonForm form = new MobileJsonForm();
+		Integer uid = TokenUtil.getAppUID(token); 
+		if (uid != null && uid != -1) {
+			if (orderDao.modifyStateByOid(cstate, oid) != true) {
+				form.setCodeAndMessage("2", "database fail");
+				return form;
+			}
+			form.setCodeAndMessage("1", "success");
+			return form;
+		}
+		form.setCodeAndMessage("2", "token exception");
+		return form;
+
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/delOrder",method=RequestMethod.POST)
 	public MobileJsonForm deleteOrderById(String token,Integer oid) {

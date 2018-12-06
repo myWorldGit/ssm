@@ -19,7 +19,7 @@
 			</div>
 			<ul>
 				<li class="aside-li">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/first">
 					<span class="iconfont icon-shouye1">&nbsp;&nbsp;</span>
 						首页
 					</a>
@@ -61,7 +61,7 @@
 		<div class="index-page-right">
 			<div class="topbar-wrap">
 				<div class="container">
-						<a href="#"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;
+						<a href="${pageContext.request.contextPath }/admin/first"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;
 						<span>&nbsp;APP界面设置</span>
 				</div>
 			</div>

@@ -1,3 +1,7 @@
+#http{
+	display: none;
+}
+
 .footer-descritption {
 	color:#999;
 	overflow:hidden;

@@ -44,6 +44,23 @@ public class OrderServiceImpl implements OrderService {
 		return ordersDao.deleteOrderByOid(oid);
 	}
 
+	@Override
+	public List<Map<String, String>> findreadryExpress(Integer page) {
+		return ordersDao.getAllReaderExpress(page*12);
+	}
+
+	@Override
+	public Boolean modifyStateByOid(Integer cstate, Integer oid) {
+		// TODO Auto-generated method stub
+		return ordersDao.modifyCstate(cstate, oid);
+	}
+
+	@Override
+	public Integer findreadryExpressCount() {
+		// TODO Auto-generated method stub
+		return ordersDao.getAllReaderExpressCount();
+	}
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.lanpangzi.mapper.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -34,6 +35,9 @@ public interface OrderMapper {
 	 * @return
 	 */
 	public Boolean deleteOrderByOid(Integer oid);
-
 	
+	public List<Map<String, String>> getAllReaderExpress(Integer page);
+	public Integer getAllReaderExpressCount();
+	public Boolean modifyCstate(@Param("cstate") Integer  cstate ,
+			@Param("oid")Integer oid);
 }

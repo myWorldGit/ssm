@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/limu.css">
 </head>
 <body>
-	<a id="http" href="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath() %>"/>
+	<a  id="http" href="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath() %>"></a>
 	<div class="container-wrap">
 		<div class="index-page-left">
 			<div class="admin-logo">
@@ -19,7 +19,7 @@
 			</div>
 			<ul>
 				<li class="aside-li">
-					<a href="#">
+					<a href="${pageContext.request.contextPath }/admin/first">
 					<span class="iconfont icon-shouye1">&nbsp;&nbsp;</span>
 						首页
 					</a>
@@ -60,7 +60,7 @@
 		<div class="index-page-right">
 			<div class="topbar-wrap">
 				<div class="container">
-						<a href="#"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;<span>&nbsp;&nbsp;立木征信&nbsp;</span>
+						<a href="${pageContext.request.contextPath }/admin/first"><i class="iconfont icon-shouye1"></i>&nbsp;首页</a>&nbsp;/&nbsp;<span>&nbsp;&nbsp;立木征信&nbsp;</span>
 				</div>
 			</div>
 			<div class="slection-wrap">
@@ -154,9 +154,8 @@ Vue.component('modal-find',{
 		}
 	},
 	mounted:function(){
-		//this.http=document.getElementById('http').href;
-	}
 	
+	}
 })
 
 	new Vue({
@@ -173,52 +172,20 @@ Vue.component('modal-find',{
 			},
 			lookup:function(i){
 				this.isshow=true;
-				if(i.alitoken!=''){
-					var token =i.alitoken;
-					var res=null;
-					var params = new URLSearchParams()
-	    			params.append('Otoken', token)
-	    			params.append('bizType', 'education')
-					axios.post(this.http+'/limutoken/getSign',params)
-		    		.then((response) => {
-						if(response.data.code==1){
-							res = response.data.data
-							var subparams = new URLSearchParams()
-							subparams.append('apiKey', res.apiKey);
-							subparams.append('sign', res.sign);
-							subparams.append('method', res.method);
-							subparams.append('bizType', res.bizType);
-							subparams.append('token', res.token);
-							subparams.append('version', res.version);
-							
-							axios.post('https://t.limuzhengxin.cn/api/gateway',subparams)
-				    		.then((response) => { 
-								if(response.data.code=='0000'){ 
-									var img = "data:image/png;base64,"+response.data.data.studentStatusInfo.personalPhotos
-									document.getElementById('img').src=img;
-									console.log(response.data.data.studentStatusInfo.personalPhotos)
-								}
-							}).catch(function (error) {
-							    console.log(error);
-							}); 
-						}
-					}).catch(function (error) { 
-					    console.log(error);
-					});
-					
-					
-					
-				}
-				/* if(i.facetoken!='')	{
-					this.temp.face={}
-				}
-				if(i.banktoken!=''){
-					this.temp.bank={}
-				}
-				if(i.phonetoken!=''){
-					this.temp.phone={}
-				} */
 				
+				var params = new FormData();
+				params.append('alitoken',i.alitoken);
+				params.append('banktoken',i.banktoken);
+				params.append('phonetoken',i.phonetoken);
+				params.append('lid',i.lid);
+				axios.post(this.http+'/limutoken/getlimuInfo',params)
+				.then((response) => { 
+					if(response.data.code==1){
+ 						alert()
+					}
+				}).catch(function (error) {
+				    console.log(error);
+				});	
 			
 			},
 			nopass:function(index,i){

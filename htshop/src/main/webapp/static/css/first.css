@@ -1,0 +1,42 @@
+.header-box {
+	margin-left: 70px;
+	margin-top: 20px;
+	display: flex;
+	height: 570px;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+
+}
+.header-box >li {
+	border-radius: 3px;
+	margin: 10px 20px;
+	background-color: pink;
+	width: 320px;
+	height: 100px;
+}
+.footer-descritption {
+	color:#999;
+	overflow:hidden;
+	height:72px;
+	line-height:90px;
+	font-size: 13px;
+	text-align: right;	
+	padding-right: 170px;
+}
+.btn-group {
+	margin-top: 20px;
+	margin-left: 100px;
+	padding: 3px 30px;
+}
+.btn-group >a{
+	color: #999;
+	display: inline-block;
+	padding:  5px 20px;
+}
+.btn-group >a:hover {
+	color: red;
+	text-decoration: underline;
+}
+.btn-active {
+	background-color: #eee;
+}

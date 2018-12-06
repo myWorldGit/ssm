@@ -16,6 +16,7 @@ import com.lanpangzi.utils.AliMessageSend;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.UploadUtils;
+import com.lanpangzi.utils.WX.MD5Util;
 import com.lanpanzi.service.service2.UserAuthenticationService;
 
 
@@ -35,7 +36,8 @@ public class UserAuthenticationController {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public MobileJsonForm userLogin(@RequestParam("phone")String phone,
 			@RequestParam("password")String password, HttpServletRequest request) {
-		System.out.println(phone+password);
+		
+		password = MD5Util.MD5Encode(password);
 		Users user =userAuthenticationDao.findLoginAuthentication(phone, password);
 		if(user==null) {
 			return new MobileJsonForm("0","用户名密码不正确");
@@ -57,7 +59,8 @@ public class UserAuthenticationController {
 	public MobileJsonForm userRegister(@RequestParam("phone")String phone,
 			@RequestParam("password") String password) {
 		String isRegister =userAuthenticationDao.findIsRegisterAuthentication(phone);
-		if(isRegister==null && phone.length()==11) {			
+		if(isRegister==null && phone.length()==11) {	
+			password = MD5Util.MD5Encode(password);
 			userAuthenticationDao.addRegisterAuthentication(phone, password);
 			MobileJsonForm form = new MobileJsonForm("1");
 			form.setMessage("成功注册");
@@ -133,6 +136,7 @@ public class UserAuthenticationController {
 		MobileJsonForm form =new MobileJsonForm();
 		Integer uid = TokenUtil.getAppUID(token);
 		if(null!=uid &&-1!=uid) {
+			password = MD5Util.MD5Encode(password);
 			Users user =new Users(uid,null,password);
 			Boolean flag = userAuthenticationDao.modifyHeaderPhoto(user);
 			if(flag!=true) {
@@ -174,7 +178,7 @@ public class UserAuthenticationController {
 	@RequestMapping(value="/forgetPwd",method=RequestMethod.POST)
 	public MobileJsonForm forgetPassword(String phone,String password) {
 		MobileJsonForm form =new MobileJsonForm();
-		
+		password = MD5Util.MD5Encode(password);
 		if(userAuthenticationDao.modifyforgetPassword(phone,password)!=true) {
 			form.setCodeAndMessage("2", "database exception");
 			return form;

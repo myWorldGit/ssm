@@ -10,7 +10,16 @@
 			
 	</select>
 	
+	<select id="getAllReaderExpressCount" resultType="int">
+		SELECT count(*) FROM orders WHERE cstate=1
+	</select>
+	<select id="getAllReaderExpress" resultType="java.util.Map">
+		SELECT *fROM orders WHERE cstate=1   Limit #{page} ,12
+	</select>
 	
+	<update id="modifyCstate">
+		UPDATE orders SET cstate = #{cstate} where oid=#{oid}
+	</update>
 	
 	<select id="findOrderDetailByOid" resultType="com.lanpangzi.pojo.Orders">
 		SELECT * FROM orders WHERE oid=#{oid} LIMIT 0,1

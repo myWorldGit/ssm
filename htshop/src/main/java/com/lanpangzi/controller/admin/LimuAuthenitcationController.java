@@ -27,7 +27,7 @@ public class LimuAuthenitcationController {
 	@Autowired 
 	private LimuAuthenitcationService limuDao;
 	
-	
+	//页面的初始化
 	@RequestMapping(value="/ispass",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm findAllPassInfo() {
@@ -37,7 +37,7 @@ public class LimuAuthenitcationController {
 		form.setCodeAndMessage("1", "success");
 		return form;
 	}
-	
+	//立木用户的插入token
 	@RequestMapping(value="/setToken",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm saveToken(String token,String value,String key) {
@@ -66,7 +66,7 @@ public class LimuAuthenitcationController {
 	}
 	
 	
-
+	//进行插入或者修改
 	@RequestMapping(value="/isPay",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm getToken(String token,Integer state) {
@@ -94,26 +94,17 @@ public class LimuAuthenitcationController {
 	/****
 	 * limu   token查询资料  返回它的签名
 	 */
-	@RequestMapping(value="/getSign",method=RequestMethod.POST)
+	@RequestMapping(value="/getlimuInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public MobileJsonForm getLimuAliByToken(String Otoken,String bizType) {
-		//System.out.println(Otoken + bizType);
-		MobileJsonForm form = new MobileJsonForm();
-		List<BasicNameValuePair> list =new ArrayList<BasicNameValuePair>(); 
-		list.add(new BasicNameValuePair("version",LimuInfomationUtils.version));
-		list.add(new BasicNameValuePair("apiKey", LimuInfomationUtils.api_key));
-		list.add(new BasicNameValuePair("method", "api.common.getResult"));
-		list.add(new BasicNameValuePair("bizType", bizType));
-		list.add(new BasicNameValuePair("token", Otoken));
-		form.addData("sign",LAJILimuCommonUtils.getSign(list));
-		form.addData("apiKey",LimuInfomationUtils.api_key);
-		form.addData("method","api.common.getResult");
-		form.addData("bizType",bizType);
-		form.addData("token",Otoken);
-		form.addData("version",LimuInfomationUtils.version);
-
+	public MobileJsonForm getLimuAllByToken(Limu limu) {
+		MobileJsonForm form =new MobileJsonForm();
+		System.out.println(limu);
+		
+		
+		
+		
 		form.setCodeAndMessage("1", "success");
-		return form;
+		return form;  
 	}
 }
 

@@ -20,6 +20,7 @@
         </property>
     </bean>
 	<!-- 视图  处 -->
+	<mvc:view-controller path="admin/first" view-name="first"/>
 	<mvc:view-controller path="admin/settings" view-name="settings"/>
 	<mvc:view-controller path="admin/commodiry" view-name="commodiry"/>
 	<mvc:view-controller path="admin/limu" view-name="limu"/>

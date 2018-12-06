@@ -13,5 +13,9 @@ public interface OrderService {
 	public Orders findOrderDetailByOid(Integer oid);
 	public Boolean createOrder(Orders order);
 	public Boolean deleteOrderByOid(Integer oid);
+	public List<Map<String,String>> findreadryExpress(Integer page);
+	public Boolean modifyStateByOid(@Param("cstate") Integer  cstate ,
+			@Param("oid")Integer oid);
+	public Integer findreadryExpressCount();
 
 }

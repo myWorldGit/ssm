@@ -10,6 +10,12 @@ import java.util.Map;
 import org.apache.http.message.BasicNameValuePair;
 
 public class LAJILimuCommonUtils {
+	public static String getInfoByToken() {
+		
+		
+		return "";
+	}
+	
 	public static String getSign(List<BasicNameValuePair> reqParam) {
 		StringBuffer sbb = new StringBuffer();
         int index = 1;
