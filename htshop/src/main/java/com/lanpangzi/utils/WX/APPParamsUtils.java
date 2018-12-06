@@ -8,10 +8,18 @@ import com.github.wxpay.sdk.WXPayUtil;
 
 public class APPParamsUtils {
 	
-	private static final String PrepayId_url ="https://api.mch.weixin.qq.com/pay/unifiedorder";
+	private String PrepayId_url;
 	private String key;
 	private String mchid;
-	private String appid;
+	private String appid; 
+	
+	
+	public String getPrepayId_url() {
+		return PrepayId_url;
+	}
+	public void setPrepayId_url(String prepayId_url) {
+		PrepayId_url = prepayId_url;
+	}
 	/**
 	 * 随机字符串
 	 * @return

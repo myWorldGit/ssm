@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.wxpay.sdk.WXPayUtil;
+import com.lanpangzi.mapper.business2.OtherInfomationMapper;
 import com.lanpangzi.pojo.Limu;
 import com.lanpangzi.utils.MobileJsonForm;
 import com.lanpangzi.utils.TokenUtil;
@@ -20,17 +21,27 @@ import com.lanpanzi.service.api2.UserTransferService;
 @Controller
 public class UserTransferController {
 	@Autowired
+	private OtherInfomationMapper preAmountDao;
+	@Autowired
 	private APPParamsUtils appParamsInfo;
 	@Autowired
 	private UserTransferService userTransferDao;
-	
+	/**
+	 * 如果后台无设定定金则默认为200块钱
+	 * @param token
+	 * @return
+	 */
 	@RequestMapping(value="/payAmount" ,method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm payAmount(String token) {
 		Integer uid = TokenUtil.getAppUID(token);
 		MobileJsonForm form =new MobileJsonForm();
 		if(uid!=null&& uid!=-1) { 
-			Limu limu =new Limu(uid,520);    
+		String preAmount= preAmountDao.findSingleInfo("preAmount");
+	
+		Integer payMoney =  preAmount==null?200:Integer.parseInt(preAmount);
+	
+			Limu limu =new Limu(uid,payMoney);    
 			Boolean flag=false;
 			try {  
 				//int i = 1/0;  支付

@@ -28,9 +28,7 @@ public class ExpressController {
 		if(uid!=null && uid !=-1 ) {
 			try {
 				
-				form.addData("express",kdniaoDao.getOrderTracesByJson(express, company));
-				
-				
+				form.addData("express",kdniaoDao.getOrderTracesByJson(company, express));
 				form.setCodeAndMessage("1", "success");
 				return form;
 			} catch (Exception e) {

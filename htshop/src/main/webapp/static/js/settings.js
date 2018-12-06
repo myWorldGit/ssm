@@ -28,7 +28,7 @@ $(function(){
 					for(var i =0 ;i<t.length;i++){
 						this.filepath.sowingMap.push({value:t[i].value,oid:t[i].otherid})
 					}
-					this.amount=response.data.data.preAmount
+					this.amount=response.data.data.preAmount==null?0:response.data.data.preAmount
 				}
 			})
 			.catch(function (error) {
