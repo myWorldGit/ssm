@@ -65,7 +65,7 @@
 			</div>
 			<div class="slection-wrap">
 				<div class="container" id='application'>
-					<modal-find :item='temp' :flag='isshow' @close-modal='closemodal'></modal-find>
+					<modal-find :item='temp' :flag='isshow' :limu='limuinfo' @close-modal='closemodal'></modal-find>
 
 					<h2 class="list-title">等待审核的列表 <a href="#" class="list-title-btn">刷新</a></h2>
 					<hr>
@@ -120,9 +120,77 @@
 					<div class="dialog-container"    >
 						<h3 class="dialog-title">查看信息 <a href="#"  @click.prevent='close'>×</a></h3>
  						<div class="dialog-content">
-							<div style="height: 1000px;">
-								<img id='img'>
-							</div>
+ 							
+ 				
+ 						
+ 							<div v-if='limu.taobao.code==0000'>
+ 								<h3 class="info-item-title" >淘宝基本信息</h3>
+ 								<div class="info-item-wrap clearfix" v-for='(lv1,key,index) in limu.taobao.data.basicInfo'>
+									<span class="info-item-left" v-text="key"></span>
+									<span class="info-item-right" v-text="lv1"></span>
+								</div>
+								<hr/>
+								<h3 class="info-item-title" >淘宝地址信息</h3>
+ 								<div class="info-item-wrap clearfix" v-for='lv2 in limu.taobao.data.addresses'>
+									<div>
+									<div>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>名字</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv2.name}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>地址</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv2.address}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>手机</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv2.mobile}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>编码</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv2.zipCode}}</span><br>	
+										<hr/>								
+									</div>
+									</div>
+								</div>
+								<hr/>
+								<h3 class="info-item-title" >淘宝真实信息</h3>
+								
+ 								<div class="info-item-wrap clearfix" v-for='(lv3,key,index) in limu.taobao.data.alipayInfo'>
+									<div>
+									<div>
+										<span class="info-item-left" v-text="key"></span>
+										<span class="info-item-right" v-text="lv3"></span>							
+									</div>
+									</div>
+								</div>
+								<h3 class="info-item-title" >淘宝订单信息</h3>
+ 								<div class="info-item-wrap clearfix" v-for='(lv4,index) in limu.taobao.data.orderDetails' >
+										<div>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>订单编号</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv4.orderId}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>订单时间</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv4.orderTime}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>订单额度</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red;">{{lv4.orderAmt}}</span><br>
+										&nbsp;&nbsp;&nbsp;&nbsp;<span>交易状态</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{lv4.orderStatus}}</span><br>	
+										<hr/>								
+										</div>
+								</div>
+								<hr>
+ 							</div>
+ 							<div v-if='limu.mobile.code==0000'>
+ 								<h3 class="info-item-title" >手机运营基本信息</h3>
+ 								<div class="mrgl-20" >
+	 								<span>真实姓名：</span><span v-text='limu.mobile.data.realName'></span>	
+								</div>
+								<div class="mrgl-20" v-for="(b2,key,index) in limu.mobile.data.basicInfo">
+	 								{{key}}：<span v-text='b2'></span>	
+								</div>
+								
+	 							
+ 							
+ 								<h3 class="info-item-title" >手机运营来电信息</h3>
+ 								<div v-for='b1 in limu.mobile.data.callRecordInfo'>
+ 								<div>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>来电地址</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.callAddress}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>通话时间</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.callDateTime}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>通话时长</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.callTimeLength}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>来电号码</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.mobileNo}}</span><br>	
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>呼叫类型</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.callType}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>呼叫费用</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b1.cost}}</span><br>	
+									<hr/>								
+								</div>	
+								</div>
+ 							</div>
+ 								
+							
 						</div>
 						<div class="dialog-btn">
 							<a href="#" @click.prevent='close'>确认</a>
@@ -132,7 +200,7 @@
 				</div>
 			</template>
 
-
+		</div>	
 	</div>
 
 </body>
@@ -143,7 +211,7 @@
 $(function(){
 Vue.component('modal-find',{
 	template:'#modal-find',
-	props:['flag','item'],
+	props:['flag','item','limu'],
 	data:function(){
 		return{
 		}
@@ -164,7 +232,8 @@ Vue.component('modal-find',{
 			list:[],
 			isshow:false,
 			http,
-			temp:{}
+			temp:{},
+			limuinfo:{taobao:{code:'',data:[]},mobile:{code:'',data:[]}}
 		},
 		methods:{
 			closemodal:function(){
@@ -172,16 +241,23 @@ Vue.component('modal-find',{
 			},
 			lookup:function(i){
 				this.isshow=true;
-				
+				  
 				var params = new FormData();
 				params.append('alitoken',i.alitoken);
 				params.append('banktoken',i.banktoken);
 				params.append('phonetoken',i.phonetoken);
 				params.append('lid',i.lid);
 				axios.post(this.http+'/limutoken/getlimuInfo',params)
-				.then((response) => { 
-					if(response.data.code==1){
- 						alert()
+				.then((response) => {   
+					if(response.data.code==1){  
+						var taobao = JSON.parse(response.data.data.taobao);
+						var mobile = JSON.parse(response.data.data.mobile)
+						this.limuinfo.taobao.code = taobao.code;
+ 						this.limuinfo.taobao.data = taobao.data;
+ 						this.limuinfo.mobile.code = mobile.code;
+ 						this.limuinfo.mobile.data = mobile.data;
+ 						
+						console.log(taobao);
 					}
 				}).catch(function (error) {
 				    console.log(error);
@@ -208,7 +284,6 @@ Vue.component('modal-find',{
     		.then((response) => {
 				if(response.data.code==1){
 	    			this.list=response.data.data.items
-	    			console.log(JSON.stringify(this.list))
 				}
 			}).catch(function (error) {
 			    console.log(error);

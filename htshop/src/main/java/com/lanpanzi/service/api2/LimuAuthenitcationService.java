@@ -3,6 +3,7 @@ package com.lanpanzi.service.api2;
 import java.util.List;
 
 import com.lanpangzi.pojo.Limu;
+import com.lanpangzi.pojo.LimuInfomation;
 
 public interface LimuAuthenitcationService {
 	
@@ -18,5 +19,11 @@ public interface LimuAuthenitcationService {
 	   通过  或者不通过清空token
 	 */
 	public Boolean clearByUidLimuTokens(Integer uid);
+
+	public Boolean isSubmitInfomation(Integer lid);
+
+	public Boolean insertInfo(LimuInfomation limuInfomation);
+
+	public LimuInfomation getLimuinfomation(Integer lid);
 	
 }

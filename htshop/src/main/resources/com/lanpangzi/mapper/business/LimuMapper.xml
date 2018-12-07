@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanpangzi.mapper.business.LimuMapper">
-
-	<select id="isHasLimuInfo" resultType="boolean">
+	<select id="isSubmitLimuInfomation" resultType="boolean">
+		SELECT mid from limuinfo  WHERE mid =#{lid} limit 0,1
+	</select>
+	<select id="getLimuInfomaiton" resultType="com.lanpangzi.pojo.LimuInfomation">
+		SELECT * from limuinfo  WHERE mid =#{lid} limit 0,1
+	</select>
+	<insert id="insertLimuInfomation" parameterType="com.lanpangzi.pojo.LimuInfomation">
+		INSERT INTO limuinfo (mid,mobile,taobao,credit)
+			values(#{mid},#{mobile},#{taobao},#{credit})
+	</insert>
+	<select id="isHasLimuInfo" resultType="boolean">  
 		SELECT lid FROM limu WHERE lid=#{uid} limit 0,1
 	</select>
 	

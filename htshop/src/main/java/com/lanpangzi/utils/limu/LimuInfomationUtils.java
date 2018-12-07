@@ -1,10 +1,14 @@
-package com.lanpangzi.utils.common;
+package com.lanpangzi.utils.limu;
 
 import java.util.Properties;
 
 import com.lanpangzi.utils.redis.PropertiesUtils;
 
 public class LimuInfomationUtils {
+	public final static String MOBILE="mobile";
+	public final static String TAOBAO="taobao";
+	public final static String CREDIT="credit";
+	
 	public static final String api_key;
 	public static final String api_secret;
 	public static final String version;

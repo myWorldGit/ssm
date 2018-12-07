@@ -95,9 +95,9 @@
 }
 .dialog-container {
 	
-	width: 80%;
+	width: 60%;
 	top: 5%;
-	left: 10%;
+	left: 30%;
 	position: absolute;
 	background-color: #fff;
 	border-radius: 5px;
@@ -124,6 +124,7 @@
 	height: 520px;
 }
 .dialog-btn {
+	
 	height: 50px;
 	border-top: 1px solid #eee;
 	position: relative;
@@ -143,3 +144,31 @@
 	background-color: #efd800;;
 	right: 350px;
 }
+
+.info-item-title {
+	font-size: 30px;
+	
+}
+.info-item-wrap {
+	font-size: 20px;
+}
+.info-item-left {
+	float: left;
+	margin-left: 60px;
+}
+.info-item-right {
+	float: right;
+	margin-right: 100px;	
+}
+
+.mrgl-20 {
+	margin-left: 20px;
+}
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-package com.lanpangzi.utils.common;
+package com.lanpangzi.utils.limu;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,11 +9,32 @@ import java.util.Map;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import com.lanpangzi.utils.WX.HttpClientUtils;
+import com.lanpangzi.utils.common.MDUtil;
+import com.lanpangzi.utils.common.StringUtils;
+
 public class LAJILimuCommonUtils {
-	public static String getInfoByToken() {
-		
-		
-		return "";
+	private static final String METHOD="api.common.getResult";
+	/**
+	 * 按照这个进行查询业务
+	 * @param token   token的东西
+	 * @param bizType  业务类型
+	 * @return
+	 */
+	public static String getInfoByToken(String token,String bizType) {
+		List<BasicNameValuePair> params = getPararms(token, bizType);
+		return HttpClientUtils.doPostLimu(LimuInfomationUtils.url,params);
+	}
+	public static List<BasicNameValuePair> getPararms(String token,String bizType){
+		List<BasicNameValuePair> params =new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("method", METHOD));
+		params.add(new BasicNameValuePair("apiKey", LimuInfomationUtils.api_key));
+		params.add(new BasicNameValuePair("version", LimuInfomationUtils.version));
+		params.add(new BasicNameValuePair("bizType", bizType));
+		params.add(new BasicNameValuePair("token", token));
+		String sign = getSign(params);
+		params.add(new BasicNameValuePair("sign", sign));
+		return params;
 	}
 	
 	public static String getSign(List<BasicNameValuePair> reqParam) {
@@ -63,7 +84,6 @@ public class LAJILimuCommonUtils {
         sbTmp.setLength(sbTmp.lastIndexOf("&"));
         sbTmp.append(LimuInfomationUtils.api_secret);
         ret = MDUtil.SHA1(sbTmp.toString());
-        System.out.println(ret);
         return ret;
     }
 

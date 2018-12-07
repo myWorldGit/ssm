@@ -37,8 +37,8 @@ import com.lanpangzi.pojo.Users;
 import com.lanpangzi.utils.TokenUtil;
 import com.lanpangzi.utils.WX.QRCodeUtil;
 import com.lanpangzi.utils.common.CommonUtils;
-import com.lanpangzi.utils.common.LAJILimuCommonUtils;
-import com.lanpangzi.utils.common.LimuInfomationUtils;
+import com.lanpangzi.utils.limu.LAJILimuCommonUtils;
+import com.lanpangzi.utils.limu.LimuInfomationUtils;
 
 public class Test02 {
 	@Test 

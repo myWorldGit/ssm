@@ -3,6 +3,7 @@ package com.lanpangzi.mapper.business;
 import java.util.List;
 
 import com.lanpangzi.pojo.Limu;
+import com.lanpangzi.pojo.LimuInfomation;
 
 public interface LimuMapper {
 	/**
@@ -30,4 +31,8 @@ public interface LimuMapper {
 	
 	//获取立木申请的最大额度
 	public Integer getUserMaxAmount(Integer uid);
+	//判断是否在limu中拿过消息
+	public Boolean isSubmitLimuInfomation(Integer lid);
+	public Boolean insertLimuInfomation(LimuInfomation limuInfomation);
+	public LimuInfomation getLimuInfomaiton(Integer lid);
 }
