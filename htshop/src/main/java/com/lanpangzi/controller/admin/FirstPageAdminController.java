@@ -76,6 +76,6 @@ public class FirstPageAdminController {
 		}
 		form.setCodeAndMessage("1", "success");
 		return form;
-
+		
 	}
 }

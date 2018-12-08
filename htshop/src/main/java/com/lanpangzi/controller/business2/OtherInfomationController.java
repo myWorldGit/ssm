@@ -206,8 +206,9 @@ public class OtherInfomationController {
 				&&password.equals("lanpangzi")) {
 			System.out.println("success");
 			request.getSession().setAttribute("role", "admin");
-			return "/first";
+			return "redirect:/admin/first";
 		}
+		request.setAttribute("msg", "密码错误");
 		return "login";
 	}
 	
