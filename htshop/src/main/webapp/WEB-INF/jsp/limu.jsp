@@ -188,6 +188,50 @@
 									<hr/>								
 								</div>	
 								</div>
+								
+									<h3 class="info-item-title" >手机运营通话次数统计</h3>
+ 								<div v-for='b3 in limu.mobile.data.stati'>
+ 								<div>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>手机号</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.mobileNo}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>通话次数</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.callCount}}</span><br>
+									<hr/>								
+								</div>	
+								</div>
+								
+								<h3 class="info-item-title" >手机运营通账单</h3>
+ 								<div v-for='b3 in limu.mobile.data.bill'>
+ 								<div>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>手机号</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.mobileNo}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>开始时间</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.startTime}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>月租</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.comboCost}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>总费用</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.sumCost}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>实际费用</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.realCost}}</span><br>
+									<hr/>								
+								</div>	
+								</div>
+								
+								
+								<h3 class="info-item-title" >手机运营短信内容</h3>
+ 								<div v-for='b3 in limu.mobile.data.smsInfo'>
+ 								<div>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>手机号码</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.mobileNo}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>发送号码</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.sendSmsToTelCode}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>发送地址</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.sendSmsAddress}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>发送时间</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.sendSmsTime}}</span><br>
+									&nbsp;&nbsp;&nbsp;&nbsp;<span>发送类型</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{b3.sendType}}</span><br>
+									<hr/>								
+								</div>	
+								</div>
+								
+								
+								<h3 class="info-item-title" >用户画像分析</h3>
+ 								<div >
+ 								<span v-for='b in limu.mobile.data.analysisInfo'></span>
+								</div>
+								
+								
+								
+								
  							</div>
  								
 							
@@ -231,7 +275,7 @@ Vue.component('modal-find',{
 		data:{
 			list:[],
 			isshow:false,
-			http,
+			http:'',
 			temp:{},
 			limuinfo:{taobao:{code:'',data:[]},mobile:{code:'',data:[]}}
 		},
@@ -257,7 +301,8 @@ Vue.component('modal-find',{
  						this.limuinfo.mobile.code = mobile.code;
  						this.limuinfo.mobile.data = mobile.data;
  						
-						console.log(taobao);
+ 						console.log(mobile.data.businessInfo);
+						console.log(mobile.data.analysisInfo);
 					}
 				}).catch(function (error) {
 				    console.log(error);

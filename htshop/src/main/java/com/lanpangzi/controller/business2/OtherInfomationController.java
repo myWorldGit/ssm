@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -197,4 +198,26 @@ public class OtherInfomationController {
 		form.setCodeAndMessage("1", "success");
 		return form;
 	}
+	
+	//登陆  暂时写死
+	@RequestMapping(value="/loginVerify",method=RequestMethod.POST)
+	public String loginVerify(String username,String password,HttpServletRequest request) {
+		if(username!=null && username.equals("lpzadmin")&&password!=null
+				&&password.equals("lanpangzi")) {
+			System.out.println("success");
+			request.getSession().setAttribute("role", "admin");
+			return "/first";
+		}
+		return "login";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

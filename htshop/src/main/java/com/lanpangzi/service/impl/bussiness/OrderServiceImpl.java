@@ -61,6 +61,12 @@ public class OrderServiceImpl implements OrderService {
 		return ordersDao.getAllReaderExpressCount();
 	}
 
+	@Override
+	public Boolean updateExpressAndCompany(Integer oid, String express, String company) {
+		// TODO Auto-generated method stub
+		return ordersDao.updateExcressAndCompany(oid,express,company);
+	}
+
 
 
 }

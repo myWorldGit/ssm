@@ -64,4 +64,18 @@ public class FirstPageAdminController {
 		return form;
 
 	}
+	
+	
+	@RequestMapping("/setExpress")
+	@ResponseBody
+	public MobileJsonForm updateExpressAndCompany(Integer oid,String express,String company) {
+		MobileJsonForm form = new MobileJsonForm();
+		if (orderServiceDao.updateExpressAndCompany(oid,express,company) != true) {
+			form.setCodeAndMessage("2", "database fail");
+			return form;
+		}
+		form.setCodeAndMessage("1", "success");
+		return form;
+
+	}
 }

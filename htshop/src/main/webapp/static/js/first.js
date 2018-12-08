@@ -1,10 +1,57 @@
 $(function(){
+		Vue.component('button-counter', { 
+		  props:[
+			"flag","order"
+		  ],
+		  methods:{  
+			  close:function(){
+				  this.express='';
+				  this.company='SF';
+				  this.$emit('vbox-close');
+			  },
+			  Post:function(){
+				  this.$emit('vbox-post',{oid:this.order.oid,express:this.express,company:this.company});
+				  this.express='';
+				  this.company='SF';
+			  }
+		  },
+		  data: function () {
+		    return {
+		    	express:'',company:'SF'
+		    }
+		  },
+		  template: '#postExpress'
+		})
+	
 	new Vue({
 		el:'#application',
 		data:{
-			http,ordersum:0,orderlist:[],currentpage:1,btn:0
+			http,ordersum:0,orderlist:[],currentpage:1,btn:0,
+			flagbox:false,order:{},Index:-1
 		},
 		methods:{
+			postBox:function(o){
+				var params = new FormData()
+				params.append("oid",o.oid)
+				params.append("express",o.express)
+				params.append("company",o.company)
+				
+				axios.post(http+'/adminfirst/setExpress',params)
+	    		.then((response) => {
+					if(response.data.code==1){
+						console.log(response.data)
+						this.flagbox=false;
+						this.orderlist.splice(this.Index,1);
+					}
+				})
+				.catch(function (error) {
+				    console.log(error);
+				});
+				
+			},
+			closeBox:function(){
+				this.flagbox=false;
+			},
 			numberBtn:function(d){
 				if(d==this.currentpage){
 					return;
@@ -36,7 +83,14 @@ $(function(){
 					return;
 				}
 				this.numberBtn(this.currentpage+1)
+			},
+			toCommodiry:function(order,index){
+				this.flagbox=true;
+				this.order=order
+				this.Index=index;
+				
 			}
+			
 		},
 		mounted:function(){
 			this.http = document.getElementById('http').href;	

@@ -1,18 +1,20 @@
 .header-box {
 	margin-left: 70px;
-	margin-top: 20px;
+	margin-top: 5px;
 	display: flex;
-	height: 570px;
+	height: 530px;
 	flex-wrap: wrap;
 	justify-content: flex-start;
 
 }
 .header-box >li {
+	font-size: 14px;
+	border: 2px solid red;
 	border-radius: 3px;
-	margin: 10px 20px;
-	background-color: pink;
+	margin: 5px 20px;
+	background-color: #ffc0cb;
 	width: 320px;
-	height: 100px;
+	height: 120px;
 }
 .footer-descritption {
 	color:#999;
@@ -29,6 +31,7 @@
 	padding: 3px 30px;
 }
 .btn-group >a{
+	font-size: 18px;
 	color: #999;
 	display: inline-block;
 	padding:  5px 20px;
@@ -40,3 +43,92 @@
 .btn-active {
 	background-color: #eee;
 }
+
+#dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.2);
+}
+.dialog-wrap {
+	border-radius:5px;
+	position: absolute;
+	top: 10%;
+	left:30%;
+	width: 40%;
+	background-color: #f4f4f4;
+}
+.dialog-title {
+	position: relative;
+	text-align: center;
+	border-bottom: 1px solid #999;
+	padding: 5px 0;
+}
+.dialog-title> .close {
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+}
+.dialog-btn {
+	position: relative;
+	border-top: 1px solid #999;
+	height: 50px;
+}
+.dialog-content {
+	height: 300px;
+}
+.dialog-btn>a{
+	padding:6px 20px;
+	position: absolute;
+	top: 3px;
+	border-radius: 4px;
+}
+.dialog-btn>a:first-child {
+	background-color: #4db64d;
+	left: 80px;
+}
+.dialog-btn>a:last-child {
+	background-color: #cbc7c7;;
+	right: 80px;
+}
+.control {
+	border:1px solid #4db64d;;
+	border-radius: 3px;
+	color: #4db64d;;
+	height: 20px;
+	width: 300px;
+}
+.input-group{
+	text-align: center;
+	width: 80%;
+	margin: 10px auto;
+}
+.input-group >label {
+	
+	font-size: 20px;
+	color: #4db64d;
+}
+.control-select {
+	border:1px solid #4db64d;;
+	border-radius: 3px;
+	color: #4db64d;;
+	height: 20px;
+	width: 300px;
+	text-align: center;
+}
+.order-table {
+	font-size:20px;
+	width: 100%;
+	margin: 30px 10px;
+	color :#ff7c01;
+}
+.order-tb-tr {
+	text-align: center;
+}
+
+
+
+
+

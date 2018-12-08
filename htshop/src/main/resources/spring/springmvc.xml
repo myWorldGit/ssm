@@ -24,8 +24,17 @@
 	<mvc:view-controller path="admin/settings" view-name="settings"/>
 	<mvc:view-controller path="admin/commodiry" view-name="commodiry"/>
 	<mvc:view-controller path="admin/limu" view-name="limu"/>
-	
-	
+	<mvc:view-controller path="admin/login" view-name="login"/>
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/first"/>
+			<mvc:mapping path="/admin/settings"/>
+			<mvc:mapping path="/admin/commodiry"/>
+			<mvc:mapping path="/admin/limu"/>
+			<bean class="com.lanpangzi.controller.admin.AdminInterceptors"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- 处理请求返回json字符串的中文乱码问题 -->
     <mvc:annotation-driven>
         <mvc:message-converters>

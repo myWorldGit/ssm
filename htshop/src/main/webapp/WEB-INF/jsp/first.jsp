@@ -66,9 +66,16 @@
 			</div>
 			<div class="header-wrap" id="application">
 				<div class="container">
+				<h1 style="color: skyblue; margin-left: 40px;">待发货列表</h1>
 					<ul class="header-box">
-						<li v-for="(order,index) in orderlist" >
-						{{order.oid}}
+						<li v-for="(order,index) in orderlist" style="position: relative;" >
+							<div>商品名字：{{order.cname}}</div>
+							<div style="color: red;">商品价格：{{order.price}}</div>
+							<div>商品型号：{{order.ctype}}</div>
+							<div>商品颜色：{{order.color}}</div>
+							<div>买家地址：{{order.address}}</div>
+							<div>买家号码：{{order.phone}}</div>
+							<a   @click.prevent='toCommodiry(order,index)'    href="#" style="position: absolute; right: 3px; top: 3px; font-size: 30px;"  >发货</a>
 						</li>
 							
 					</ul>
@@ -77,6 +84,7 @@
 						<a class="numbtn" href="#" @click.prevent='numberBtn(d)'  v-for='(d,index) in btn' :class="{'btn-active':!index}">{{d}}</a> 
 						<a href="#" @click.prevent='nextBtn'>下一页</a>
 					</div>
+					<button-counter @vbox-post='postBox' @vbox-close='closeBox' :flag='flagbox' :order='order'></button-counter>
 				</div>
 			</div>
 			<div class="footer-wrap">
@@ -87,8 +95,76 @@
 
 
 		</div>
+		
+		<template id="postExpress" >
+		        <div id="dialog" v-show='flag'>
+		        <div class="dialog-wrap"> 
+		           	<h3 class="dialog-title">
+		           		编辑发货信息   <a href="#" @click.prevent='close'  class="close">×</a>
+		            </h3>	
+		           	<div class="dialog-content">
+		           		<table class='order-table'>
+		           			<tr class="order-tb-tr"> 
+		           				<td>商品:</td>
+		           				<td v-text='order.cname'></td>
+		           				<td>订单编号:</td>
+		           				<td v-text='order.oid'></td>
+		           			</tr>
+		           			<tr class="order-tb-tr">
+		           				<td>价格:</td>
+		           				<td v-text='order.price'></td>
+		           				<td>用户名字:</td>
+		           				<td v-text='order.rname'></td>
+		           			</tr>
+		           			<tr class="order-tb-tr">
+		           				<td>型号:</td>
+		           				<td v-text='order.ctype'></td>
+		           				<td>用户地址:</td>
+		           				<td v-text='order.address'></td>
+		           			</tr>
+		           			<tr class="order-tb-tr">
+		           				<td>颜色:</td>
+		           				<td v-text='order.color'></td>
+		           				<td>用户号码:</td>
+		           				<td v-text='order.phone'></td>
+		           			</tr>
+		           		
+		           		</table>
+		           		
+		           		<div class="input-group" >
+		           			<label>快递编号</label>
+		              		<input  type="text" class="control" v-model='express'>     			
+		           		</div>
+		           		<div class="input-group" >
+		           			<label>快递公司</label>
+		              		<select  class="control-select" v-model="company">
+		              			<option value="SF">顺丰</option>
+		              			<option value="ZTO">中通</option>
+		              			<option value="STO">申通</option>
+		              			<option value="YTO">圆通</option>
+		              			<option value="YD">韵达</option>	
+		              			<option value="YZPY">邮政平邮</option>	
+		              			<option value="QFKD">全峰</option>	
+		              			<option value="GTO">国通</option>	
+		              			<option value="UC">优速</option>	
+		              			<option value="DBL">德邦</option>		              			
+		              		</select>      			
+		           		</div>
+		           	</div>	
+		           	<div class="dialog-btn">
+		           		<a href="#" @click.prevent='Post'  >发送</a>
+		           		<a  href="#" @click.prevent='close'  >关闭</a>
+		           		
+		           	</div>	
+		     	</div>           
+		        </div>
+		</template>
 
 	</div>
+	
+	
+	
+	
 	
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.min.js"></script>

@@ -20,6 +20,11 @@
 	<update id="modifyCstate">
 		UPDATE orders SET cstate = #{cstate} where oid=#{oid}
 	</update>
+	<!-- 状态变成待收货 -->
+	<update id="updateExcressAndCompany">
+		UPDATE orders SET express = #{express},company=#{company},cstate=2
+					 where oid=#{oid}
+	</update>
 	
 	<select id="findOrderDetailByOid" resultType="com.lanpangzi.pojo.Orders">
 		SELECT * FROM orders WHERE oid=#{oid} LIMIT 0,1

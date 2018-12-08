@@ -17,5 +17,6 @@ public interface OrderService {
 	public Boolean modifyStateByOid(@Param("cstate") Integer  cstate ,
 			@Param("oid")Integer oid);
 	public Integer findreadryExpressCount();
+	public Boolean updateExpressAndCompany(Integer oid, String express, String company);
 
 }

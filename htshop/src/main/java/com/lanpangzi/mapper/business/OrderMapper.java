@@ -33,11 +33,14 @@ public interface OrderMapper {
 	 * 根据oid  删除订单信息
 	 * @param oid
 	 * @return
-	 */
+	 */  
 	public Boolean deleteOrderByOid(Integer oid);
 	
 	public List<Map<String, String>> getAllReaderExpress(Integer page);
 	public Integer getAllReaderExpressCount();
 	public Boolean modifyCstate(@Param("cstate") Integer  cstate ,
 			@Param("oid")Integer oid);
+
+	public Boolean updateExcressAndCompany(@Param("oid")Integer oid, 
+			@Param("express")String express, @Param("company")String company);
 }
