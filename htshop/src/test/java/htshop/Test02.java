@@ -51,10 +51,13 @@ public class Test02 {
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
 			//创建出SQLSession对象
 			SqlSession sqlSeesion = factory.openSession();
-			SystemInfomationMapper mapper = 
-						sqlSeesion.getMapper(SystemInfomationMapper.class);
-		
-			Integer flag =mapper.getUnreadInfoCount(20);
+			OrderMapper mapper = 
+						sqlSeesion.getMapper(OrderMapper.class);
+			Orders order = new Orders();
+			order.setCname("motio");
+			order.setOrdertime(new Date(System.currentTimeMillis()));
+			order.setUid(20);
+			Boolean flag =mapper.createOrder(order);
 			
 			System.out.println(flag);
 			sqlSeesion.commit();

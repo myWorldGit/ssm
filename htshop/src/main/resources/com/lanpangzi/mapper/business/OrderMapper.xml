@@ -30,7 +30,8 @@
 		SELECT * FROM orders WHERE oid=#{oid} LIMIT 0,1
 	</select>
 	<!--    此处扩展分期订单   -->
-	<insert id="createOrder" parameterType="com.lanpangzi.pojo.Orders">
+	<insert useGeneratedKeys="true" keyProperty="oid"
+	 id="createOrder" parameterType="com.lanpangzi.pojo.Orders" >
 		INSERT INTO orders
 		 <trim prefix="(" suffix=")" suffixOverrides=","> 
 			 <if test="ordernumber != null"> ordernumber, </if> 

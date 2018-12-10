@@ -59,6 +59,6 @@ public class LimuAuthenitcationServiceImpl implements LimuAuthenitcationService 
 		// TODO Auto-generated method stub
 		return limuMapper.getLimuInfomaiton(lid);
 	}
-	
+
 	
 }

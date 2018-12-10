@@ -3,6 +3,7 @@ package com.lanpangzi.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lanpangzi.utils.MobileJsonForm;
@@ -15,7 +16,7 @@ public class FirstPageAdminController {
 	@Autowired
 	private OrderService orderServiceDao;
 
-	@RequestMapping("/initPage")
+	@RequestMapping(value="/initPage",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm getInitPage(Integer page) {
 		MobileJsonForm form = new MobileJsonForm();
@@ -33,7 +34,7 @@ public class FirstPageAdminController {
 	}
 	
 	
-	@RequestMapping("/byPage")
+	@RequestMapping(value="/byPage",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm getListOrderByPage(Integer page) {
 		MobileJsonForm form = new MobileJsonForm();
@@ -52,7 +53,7 @@ public class FirstPageAdminController {
 
 	
 	//admin 已发快递标记
-	@RequestMapping("/alreadyPost")
+	@RequestMapping(value="/alreadyPost",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm modifyOrderState(Integer oid) {
 		MobileJsonForm form = new MobileJsonForm();
@@ -66,7 +67,7 @@ public class FirstPageAdminController {
 	}
 	
 	
-	@RequestMapping("/setExpress")
+	@RequestMapping(value="/setExpress",method=RequestMethod.POST)
 	@ResponseBody
 	public MobileJsonForm updateExpressAndCompany(Integer oid,String express,String company) {
 		MobileJsonForm form = new MobileJsonForm();

@@ -25,5 +25,6 @@ public interface LimuAuthenitcationService {
 	public Boolean insertInfo(LimuInfomation limuInfomation);
 
 	public LimuInfomation getLimuinfomation(Integer lid);
-	
+
+
 }

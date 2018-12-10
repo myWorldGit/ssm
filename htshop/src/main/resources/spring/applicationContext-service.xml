@@ -31,6 +31,13 @@
 		<property name="AppKey" value="${exp.AppKey}"></property>
 		<property name="ReqURL" value="${exp.ReqURL}"></property>
 	</bean>     
-	  
+	
+	<!-- 阿里工具接口 -->  
+	<bean id="aliPayUtils" class="com.lanpangzi.utils.ali.AliPayUtils">
+		<property name="url" value="${ali.pay.url}"></property>
+		<property name="appId" value="${ali.pay.appid}"></property>
+		<property name="appPrivateKey" value="${ali.pay.privatekey}"></property>
+		<property name="appPublicKey" value="${ali.pay.publickey}"></property>
+	</bean> 
 	
 </beans>

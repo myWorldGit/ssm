@@ -47,6 +47,7 @@ public class Limu {
 	public Limu() {
 		super();
 	}
+
 	public Limu(Integer lid, String alitoken, String facetoken, String phonetoken, String banktoken, Integer ishaspay) {
 		super();
 		this.lid = lid;
