@@ -23,7 +23,7 @@ import com.lanpangzi.utils.UploadUtils;
 import com.lanpanzi.service.api2.CommodiryAdminSerivce;
 import com.lanpanzi.service.service2.CommodiryService2;
 import com.lanpanzi.service.service2.OtherInfomationService2;
-
+  
 @Controller
 @RequestMapping("/adminCommodiry")
 public class CommodiryAdminController {
